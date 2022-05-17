@@ -98,22 +98,12 @@
 		6CFEF96C2834432F00254038 /* EmojiShoppingList */ = {
 			isa = PBXGroup;
 			children = (
-				6CFEF96D2834432F00254038 /* EmojiShoppingListApp.swift */,
-				6CFEF96F2834432F00254038 /* ContentView.swift */,
-				6CFEF9712834433100254038 /* Assets.xcassets */,
-				6CFEF9762834433100254038 /* Persistence.swift */,
-				6CFEF9782834433100254038 /* EmojiShoppingList.xcdatamodeld */,
-				6CFEF9732834433100254038 /* Preview Content */,
+				6CFEF99E2834440800254038 /* Application */,
+				6CFEF99F2834442A00254038 /* Source */,
+				6CFEF99D283443FC00254038 /* Persistence */,
+				6CFEF99C283443F400254038 /* Resources */,
 			);
 			path = EmojiShoppingList;
-			sourceTree = "<group>";
-		};
-		6CFEF9732834433100254038 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				6CFEF9742834433100254038 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		6CFEF9822834433100254038 /* EmojiShoppingListTests */ = {
@@ -131,6 +121,40 @@
 				6CFEF98F2834433100254038 /* EmojiShoppingListUITestsLaunchTests.swift */,
 			);
 			path = EmojiShoppingListUITests;
+			sourceTree = "<group>";
+		};
+		6CFEF99C283443F400254038 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6CFEF9712834433100254038 /* Assets.xcassets */,
+				6CFEF9742834433100254038 /* Preview Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6CFEF99D283443FC00254038 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				6CFEF9762834433100254038 /* Persistence.swift */,
+				6CFEF9782834433100254038 /* EmojiShoppingList.xcdatamodeld */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		6CFEF99E2834440800254038 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				6CFEF96D2834432F00254038 /* EmojiShoppingListApp.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		6CFEF99F2834442A00254038 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				6CFEF96F2834432F00254038 /* ContentView.swift */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -424,7 +448,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"EmojiShoppingList/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"EmojiShoppingList/Resources/\"";
 				DEVELOPMENT_TEAM = Q6AEA497G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -453,7 +477,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"EmojiShoppingList/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"EmojiShoppingList/Resources/\"";
 				DEVELOPMENT_TEAM = Q6AEA497G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

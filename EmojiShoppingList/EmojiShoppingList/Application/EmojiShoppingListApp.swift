@@ -1,10 +1,3 @@
-//
-//  EmojiShoppingListApp.swift
-//  EmojiShoppingList
-//
-//  Created by Wouter Wisse on 17/05/2022.
-//
-
 import SwiftUI
 
 @main
