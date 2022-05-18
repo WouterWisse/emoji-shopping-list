@@ -25,10 +25,36 @@ extension PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
+        
+        let titles = [
+            "Avocado",
+            "Banana",
+            "Broccoli",
+            "Strawberries",
+            "Milk",
+            "Cheese",
+            "Eggs",
+            "Wine",
+        ]
+        
+        let emojis = [
+            "🥑",
+            "🍌",
+            "🥦",
+            "🍓",
+            "🥛",
+            "🧀",
+            "🥚",
+            "🍷"
+        ]
+        
+        titles.enumerated().forEach { index, title in
             let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            newItem.title = title
+            newItem.emoji = emojis[index]
+            newItem.createdAt = Date()
         }
+        
         do {
             try viewContext.save()
         } catch {

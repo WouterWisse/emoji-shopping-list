@@ -5,7 +5,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.createdAt, ascending: false)],
         animation: .default)
     private var items: FetchedResults<Item>
     
@@ -34,7 +34,6 @@ struct ContentView: View {
                     
                     if isAddItemTextFieldFocussed {
                         Button {
-                            onSubmit()
                             withAnimation {
                                 isAddItemTextFieldFocussed = false
                             }
@@ -50,7 +49,7 @@ struct ContentView: View {
                 .listRowBackground(Color.clear)
                     
                 ForEach(items) { item in
-                    ListItem(title: "Avocado", emoji: "🥑", color: .green)
+                    ListItem(title: item.title ?? "", emoji: item.emoji ?? "🤷🏼‍♂️", color: .green)
                         .frame(minHeight: 50, maxHeight: 50)
                 }
                 .onDelete(perform: deleteItems)
@@ -81,7 +80,9 @@ struct ContentView: View {
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            newItem.title = text
+            newItem.emoji = "🤷🏼‍♂️"
+            newItem.createdAt = Date()
 
             do {
                 try viewContext.save()
