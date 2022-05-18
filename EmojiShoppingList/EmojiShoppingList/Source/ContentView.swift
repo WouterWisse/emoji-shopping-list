@@ -28,29 +28,22 @@ struct ContentView: View {
                     TextField("", text: $text, prompt: Text("Add new item"))
                     .font(.headline)
                     .focused($isAddItemTextFieldFocussed)
-                    .onSubmit {
-                        addItem()
-                        text = ""
-                        isAddItemTextFieldFocussed = true
-                    }
+                    .onSubmit(onSubmit)
                     
                     Spacer()
                     
-                    if isAddItemTextFieldFocussed == true {
+                    if isAddItemTextFieldFocussed {
                         Button {
+                            onSubmit()
                             withAnimation {
                                 isAddItemTextFieldFocussed = false
                             }
                         } label: {
-                            HStack {
-                                Text("✓")
-                                Image(systemName: "keyboard.chevron.compact.down")
-                            }
+                            Image(systemName: "keyboard.chevron.compact.down")
                         }
-                        .frame(width: 60, height: 30, alignment: .center)
-                        .foregroundColor(.white)
-                        .background(.green)
-                        .cornerRadius(6)
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.regular)
+                        .tint(Color.green)
                     }
                 }
                 .listRowSeparatorTint(.clear)
@@ -69,15 +62,16 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
             }
             .listStyle(.plain)
             .navigationTitle("Shopping 🛍")
         }
+    }
+    
+    private func onSubmit() {
+        addItem()
+        text = ""
+        isAddItemTextFieldFocussed = true
     }
     
     private func move(from source: IndexSet, to destination: Int) {
@@ -120,6 +114,7 @@ struct ListItem: View {
     let title: String
     let emoji: String
     let color: Color
+    
     @State private var amount: Int = 1
     
     private let backgroundColor: Color = .gray
@@ -140,13 +135,29 @@ struct ListItem: View {
             Spacer()
             
             HStack(spacing: 8) {
-                Text("\(self.amount)")
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .frame(width: 20, alignment: .center)
+                Button {
+                    amount -= 1
+                } label: {
+                    Text("-")
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
+                .tint(Color.green)
+
+                Text(
+                    "\(self.amount)"
+                )
+                .font(.caption)
+                .frame(width: 20, height: 20, alignment: .center)
                 
-                Stepper("Step", onIncrement: { amount += 1 }, onDecrement: { amount -= 1 })
-                    .labelsHidden()
+                Button {
+                    amount += 1
+                } label: {
+                    Text("+")
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.small)
+                .tint(Color.green)
             }
         }
     }
