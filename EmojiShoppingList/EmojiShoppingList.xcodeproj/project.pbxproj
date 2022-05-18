@@ -17,6 +17,7 @@
 		6CFEF98E2834433100254038 /* EmojiShoppingListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF98D2834433100254038 /* EmojiShoppingListUITests.swift */; };
 		6CFEF9902834433100254038 /* EmojiShoppingListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF98F2834433100254038 /* EmojiShoppingListUITestsLaunchTests.swift */; };
 		6CFEF9A22835889500254038 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 6CFEF9A12835889500254038 /* ComposableArchitecture */; };
+		6CFEF9A5283588BB00254038 /* DynamicColor in Frameworks */ = {isa = PBXBuildFile; productRef = 6CFEF9A4283588BB00254038 /* DynamicColor */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CFEF9A5283588BB00254038 /* DynamicColor in Frameworks */,
 				6CFEF9A22835889500254038 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,6 +179,7 @@
 			name = EmojiShoppingList;
 			packageProductDependencies = (
 				6CFEF9A12835889500254038 /* ComposableArchitecture */,
+				6CFEF9A4283588BB00254038 /* DynamicColor */,
 			);
 			productName = EmojiShoppingList;
 			productReference = 6CFEF96A2834432F00254038 /* EmojiShoppingList.app */;
@@ -252,6 +255,7 @@
 			mainGroup = 6CFEF9612834432F00254038;
 			packageReferences = (
 				6CFEF9A02835889500254038 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				6CFEF9A3283588BB00254038 /* XCRemoteSwiftPackageReference "DynamicColor" */,
 			);
 			productRefGroup = 6CFEF96B2834432F00254038 /* Products */;
 			projectDirPath = "";
@@ -633,6 +637,14 @@
 				minimumVersion = 0.9.0;
 			};
 		};
+		6CFEF9A3283588BB00254038 /* XCRemoteSwiftPackageReference "DynamicColor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yannickl/DynamicColor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -640,6 +652,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6CFEF9A02835889500254038 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		6CFEF9A4283588BB00254038 /* DynamicColor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CFEF9A3283588BB00254038 /* XCRemoteSwiftPackageReference "DynamicColor" */;
+			productName = DynamicColor;
 		};
 /* End XCSwiftPackageProductDependency section */
 
