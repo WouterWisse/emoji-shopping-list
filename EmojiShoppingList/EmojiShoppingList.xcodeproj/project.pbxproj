@@ -16,6 +16,7 @@
 		6CFEF9842834433100254038 /* EmojiShoppingListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF9832834433100254038 /* EmojiShoppingListTests.swift */; };
 		6CFEF98E2834433100254038 /* EmojiShoppingListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF98D2834433100254038 /* EmojiShoppingListUITests.swift */; };
 		6CFEF9902834433100254038 /* EmojiShoppingListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF98F2834433100254038 /* EmojiShoppingListUITestsLaunchTests.swift */; };
+		6CFEF9A22835889500254038 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 6CFEF9A12835889500254038 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CFEF9A22835889500254038 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +175,9 @@
 			dependencies = (
 			);
 			name = EmojiShoppingList;
+			packageProductDependencies = (
+				6CFEF9A12835889500254038 /* ComposableArchitecture */,
+			);
 			productName = EmojiShoppingList;
 			productReference = 6CFEF96A2834432F00254038 /* EmojiShoppingList.app */;
 			productType = "com.apple.product-type.application";
@@ -245,6 +250,9 @@
 				Base,
 			);
 			mainGroup = 6CFEF9612834432F00254038;
+			packageReferences = (
+				6CFEF9A02835889500254038 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 6CFEF96B2834432F00254038 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -615,6 +623,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6CFEF9A02835889500254038 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6CFEF9A12835889500254038 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CFEF9A02835889500254038 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		6CFEF9782834433100254038 /* EmojiShoppingList.xcdatamodeld */ = {
