@@ -229,7 +229,7 @@ struct ListItemView: View {
             Spacer()
             
             if !item.done {
-                HStack(spacing: 8) {
+                HStack(spacing: 4) {
                     RoundStepperButtonView(
                         title: "-",
                         action: { amount -= 1 }
@@ -238,9 +238,8 @@ struct ListItemView: View {
                     Text(
                         "\(self.amount)"
                     )
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .frame(width: 20, height: 20, alignment: .center)
+                    .font(.headline)
+                    .frame(width: 30, height: 20, alignment: .center)
                     
                     RoundStepperButtonView(
                         title: "+",
