@@ -37,7 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6CFEF96A2834432F00254038 /* EmojiShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmojiShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CFEF96A2834432F00254038 /* List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = List.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CFEF96D2834432F00254038 /* EmojiShoppingListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiShoppingListApp.swift; sourceTree = "<group>"; };
 		6CFEF96F2834432F00254038 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6CFEF9712834433100254038 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 		6CFEF96B2834432F00254038 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6CFEF96A2834432F00254038 /* EmojiShoppingList.app */,
+				6CFEF96A2834432F00254038 /* List.app */,
 				6CFEF97F2834433100254038 /* EmojiShoppingListTests.xctest */,
 				6CFEF9892834433100254038 /* EmojiShoppingListUITests.xctest */,
 			);
@@ -179,7 +179,7 @@
 				6CFEF9A12835889500254038 /* ComposableArchitecture */,
 			);
 			productName = EmojiShoppingList;
-			productReference = 6CFEF96A2834432F00254038 /* EmojiShoppingList.app */;
+			productReference = 6CFEF96A2834432F00254038 /* List.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6CFEF97E2834433100254038 /* EmojiShoppingListTests */ = {
@@ -471,7 +471,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wouterwisse.EmojiShoppingList;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = List;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -500,7 +500,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wouterwisse.EmojiShoppingList;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = List;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
