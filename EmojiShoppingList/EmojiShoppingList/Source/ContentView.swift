@@ -3,32 +3,31 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.createdAt, ascending: false)],
-        animation: .default)
+        animation: .default
+    )
     private var items: FetchedResults<Item>
     
     @State private var text: String = ""
     @FocusState private var isAddItemTextFieldFocussed: Bool
-
+    
     var body: some View {
         NavigationView {
             List {
                 
                 // Search
                 HStack(spacing: 12) {
-                    Text("🛒")
+                    Text("✏️")
                         .font(.title2)
                         .frame(width: 50, height: 50, alignment: .center)
-                        .background(.gray.opacity(0.1))
                         .multilineTextAlignment(.center)
-                        .cornerRadius(25)
                     
                     TextField("", text: $text, prompt: Text("Add new item"))
-                    .font(.headline)
-                    .focused($isAddItemTextFieldFocussed)
-                    .onSubmit(onSubmit)
+                        .font(.headline)
+                        .focused($isAddItemTextFieldFocussed)
+                        .onSubmit(onSubmit)
                     
                     Spacer()
                     
@@ -46,28 +45,44 @@ struct ContentView: View {
                     }
                 }
                 .listRowSeparatorTint(.clear)
-                .listRowBackground(Color.clear)
-                    
+                
                 ForEach(items) { item in
-                    ListItem(title: item.title ?? "", emoji: item.emoji ?? "🤷🏼‍♂️", color: .green)
-                        .frame(minHeight: 50, maxHeight: 50)
+                    ListItemView(item: item)
+                    .frame(minHeight: 50, maxHeight: 50)
+                    .swipeActions(edge: .leading) {
+                        Button {
+                            done(item: item)
+                        } label: {
+                            if item.done {
+                                Label("Added", systemImage: "cart.fill.badge.minus")
+                            } else {
+                                Label("Added", systemImage: "cart.fill.badge.plus")
+                            }
+                            
+                        }
+                        .tint(item.color)
+                    }
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            delete(item: item)
+                        } label: {
+                            Label("Delete", systemImage: "trash.fill")
+                        }
+                    }
                 }
-                .onDelete(perform: deleteItems)
-                .onMove(perform: move)
                 .listRowInsets(.init(top: 16, leading: 16, bottom: 16, trailing: 16))
-                .listRowBackground(Color.clear)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+//                .listRowBackground(Color.white)
             }
             .listStyle(.plain)
-            .navigationTitle("Shopping 🛍")
+            .navigationTitle("Groceries 🥦")
         }
     }
     
     private func onSubmit() {
+        guard !text.isEmpty else {
+            return isAddItemTextFieldFocussed = false
+        }
+        
         addItem()
         text = ""
         isAddItemTextFieldFocussed = true
@@ -76,34 +91,43 @@ struct ContentView: View {
     private func move(from source: IndexSet, to destination: Int) {
         print("Move items")
     }
-
+    
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
             newItem.title = text
             newItem.emoji = "🤷🏼‍♂️"
             newItem.createdAt = Date()
-
+            
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }
-
-    private func deleteItems(offsets: IndexSet) {
+    
+    private func done(item: Item) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            item.done.toggle()
+            
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+    
+    private func delete(item: Item) {
+        withAnimation {
+            viewContext.delete(item)
+            
+            do {
+                try viewContext.save()
+            } catch {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
@@ -111,10 +135,80 @@ struct ContentView: View {
     }
 }
 
-struct ListItem: View {
-    let title: String
+extension Item {
+    var color: Color {
+        guard let title = title else { return .gray }
+        switch title {
+        case "Avocado": return .green
+        case "Banana": return .yellow
+        case "Cheese": return .yellow
+        case "Broccoli": return .green
+        case "Tofu": return .white
+        case "Beer": return .brown
+        case "Bread": return .brown
+        case "Strawberries": return .red
+        case "Blueberries": return .blue
+        case "Pepper": return .red
+        case "Red pepper": return .red
+        case "Apple": return .red
+        case "Onion": return .brown
+        case "Orange": return .orange
+        default: return .gray
+        }
+    }
+    
+    var emojiString: String {
+        guard let title = title else { return "🤷🏼‍♂️" }
+        switch title {
+        case "Avocado": return "🥑"
+        case "Banana": return "🍌"
+        case "Cheese": return "🧀"
+        case "Broccoli": return "🥦"
+        case "Tofu": return "🤷🏼‍♂️"
+        case "Beer": return "🍺"
+        case "Bread": return "🍞"
+        case "Strawberries": return "🍓"
+        case "Blueberries": return "🫐"
+        case "Pepper": return "🌶"
+        case "Apple": return "🍎"
+        case "Onion": return "🧅"
+        case "Orange": return "🍊"
+        default: return "🤷🏼‍♂️"
+        }
+    }
+}
+
+struct RoundEmojiView: View {
     let emoji: String
     let color: Color
+    private let size: CGFloat = 50
+    
+    var body: some View {
+        Text(emoji)
+            .font(.title2)
+            .multilineTextAlignment(.center)
+            .frame(width: size, height: size, alignment: .center)
+            .background(color.opacity(0.2))
+            .cornerRadius(size / 2)
+    }
+}
+
+struct RoundStepperButtonView: View {
+    let title: String
+    let action: () -> Void
+    
+    private let color: Color = .blue
+    
+    var body: some View {
+        Button(title, action: action)
+            .buttonStyle(.bordered)
+            .controlSize(.small)
+            .tint(color)
+    }
+}
+
+struct ListItemView: View {
+    let item: Item
     
     @State private var amount: Int = 1
     
@@ -123,53 +217,40 @@ struct ListItem: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            Text(emoji)
-                .font(.title2)
-                .frame(width: 50, height: 50, alignment: .center)
-                .background(color.opacity(0.1))
-                .multilineTextAlignment(.center)
-                .cornerRadius(25)
+            RoundEmojiView(
+                emoji: item.emojiString,
+                color: item.color
+            )
             
-            Text(title)
+            Text(item.title ?? "")
                 .font(.headline)
+                .strikethrough(item.done)
             
             Spacer()
             
-            HStack(spacing: 8) {
-                Button {
-                    amount -= 1
-                } label: {
-                    Text("-")
+            if !item.done {
+                HStack(spacing: 8) {
+                    RoundStepperButtonView(
+                        title: "-",
+                        action: { amount -= 1 }
+                    )
+                    
+                    Text(
+                        "\(self.amount)"
+                    )
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .frame(width: 20, height: 20, alignment: .center)
+                    
+                    RoundStepperButtonView(
+                        title: "+",
+                        action: { amount += 1 }
+                    )
                 }
-                .buttonStyle(.bordered)
-                .controlSize(.small)
-                .tint(Color.green)
-
-                Text(
-                    "\(self.amount)"
-                )
-                .font(.caption)
-                .frame(width: 20, height: 20, alignment: .center)
-                
-                Button {
-                    amount += 1
-                } label: {
-                    Text("+")
-                }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.small)
-                .tint(Color.green)
             }
         }
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static let colorSchemes: [ColorScheme] = [.light, .dark]
