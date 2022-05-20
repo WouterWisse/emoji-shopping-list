@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreData
+import SlideOverCard
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -13,67 +14,116 @@ struct ContentView: View {
     @State private var text: String = ""
     @FocusState private var isAddItemTextFieldFocussed: Bool
     
+    @State private var isSettingsPresented: Bool = false
+    
     var body: some View {
         NavigationView {
-            List {
-                
-                // Search
-                HStack(spacing: 12) {
-                    Text("✏️")
-                        .font(.title2)
-                        .frame(width: 50, height: 50, alignment: .center)
-                        .multilineTextAlignment(.center)
-                    
-                    TextField("", text: $text, prompt: Text("Add new item"))
-                        .font(.headline)
-                        .focused($isAddItemTextFieldFocussed)
-                        .onSubmit(onSubmit)
-                    
-                    Spacer()
-                    
-                    if isAddItemTextFieldFocussed {
-                        Button {
-                            withAnimation {
-                                isAddItemTextFieldFocussed = false
+            VStack {
+                List {
+                    // Search
+                    HStack(spacing: 12) {
+                        Text("✏️")
+                            .font(.title2)
+                            .frame(width: 50, height: 50, alignment: .center)
+                            .multilineTextAlignment(.center)
+                        
+                        TextField("", text: $text, prompt: Text("Add new item"))
+                            .font(.headline)
+                            .focused($isAddItemTextFieldFocussed)
+                            .onSubmit(onSubmit)
+                            .onAppear {
+                                if items.isEmpty {
+                                    withAnimation {
+                                        isAddItemTextFieldFocussed = true
+                                    }
+                                }
                             }
-                        } label: {
-                            Image(systemName: "keyboard.chevron.compact.down")
+                        
+                        Spacer()
+                        
+                        if isAddItemTextFieldFocussed {
+                            Button {
+                                withAnimation {
+                                    isAddItemTextFieldFocussed = false
+                                }
+                            } label: {
+                                Image(systemName: "keyboard.chevron.compact.down")
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.regular)
                         }
-                        .buttonStyle(.borderedProminent)
-                        .controlSize(.regular)
-                        .tint(Color.green)
+                    }
+                    .listRowSeparatorTint(.clear)
+                    
+                    // Items
+                    
+                    ForEach(items) { item in
+                        ListItemView(item: item)
+                            .frame(minHeight: 50, maxHeight: 50)
+                            .swipeActions(edge: .leading) {
+                                Button {
+                                    done(item: item)
+                                } label: {
+                                    if item.done {
+                                        Label("Added", systemImage: "cart.fill.badge.minus")
+                                    } else {
+                                        Label("Added", systemImage: "cart.fill.badge.plus")
+                                    }
+                                    
+                                }
+                                .tint(item.color)
+                            }
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) {
+                                    delete(item: item)
+                                } label: {
+                                    Label("Delete", systemImage: "trash.fill")
+                                }
+                            }
+                    }
+                    .listRowInsets(.init(top: 16, leading: 16, bottom: 16, trailing: 16))
+                }
+                if items.isEmpty {
+                    VStack(alignment: .center, spacing: 12) {
+                        Text("🛒")
+                            .font(.largeTitle)
+                            .multilineTextAlignment(.center)
+                        Text("Your list is empty")
+                            .font(.body)
+                            .foregroundColor(.primary.opacity(0.5))
+                            .multilineTextAlignment(.center)
+                        Spacer()
                     }
                 }
-                .listRowSeparatorTint(.clear)
-                
-                ForEach(items) { item in
-                    ListItemView(item: item)
-                    .frame(minHeight: 50, maxHeight: 50)
-                    .swipeActions(edge: .leading) {
-                        Button {
-                            done(item: item)
-                        } label: {
-                            if item.done {
-                                Label("Added", systemImage: "cart.fill.badge.minus")
-                            } else {
-                                Label("Added", systemImage: "cart.fill.badge.plus")
-                            }
-                            
-                        }
-                        .tint(item.color)
-                    }
-                    .swipeActions(edge: .trailing) {
-                        Button(role: .destructive) {
-                            delete(item: item)
-                        } label: {
-                            Label("Delete", systemImage: "trash.fill")
-                        }
-                    }
-                }
-                .listRowInsets(.init(top: 16, leading: 16, bottom: 16, trailing: 16))
-//                .listRowBackground(Color.white)
             }
             .listStyle(.plain)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        isSettingsPresented.toggle()
+                    } label: {
+                        Image(systemName: "gearshape")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        // Do something
+                    } label: {
+                        Image(systemName: "trash")
+                    }
+                }
+            }
+            .slideOverCard(isPresented: $isSettingsPresented) {
+                VStack {
+                    Button("Delete all items", role: .destructive, action: {})
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.large)
+                    
+                    Button("Delete all done items", role: .cancel, action: {})
+                        .controlSize(.large)
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+            }
             .navigationTitle("Groceries 🥦")
         }
     }
@@ -93,6 +143,7 @@ struct ContentView: View {
     }
     
     private func addItem() {
+        Haptics.shared.play(.medium)
         withAnimation {
             let newItem = Item(context: viewContext)
             newItem.title = text
@@ -109,6 +160,7 @@ struct ContentView: View {
     }
     
     private func done(item: Item) {
+        Haptics.shared.notify(.success)
         withAnimation {
             item.done.toggle()
             
@@ -122,6 +174,7 @@ struct ContentView: View {
     }
     
     private func delete(item: Item) {
+        Haptics.shared.notify(.success)
         withAnimation {
             viewContext.delete(item)
             
@@ -209,13 +262,10 @@ struct RoundStepperButtonView: View {
     let title: String
     let action: () -> Void
     
-    private let color: Color = .blue
-    
     var body: some View {
         Button(title, action: action)
             .buttonStyle(.bordered)
             .controlSize(.small)
-            .tint(color)
     }
 }
 
@@ -225,7 +275,6 @@ struct ListItemView: View {
     @State private var amount: Int = 1
     
     private let backgroundColor: Color = .gray
-    private let buttonColor: Color = .accentColor
     
     var body: some View {
         HStack(spacing: 12) {
@@ -244,7 +293,7 @@ struct ListItemView: View {
                 HStack(spacing: 4) {
                     RoundStepperButtonView(
                         title: "-",
-                        action: { amount -= 1 }
+                        action: decrease
                     )
                     
                     Text(
@@ -255,11 +304,21 @@ struct ListItemView: View {
                     
                     RoundStepperButtonView(
                         title: "+",
-                        action: { amount += 1 }
+                        action: increase
                     )
                 }
             }
         }
+    }
+    
+    private func increase() {
+        Haptics.shared.play(.light)
+        amount += 1
+    }
+    
+    private func decrease() {
+        Haptics.shared.play(.light)
+        amount -= 1
     }
 }
 
@@ -274,5 +333,17 @@ struct ContentView_Previews: PreviewProvider {
                     .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
             }
         })
+    }
+}
+
+final class Haptics {
+    static let shared = Haptics()
+    
+    func play(_ feedbackStyle: UIImpactFeedbackGenerator.FeedbackStyle) {
+        UIImpactFeedbackGenerator(style: feedbackStyle).impactOccurred()
+    }
+    
+    func notify(_ feedbackType: UINotificationFeedbackGenerator.FeedbackType) {
+        UINotificationFeedbackGenerator().notificationOccurred(feedbackType)
     }
 }
