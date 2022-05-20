@@ -153,6 +153,12 @@ extension Item {
         case "Apple": return .red
         case "Onion": return .brown
         case "Orange": return .orange
+        case "Wine": return .red
+        case "Red Wine": return .red
+        case "White Wine": return .gray.opacity(0.5)
+        case "Eggs": return .gray.opacity(0.5)
+        case "Milk": return .gray.opacity(0.5)
+        case "Champagne": return .brown
         default: return .gray
         }
     }
@@ -173,6 +179,12 @@ extension Item {
         case "Apple": return "🍎"
         case "Onion": return "🧅"
         case "Orange": return "🍊"
+        case "Wine": return "🍷"
+        case "Red Wine": return "🍷"
+        case "White Wine": return "🍷"
+        case "Champagne": return "🍾"
+        case "Eggs": return "🥚"
+        case "Milk": return "🥛"
         default: return "🤷🏼‍♂️"
         }
     }
