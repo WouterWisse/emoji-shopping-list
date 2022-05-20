@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "slideovercard",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/joogps/SlideOverCard",
+      "state" : {
+        "revision" : "ddafedae02dc5423aa872b274d9011412dc4837f",
+        "version" : "2.0.0"
+      }
+    },
+    {
       "identity" : "swift-case-paths",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-case-paths",
