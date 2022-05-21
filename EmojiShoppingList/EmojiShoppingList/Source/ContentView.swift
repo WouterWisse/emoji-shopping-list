@@ -100,29 +100,21 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        isSettingsPresented.toggle()
+                        // Hoi
                     } label: {
                         Image(systemName: "gearshape")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        // Do something
+                        isSettingsPresented.toggle()
                     } label: {
                         Image(systemName: "trash")
                     }
                 }
             }
             .slideOverCard(isPresented: $isSettingsPresented) {
-                VStack {
-                    Button("Delete all items", role: .destructive, action: {})
-                        .buttonStyle(.borderedProminent)
-                        .controlSize(.large)
-                    
-                    Button("Delete all done items", role: .cancel, action: {})
-                        .controlSize(.large)
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
+                DeleteView()
             }
             .navigationTitle("Groceries 🥦")
         }
