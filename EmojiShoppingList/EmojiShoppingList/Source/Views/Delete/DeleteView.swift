@@ -1,10 +1,21 @@
 import SwiftUI
 
 struct DeleteView: View {
+    @Binding var isPresented: Bool
+    
     var body: some View {
         VStack(spacing: 12) {
+            Text("Delete Items")
+                .font(.largeTitle)
+            
+            Text("Items will be permanently deleted")
+                .font(.body)
+            
+            Spacer()
+                .frame(height: 8, alignment: .center)
+            
             Button(role: .destructive) {
-                // Delete all
+                isPresented.toggle()
             } label: {
                 Text("Delete all items from list")
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -12,7 +23,7 @@ struct DeleteView: View {
             .buttonStyle(.borderedProminent)
             
             Button {
-                // Delete all
+                isPresented.toggle()
             } label: {
                 Text("Delete all striked items from list")
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -20,12 +31,11 @@ struct DeleteView: View {
             .buttonStyle(.bordered)
             
             Button {
-                // Delete all
+                isPresented.toggle()
             } label: {
                 Text("Cancel")
                     .frame(maxWidth: .infinity, alignment: .center)
             }
-            .buttonStyle(.plain)
         }
     }
 }
@@ -35,7 +45,7 @@ struct DeleteView_Previews: PreviewProvider {
     
     static var previews: some View {
         ForEach(colorSchemes, id: \.self) { colorScheme in
-            DeleteView()
+            DeleteView(isPresented: .constant(true))
                 .padding()
                 .preferredColorScheme(colorScheme)
         }

@@ -14,7 +14,7 @@ struct ContentView: View {
     @State private var text: String = ""
     @FocusState private var isAddItemTextFieldFocussed: Bool
     
-    @State private var isSettingsPresented: Bool = false
+    @State private var isDeletePresented: Bool = false
     
     var body: some View {
         NavigationView {
@@ -107,14 +107,14 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isSettingsPresented.toggle()
+                        isDeletePresented.toggle()
                     } label: {
                         Image(systemName: "trash")
                     }
                 }
             }
-            .slideOverCard(isPresented: $isSettingsPresented) {
-                DeleteView()
+            .slideOverCard(isPresented: $isDeletePresented) {
+                DeleteView(isPresented: $isDeletePresented)
             }
             .navigationTitle("Groceries 🥦")
         }
