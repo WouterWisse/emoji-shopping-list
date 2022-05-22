@@ -59,7 +59,6 @@ struct ListView: View {
                     
                     ForEach(items) { item in
                         ListItemView(item: item)
-                            .frame(minHeight: 50, maxHeight: 50)
                             .swipeActions(edge: .leading) {
                                 Button {
                                     done(item: item)
@@ -81,7 +80,6 @@ struct ListView: View {
                                 }
                             }
                     }
-                    .listRowInsets(.init(top: 16, leading: 16, bottom: 16, trailing: 16))
                 }
                 if items.isEmpty {
                     VStack(alignment: .center, spacing: 12) {

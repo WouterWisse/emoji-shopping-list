@@ -40,6 +40,7 @@ struct ListItemView: View {
                 }
             }
         }
+        .padding(.vertical, 8)
     }
     
     private func increase() {
