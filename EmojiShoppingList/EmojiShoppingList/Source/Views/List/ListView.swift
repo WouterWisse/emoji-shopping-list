@@ -318,13 +318,11 @@ struct ListView_Previews: PreviewProvider {
     static let colorSchemes: [ColorScheme] = [.light, .dark]
     
     static var previews: some View {
-        ForEach(colorSchemes, id: \.self, content: { colorScheme in
-            Group {
-                ContentView()
-                    .preferredColorScheme(colorScheme)
-                    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-            }
-        })
+        ForEach(colorSchemes, id: \.self) { colorScheme in
+            ListView()
+                .preferredColorScheme(colorScheme)
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        }
     }
 }
 
