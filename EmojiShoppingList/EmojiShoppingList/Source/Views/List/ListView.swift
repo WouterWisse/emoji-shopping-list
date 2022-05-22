@@ -235,17 +235,6 @@ extension Item {
     }
 }
 
-struct RoundStepperButtonView: View {
-    let title: String
-    let action: () -> Void
-    
-    var body: some View {
-        Button(title, action: action)
-            .buttonStyle(.bordered)
-            .controlSize(.small)
-    }
-}
-
 struct ListView_Previews: PreviewProvider {
     static let colorSchemes: [ColorScheme] = [.light, .dark]
     
