@@ -90,6 +90,7 @@
 		6CA853DE28396C360010E85B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */,
 				6CA853E3283AB54E0010E85B /* List */,
 				6CA853E2283AB5440010E85B /* Settings */,
 				6CA853DF28396C3B0010E85B /* Delete */,
@@ -115,12 +116,19 @@
 		6CA853E3283AB54E0010E85B /* List */ = {
 			isa = PBXGroup;
 			children = (
-				6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */,
-				6CA853E4283AB5D80010E85B /* ListItemView.swift */,
-				6CA853E8283AB87E0010E85B /* RoundStepperButtonView.swift */,
+				6CA853EA283ABA4B0010E85B /* ListItem */,
 				6CFEF96F2834432F00254038 /* ListView.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		6CA853EA283ABA4B0010E85B /* ListItem */ = {
+			isa = PBXGroup;
+			children = (
+				6CA853E8283AB87E0010E85B /* RoundStepperButtonView.swift */,
+				6CA853E4283AB5D80010E85B /* ListItemView.swift */,
+			);
+			path = ListItem;
 			sourceTree = "<group>";
 		};
 		6CFEF9612834432F00254038 = {

@@ -5,11 +5,7 @@ struct DeleteView: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            Text("Delete Items")
-                .font(.largeTitle)
-            
-            Text("Items will be permanently deleted")
-                .font(.body)
+            RoundEmojiView(emoji: "🗑", color: .red)
             
             Spacer()
                 .frame(height: 8, alignment: .center)
