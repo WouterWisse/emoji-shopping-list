@@ -15,6 +15,7 @@ struct ListView: View {
     @FocusState private var isAddItemTextFieldFocussed: Bool
     
     @State private var isDeletePresented: Bool = false
+    @State private var isSettingsPresented: Bool = false
     
     var body: some View {
         NavigationView {
@@ -98,7 +99,7 @@ struct ListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        // Hoi
+                        isSettingsPresented.toggle()
                     } label: {
                         Image(systemName: "gearshape")
                     }
@@ -114,6 +115,9 @@ struct ListView: View {
             .slideOverCard(isPresented: $isDeletePresented) {
                 DeleteView(isPresented: $isDeletePresented)
             }
+            .sheet(isPresented: $isSettingsPresented, content: {
+                SettingsView()
+            })
             .navigationTitle("Groceries 🥦")
         }
     }

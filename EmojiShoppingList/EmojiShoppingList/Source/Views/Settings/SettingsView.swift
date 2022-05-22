@@ -60,7 +60,7 @@ struct DonateListView: View {
                 Text(price)
             }
             .tint(color)
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.bordered)
             .controlSize(.small)
 
         }
