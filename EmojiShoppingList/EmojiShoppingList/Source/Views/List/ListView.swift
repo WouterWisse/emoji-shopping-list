@@ -2,7 +2,7 @@ import SwiftUI
 import CoreData
 import SlideOverCard
 
-struct ContentView: View {
+struct ListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(
@@ -314,7 +314,7 @@ struct ListItemView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ListView_Previews: PreviewProvider {
     static let colorSchemes: [ColorScheme] = [.light, .dark]
     
     static var previews: some View {
