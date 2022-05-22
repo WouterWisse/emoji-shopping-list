@@ -63,4 +63,12 @@ extension PersistenceController {
         }
         return result
     }()
+    
+    static var previewItem: Item {
+        let newItem = Item(context: preview.container.viewContext)
+        newItem.title = "Avocado"
+        newItem.emoji = "🥑"
+        newItem.createdAt = Date()
+        return newItem
+    }
 }
