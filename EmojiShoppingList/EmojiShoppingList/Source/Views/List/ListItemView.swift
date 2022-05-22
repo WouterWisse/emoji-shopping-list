@@ -5,7 +5,6 @@ struct ListItemView: View {
     
     @State private var amount: Int = 1
     
-    private let backgroundColor: Color = .gray
     
     var body: some View {
         HStack(spacing: 12) {
@@ -26,17 +25,18 @@ struct ListItemView: View {
                         title: "-",
                         action: decrease
                     )
+                    .tint(item.color)
                     
-                    Text(
-                        "\(self.amount)"
-                    )
+                    Text("\(self.amount)")
                     .font(.headline)
+                    .foregroundColor(item.color)
                     .frame(width: 30, height: 20, alignment: .center)
                     
                     RoundStepperButtonView(
                         title: "+",
                         action: increase
                     )
+                    .tint(item.color)
                 }
             }
         }
