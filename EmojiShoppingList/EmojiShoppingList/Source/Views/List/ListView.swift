@@ -235,21 +235,6 @@ extension Item {
     }
 }
 
-struct RoundEmojiView: View {
-    let emoji: String
-    let color: Color
-    private let size: CGFloat = 50
-    
-    var body: some View {
-        Text(emoji)
-            .font(.title2)
-            .multilineTextAlignment(.center)
-            .frame(width: size, height: size, alignment: .center)
-            .background(color.opacity(0.2))
-            .cornerRadius(size / 2)
-    }
-}
-
 struct RoundStepperButtonView: View {
     let title: String
     let action: () -> Void

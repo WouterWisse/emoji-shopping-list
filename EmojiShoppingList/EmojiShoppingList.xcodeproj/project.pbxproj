@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6CA853E128396C4E0010E85B /* DeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E028396C4E0010E85B /* DeleteView.swift */; };
 		6CA853E5283AB5D80010E85B /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E4283AB5D80010E85B /* ListItemView.swift */; };
+		6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */; };
 		6CB930AD2838224200601B07 /* SlideOverCard in Frameworks */ = {isa = PBXBuildFile; productRef = 6CB930AC2838224200601B07 /* SlideOverCard */; };
 		6CFEF96E2834432F00254038 /* EmojiShoppingListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF96D2834432F00254038 /* EmojiShoppingListApp.swift */; };
 		6CFEF9702834432F00254038 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF96F2834432F00254038 /* ListView.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		6CA853E028396C4E0010E85B /* DeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteView.swift; sourceTree = "<group>"; };
 		6CA853E4283AB5D80010E85B /* ListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
+		6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundEmojiView.swift; sourceTree = "<group>"; };
 		6CFEF96A2834432F00254038 /* List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = List.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CFEF96D2834432F00254038 /* EmojiShoppingListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiShoppingListApp.swift; sourceTree = "<group>"; };
 		6CFEF96F2834432F00254038 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -111,8 +113,9 @@
 		6CA853E3283AB54E0010E85B /* List */ = {
 			isa = PBXGroup;
 			children = (
-				6CFEF96F2834432F00254038 /* ListView.swift */,
+				6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */,
 				6CA853E4283AB5D80010E85B /* ListItemView.swift */,
+				6CFEF96F2834432F00254038 /* ListView.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				6CFEF9772834433100254038 /* Persistence.swift in Sources */,
 				6CFEF9702834432F00254038 /* ListView.swift in Sources */,
 				6CA853E128396C4E0010E85B /* DeleteView.swift in Sources */,
+				6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */,
 				6CA853E5283AB5D80010E85B /* ListItemView.swift in Sources */,
 				6CFEF97A2834433100254038 /* EmojiShoppingList.xcdatamodeld in Sources */,
 				6CFEF96E2834432F00254038 /* EmojiShoppingListApp.swift in Sources */,
