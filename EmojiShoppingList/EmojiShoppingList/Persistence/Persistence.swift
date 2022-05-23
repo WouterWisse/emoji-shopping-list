@@ -71,4 +71,13 @@ extension PersistenceController {
         newItem.createdAt = Date()
         return newItem
     }
+    
+    static var previewDoneItem: Item {
+        let newItem = Item(context: preview.container.viewContext)
+        newItem.title = "Avocado"
+        newItem.emoji = "🥑"
+        newItem.createdAt = Date()
+        newItem.done = true
+        return newItem
+    }
 }
