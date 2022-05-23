@@ -12,7 +12,6 @@
 		6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */; };
 		6CA853E9283AB87E0010E85B /* RoundStepperButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E8283AB87E0010E85B /* RoundStepperButtonView.swift */; };
 		6CA853EC283ABB3E0010E85B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853EB283ABB3E0010E85B /* SettingsView.swift */; };
-		6CB930AD2838224200601B07 /* SlideOverCard in Frameworks */ = {isa = PBXBuildFile; productRef = 6CB930AC2838224200601B07 /* SlideOverCard */; };
 		6CFEF96E2834432F00254038 /* EmojiShoppingListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF96D2834432F00254038 /* EmojiShoppingListApp.swift */; };
 		6CFEF9702834432F00254038 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF96F2834432F00254038 /* ListView.swift */; };
 		6CFEF9722834433100254038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEF9712834433100254038 /* Assets.xcassets */; };
@@ -67,7 +66,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CB930AD2838224200601B07 /* SlideOverCard in Frameworks */,
 				6CFEF9A22835889500254038 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -234,7 +232,6 @@
 			name = EmojiShoppingList;
 			packageProductDependencies = (
 				6CFEF9A12835889500254038 /* ComposableArchitecture */,
-				6CB930AC2838224200601B07 /* SlideOverCard */,
 			);
 			productName = EmojiShoppingList;
 			productReference = 6CFEF96A2834432F00254038 /* List.app */;
@@ -310,7 +307,6 @@
 			mainGroup = 6CFEF9612834432F00254038;
 			packageReferences = (
 				6CFEF9A02835889500254038 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
-				6CB930AB2838224200601B07 /* XCRemoteSwiftPackageReference "SlideOverCard" */,
 			);
 			productRefGroup = 6CFEF96B2834432F00254038 /* Products */;
 			projectDirPath = "";
@@ -689,14 +685,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6CB930AB2838224200601B07 /* XCRemoteSwiftPackageReference "SlideOverCard" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/joogps/SlideOverCard";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 		6CFEF9A02835889500254038 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
@@ -708,11 +696,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6CB930AC2838224200601B07 /* SlideOverCard */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6CB930AB2838224200601B07 /* XCRemoteSwiftPackageReference "SlideOverCard" */;
-			productName = SlideOverCard;
-		};
 		6CFEF9A12835889500254038 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6CFEF9A02835889500254038 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
