@@ -10,7 +10,7 @@ struct RoundEmojiView: View {
             .font(.title2)
             .multilineTextAlignment(.center)
             .frame(width: size, height: size, alignment: .center)
-            .background(color.opacity(0.2))
+            .background(color.opacity(0.25))
             .cornerRadius(size / 2)
     }
 }
