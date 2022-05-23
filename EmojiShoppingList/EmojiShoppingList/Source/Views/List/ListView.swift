@@ -20,41 +20,12 @@ struct ListView: View {
     var body: some View {
         NavigationView {
             List {
-                // Search
-                HStack(spacing: 12) {
-                    Text("✏️")
-                        .font(.title2)
-                        .frame(width: 50, height: 50, alignment: .center)
-                        .multilineTextAlignment(.center)
-                    
-                    TextField("", text: $text, prompt: Text("Add new item"))
-                        .font(.headline)
-                        .focused($isAddItemTextFieldFocussed)
-                        .onSubmit(onSubmit)
-                        .onAppear {
-                            if items.isEmpty {
-                                withAnimation {
-                                    isAddItemTextFieldFocussed = true
-                                }
-                            }
-                        }
-                    
-                    Spacer()
-                    
-                    if isAddItemTextFieldFocussed {
-                        Button {
-                            withAnimation {
-                                isAddItemTextFieldFocussed = false
-                            }
-                        } label: {
-                            Image(systemName: "keyboard.chevron.compact.down")
-                        }
-                        .buttonStyle(.bordered)
-                        .controlSize(.regular)
-                        .tint(.accentColor)
-                    }
+                // Input
+                if isDeletePresented {
+                    deleteView
+                } else {
+                    inputView
                 }
-                .listRowSeparatorTint(.clear)
                 
                 // Items
                 
@@ -93,20 +64,97 @@ struct ListView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isDeletePresented.toggle()
+                        withAnimation {
+                            isDeletePresented.toggle()
+                        }
                     } label: {
                         Image(systemName: "trash")
                     }
                 }
-            }
-            .slideOverCard(isPresented: $isDeletePresented) {
-                DeleteView(isPresented: $isDeletePresented)
             }
             .sheet(isPresented: $isSettingsPresented, content: {
                 SettingsView()
             })
             .navigationTitle("Groceries 🥦")
         }
+    }
+    
+    var inputView: some View {
+        HStack(spacing: 12) {
+            Text("✏️")
+                .font(.title2)
+                .frame(width: 50, height: 50, alignment: .center)
+                .multilineTextAlignment(.center)
+            
+            TextField("", text: $text, prompt: Text("Add new item"))
+                .font(.headline)
+                .focused($isAddItemTextFieldFocussed)
+                .onSubmit(onSubmit)
+                .onAppear {
+                    if items.isEmpty {
+                        withAnimation {
+                            isAddItemTextFieldFocussed = true
+                        }
+                    }
+                }
+            
+            Spacer()
+            
+            if isAddItemTextFieldFocussed {
+                Button {
+                    withAnimation {
+                        isAddItemTextFieldFocussed = false
+                    }
+                } label: {
+                    Image(systemName: "keyboard.chevron.compact.down")
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.regular)
+                .tint(.accentColor)
+            }
+        }
+        .listRowSeparatorTint(.clear)
+    }
+    
+    var deleteView: some View {
+        HStack(spacing: 12) {
+            Text("🗑")
+                .font(.title2)
+                .frame(width: 50, height: 50, alignment: .center)
+                .multilineTextAlignment(.center)
+            
+            Button {
+                //
+            } label: {
+                Text("All")
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.small)
+            .tint(.red)
+            
+            Button {
+                //
+            } label: {
+                Text("Striked")
+                    .strikethrough(true, color: .red.opacity(0.5))
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.small)
+            .tint(.red)
+            
+            Button {
+                withAnimation {
+                    isDeletePresented.toggle()
+                }
+            } label: {
+                Text("Cancel")
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.small)
+            .tint(.gray)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .listRowSeparatorTint(.clear)
     }
     
     private func onSubmit() {
