@@ -19,80 +19,67 @@ struct ListView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                List {
-                    // Search
-                    HStack(spacing: 12) {
-                        Text("✏️")
-                            .font(.title2)
-                            .frame(width: 50, height: 50, alignment: .center)
-                            .multilineTextAlignment(.center)
-                        
-                        TextField("", text: $text, prompt: Text("Add new item"))
-                            .font(.headline)
-                            .focused($isAddItemTextFieldFocussed)
-                            .onSubmit(onSubmit)
-                            .onAppear {
-                                if items.isEmpty {
-                                    withAnimation {
-                                        isAddItemTextFieldFocussed = true
-                                    }
-                                }
-                            }
-                        
-                        Spacer()
-                        
-                        if isAddItemTextFieldFocussed {
-                            Button {
+            List {
+                // Search
+                HStack(spacing: 12) {
+                    Text("✏️")
+                        .font(.title2)
+                        .frame(width: 50, height: 50, alignment: .center)
+                        .multilineTextAlignment(.center)
+                    
+                    TextField("", text: $text, prompt: Text("Add new item"))
+                        .font(.headline)
+                        .focused($isAddItemTextFieldFocussed)
+                        .onSubmit(onSubmit)
+                        .onAppear {
+                            if items.isEmpty {
                                 withAnimation {
-                                    isAddItemTextFieldFocussed = false
+                                    isAddItemTextFieldFocussed = true
                                 }
-                            } label: {
-                                Image(systemName: "keyboard.chevron.compact.down")
                             }
-                            .buttonStyle(.bordered)
-                            .controlSize(.regular)
                         }
-                    }
-                    .listRowSeparatorTint(.clear)
                     
-                    // Items
+                    Spacer()
                     
-                    ForEach(items) { item in
-                        ListItemView(item: item)
-                            .swipeActions(edge: .leading) {
-                                Button {
-                                    done(item: item)
-                                } label: {
-                                    if item.done {
-                                        Label("Added", systemImage: "cart.fill.badge.minus")
-                                    } else {
-                                        Label("Added", systemImage: "cart.fill.badge.plus")
-                                    }
-                                    
-                                }
-                                .tint(item.color)
+                    if isAddItemTextFieldFocussed {
+                        Button {
+                            withAnimation {
+                                isAddItemTextFieldFocussed = false
                             }
-                            .swipeActions(edge: .trailing) {
-                                Button(role: .destructive) {
-                                    delete(item: item)
-                                } label: {
-                                    Label("Delete", systemImage: "trash.fill")
-                                }
-                            }
+                        } label: {
+                            Image(systemName: "keyboard.chevron.compact.down")
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.regular)
+                        .tint(.accentColor)
                     }
                 }
-                if items.isEmpty {
-                    VStack(alignment: .center, spacing: 12) {
-                        Text("🛒")
-                            .font(.largeTitle)
-                            .multilineTextAlignment(.center)
-                        Text("Your list is empty")
-                            .font(.body)
-                            .foregroundColor(.primary.opacity(0.5))
-                            .multilineTextAlignment(.center)
-                        Spacer()
-                    }
+                .listRowSeparatorTint(.clear)
+                
+                // Items
+                
+                ForEach(items) { item in
+                    ListItemView(item: item)
+                        .swipeActions(edge: .leading) {
+                            Button {
+                                done(item: item)
+                            } label: {
+                                if item.done {
+                                    Label("Added", systemImage: "cart.fill.badge.minus")
+                                } else {
+                                    Label("Added", systemImage: "cart.fill.badge.plus")
+                                }
+                                
+                            }
+                            .tint(item.color)
+                        }
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                                delete(item: item)
+                            } label: {
+                                Label("Delete", systemImage: "trash.fill")
+                            }
+                        }
                 }
             }
             .listStyle(.plain)
