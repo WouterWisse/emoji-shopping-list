@@ -5,7 +5,7 @@ struct DeleteView: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            RoundEmojiView(emoji: "🗑", color: .red)
+            RoundEmojiView(emoji: "🗑", color: .red, done: false)
             
             Spacer()
                 .frame(height: 8, alignment: .center)

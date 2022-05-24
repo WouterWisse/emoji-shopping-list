@@ -10,7 +10,8 @@ struct ListItemView: View {
         HStack(spacing: 12) {
             RoundEmojiView(
                 emoji: item.emojiString,
-                color: item.color
+                color: item.color,
+                done: item.done
             )
             
             Text(item.title ?? "")

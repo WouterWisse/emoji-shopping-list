@@ -53,7 +53,8 @@ struct SettingsItemListView: View {
         HStack(spacing: 12) {
             RoundEmojiView(
                 emoji: emoji,
-                color: color
+                color: color,
+                done: false
             )
             
             Text(title)
@@ -73,7 +74,8 @@ struct DonateListView: View {
         HStack(spacing: 12) {
             RoundEmojiView(
                 emoji: emoji,
-                color: color
+                color: color,
+                done: false
             )
             
             Text(title)
