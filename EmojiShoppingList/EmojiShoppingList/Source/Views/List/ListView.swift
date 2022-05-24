@@ -40,7 +40,7 @@ struct ListView: View {
                                 } else {
                                     Label("Added", systemImage: "cart.fill.badge.plus")
                                 }
-                                
+
                             }
                             .tint(item.color)
                         }
@@ -51,6 +51,20 @@ struct ListView: View {
                                 Label("Delete", systemImage: "trash.fill")
                             }
                         }
+                }
+                
+                // Empty list
+
+                if items.isEmpty {
+                    VStack {
+                        Text("👀")
+                            .font(.largeTitle)
+                        Text("Nothing on your list yet")
+                            .font(.headline)
+                            .opacity(0.25)
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 300, maxHeight: .infinity, alignment: .center)
+                    .listRowSeparator(.hidden)
                 }
             }
             .listStyle(.plain)
