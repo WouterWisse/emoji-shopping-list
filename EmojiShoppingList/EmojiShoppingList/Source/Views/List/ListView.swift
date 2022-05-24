@@ -89,7 +89,7 @@ struct ListView: View {
             .sheet(isPresented: $isSettingsPresented, content: {
                 SettingsView()
             })
-            .navigationTitle("Groceries 🥦")
+            .navigationTitle("List")
         }
     }
     
@@ -140,7 +140,7 @@ struct ListView: View {
             Button {
                 //
             } label: {
-                Text("All")
+                Text("All (12)")
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.small)
@@ -149,7 +149,7 @@ struct ListView: View {
             Button {
                 //
             } label: {
-                Text("Striked")
+                Text("Striked (5)")
                     .strikethrough(true, color: .red.opacity(0.5))
             }
             .buttonStyle(.bordered)
@@ -234,55 +234,100 @@ struct ListView: View {
 extension Item {
     var color: Color {
         guard let title = title else { return .gray }
-        switch title {
-        case "Avocado": return .green
-        case "Banana": return .yellow
-        case "Cheese": return .yellow
-        case "Broccoli": return .green
-        case "Tofu": return .white
-        case "Beer": return .brown
-        case "Bread": return .brown
-        case "Strawberries": return .red
-        case "Blueberries": return .blue
-        case "Pepper": return .red
-        case "Red pepper": return .red
-        case "Apple": return .red
-        case "Onion": return .brown
-        case "Orange": return .orange
-        case "Wine": return .red
-        case "Red Wine": return .red
-        case "White Wine": return .gray.opacity(0.5)
-        case "Eggs": return .gray.opacity(0.5)
-        case "Milk": return .gray.opacity(0.5)
-        case "Champagne": return .brown
-        default: return .gray
+        
+        var colorDict: [String: Color] = [:]
+        colorDict["Avocado"] = .green
+        colorDict["Banana"] = .yellow
+        colorDict["Cheese"] = .yellow
+        colorDict["Broccoli"] = .green
+        colorDict["Tofu"] = .white
+        colorDict["Beer"] = .brown
+        colorDict["Bread"] = .brown
+        colorDict["Strawberries"] = .red
+        colorDict["Blueberries"] = .blue
+        colorDict["Pepper"] = .red
+        colorDict["Bell pepper"] = .green
+        colorDict["Apple"] = .red
+        colorDict["Onion"] = .brown
+        colorDict["Orange"] = .orange
+        colorDict["Wine"] = .red
+        colorDict["Red Wine"] = .red
+        colorDict["White Wine"] = .gray.opacity(0.5)
+        colorDict["Eggs"] = .gray.opacity(0.5)
+        colorDict["Milk"] = .gray.opacity(0.5)
+        colorDict["Champagne"] = .brown
+        colorDict["Corn"] = .yellow
+        colorDict["Beans"] = .brown
+        colorDict["Tacos"] = .yellow
+        colorDict["Tomato"] = .red
+        colorDict["Guacamole"] = .green
+        colorDict["Lemon"] = .yellow
+        colorDict["Lime"] = .green
+        
+        // Check for direct match
+        let directMatch = colorDict.first { key, color in
+            return key.lowercased() == title.lowercased()
         }
+        
+        if let color = directMatch?.value {
+            return color
+        }
+        
+        // Check for containing match
+        let containingMatch = colorDict.first { key, color in
+            return key.lowercased().contains(title.lowercased())
+        }
+        
+        return containingMatch?.value ?? .gray
     }
     
     var emojiString: String {
         guard let title = title else { return "🤷🏼‍♂️" }
-        switch title {
-        case "Avocado": return "🥑"
-        case "Banana": return "🍌"
-        case "Cheese": return "🧀"
-        case "Broccoli": return "🥦"
-        case "Tofu": return "🤷🏼‍♂️"
-        case "Beer": return "🍺"
-        case "Bread": return "🍞"
-        case "Strawberries": return "🍓"
-        case "Blueberries": return "🫐"
-        case "Pepper": return "🌶"
-        case "Apple": return "🍎"
-        case "Onion": return "🧅"
-        case "Orange": return "🍊"
-        case "Wine": return "🍷"
-        case "Red Wine": return "🍷"
-        case "White Wine": return "🍷"
-        case "Champagne": return "🍾"
-        case "Eggs": return "🥚"
-        case "Milk": return "🥛"
-        default: return "🤷🏼‍♂️"
+        
+        var emojiDict: [String: String] = [:]
+        emojiDict["Avocado"] = "🥑"
+        emojiDict["Banana"] = "🍌"
+        emojiDict["Cheese"] = "🧀"
+        emojiDict["Broccoli"] = "🥦"
+        emojiDict["Tofu"] = "🤷🏼‍♂️"
+        emojiDict["Beer"] = "🍺"
+        emojiDict["Bread"] = "🍞"
+        emojiDict["Strawberries"] = "🍓"
+        emojiDict["Blueberries"] = "🫐"
+        emojiDict["Pepper"] = "🌶"
+        emojiDict["Bell pepper"] = "🫑"
+        emojiDict["Apple"] = "🍎"
+        emojiDict["Onion"] = "🧅"
+        emojiDict["Orange"] = "🍊"
+        emojiDict["Wine"] = "🍷"
+        emojiDict["Red Wine"] = "🍷"
+        emojiDict["White Wine"] = "🍾"
+        emojiDict["Eggs"] = "🥚"
+        emojiDict["Milk"] = "🥛"
+        emojiDict["Champagne"] = "🍾"
+        emojiDict["Corn"] = "🌽"
+        emojiDict["Beans"] = "🫘"
+        emojiDict["Tacos"] = "🌮"
+        emojiDict["Tomato"] = "🍅"
+        emojiDict["Guacamole"] = "🥑"
+        emojiDict["Lemon"] = "🍋"
+        emojiDict["Lime"] = "🍋"
+
+        // Check for direct match
+        let directMatch = emojiDict.first { key, emoji in
+            return key.lowercased() == title.lowercased()
         }
+        
+        if let emoji = directMatch?.value {
+            return emoji
+        }
+        
+        // Check for containing match
+        let containingMatch = emojiDict.first { key, emoji in
+            return key.lowercased().contains(title.lowercased())
+        }
+        
+        return containingMatch?.value ?? "🤷🏼‍♂️"
     }
 }
 
