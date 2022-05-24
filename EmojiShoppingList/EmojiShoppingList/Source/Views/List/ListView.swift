@@ -82,7 +82,7 @@ struct ListView: View {
                             isDeletePresented.toggle()
                         }
                     } label: {
-                        Image(systemName: "trash")
+                        Image(systemName: isDeletePresented ? "trash.slash" : "trash")
                     }
                 }
             }
