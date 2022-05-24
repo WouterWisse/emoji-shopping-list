@@ -25,11 +25,11 @@ struct SettingsView: View {
                             .font(.caption)
                         
                         Button {
-                            // Do something
+                            UIApplication.shared.open(URL(string: "http://www.twitter.com/wouterwisse")!)
                         } label: {
-                            Text("🐦 @WouterWisse")
+                            Text("👨🏼‍💻 @WouterWisse")
                         }
-                        .tint(.blue)
+                        .tint(.gray)
                         .buttonStyle(.bordered)
                         .controlSize(.small)
                     }
