@@ -5,14 +5,14 @@ struct SettingsView: View {
         NavigationView {
             List {
                 Section {
-                    SettingsItemListView(emoji: "📱", color: .gray, title: "Change app icon")
-                    SettingsItemListView(emoji: "🤩", color: .green, title: "Rate on AppStore")
+                    SettingsItemListView(emoji: "✏️", color: .yellow, title: "Change list name")
+                    SettingsItemListView(emoji: "🤩", color: .yellow, title: "Rate on AppStore")
                 }
 
                 Section("Consider a donation") {
                     DonateListView(emoji: "🍏", color: .green, title: "Buy me an apple", price: "$0.99")
-                    DonateListView(emoji: "☕️", color: .green, title: "Buy me a coffee", price: "$2.99")
-                    DonateListView(emoji: "🍺", color: .green, title: "Buy me a beer", price: "$4.99")
+                    DonateListView(emoji: "☕️", color: .brown, title: "Buy me a coffee", price: "$2.99")
+                    DonateListView(emoji: "🍺", color: .yellow, title: "Buy me a beer", price: "$4.99")
                 }
                 
                 Section {
