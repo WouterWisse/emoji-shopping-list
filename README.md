@@ -12,5 +12,3 @@
     <img src="https://github.com/dpgmediamagazines/nunl-ios/workflows/Nightly/badge.svg?branch=develop" alt="nightly">
   </p>
 </p>
-
----
