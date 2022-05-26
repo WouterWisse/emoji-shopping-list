@@ -85,6 +85,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6CA6E3F3284013C80069CDD9 /* List */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		6CA6E3F4284013D70069CDD9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		6CA853DE28396C360010E85B /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				6CFEF99E2834440800254038 /* Application */,
-				6CFEF99F2834442A00254038 /* Source */,
+				6CFEF99F2834442A00254038 /* Features */,
 				6CFEF99D283443FC00254038 /* Persistence */,
 				6CFEF99C283443F400254038 /* Resources */,
 			);
@@ -195,12 +209,14 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		6CFEF99F2834442A00254038 /* Source */ = {
+		6CFEF99F2834442A00254038 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				6CA6E3F3284013C80069CDD9 /* List */,
+				6CA6E3F4284013D70069CDD9 /* Settings */,
 				6CA853DE28396C360010E85B /* Views */,
 			);
-			path = Source;
+			path = Features;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
