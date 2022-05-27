@@ -50,6 +50,7 @@ struct PersistenceController {
                 }
                 
                 item.done = listItem.isDone
+                item.amount = listItem.amount
                 save()
             },
             add: { title in

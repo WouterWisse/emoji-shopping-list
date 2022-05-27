@@ -190,7 +190,6 @@ struct SomeListView: View {
         withAnimation {
             let newItem = Item(context: viewContext)
             newItem.title = text
-            newItem.emoji = "🤷🏼‍♂️"
             newItem.createdAt = Date()
             
             do {

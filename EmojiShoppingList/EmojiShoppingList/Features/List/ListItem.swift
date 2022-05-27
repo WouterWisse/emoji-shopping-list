@@ -8,12 +8,14 @@ struct ListItem: Equatable, Identifiable {
     let id: NSManagedObjectID
     let title: String
     var isDone: Bool
+    var amount: Int16
     let createdAt: Date
     
     init(item: Item) {
         self.id = item.objectID
         self.title = item.title!
         self.isDone = item.done
+        self.amount = item.amount
         self.createdAt = item.createdAt!
     }
     
@@ -21,11 +23,13 @@ struct ListItem: Equatable, Identifiable {
         id: NSManagedObjectID,
         title: String,
         done: Bool,
+        amount: Int16,
         createdAt: Date
     ) {
         self.id = id
         self.title = title
         self.isDone = done
+        self.amount = amount
         self.createdAt = createdAt
     }
 }
