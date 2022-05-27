@@ -36,9 +36,9 @@ struct ListView: View {
                                 done(item: item)
                             } label: {
                                 if item.done {
-                                    Label("Added", systemImage: "cart.fill.badge.minus")
+                                    Label("Remove", systemImage: "arrow.uturn.right.circle.fill")
                                 } else {
-                                    Label("Added", systemImage: "cart.fill.badge.plus")
+                                    Label("Add", systemImage: "checkmark.circle.fill")
                                 }
 
                             }
@@ -338,7 +338,6 @@ struct ListView_Previews: PreviewProvider {
         ForEach(colorSchemes, id: \.self) { colorScheme in
             ListView()
                 .preferredColorScheme(colorScheme)
-                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }
 }
