@@ -22,13 +22,13 @@ struct ListItem: Equatable, Identifiable {
     init(
         id: NSManagedObjectID,
         title: String,
-        done: Bool,
+        isDone: Bool,
         amount: Int16,
         createdAt: Date
     ) {
         self.id = id
         self.title = title
-        self.isDone = done
+        self.isDone = isDone
         self.amount = amount
         self.createdAt = createdAt
     }
@@ -111,7 +111,7 @@ struct ListItemView: View {
             }
             .swipeActions(edge: .leading) {
                 Button {
-                    withAnimation {                    
+                    withAnimation {
                         viewStore.send(.toggleDone)
                     }
                 } label: {

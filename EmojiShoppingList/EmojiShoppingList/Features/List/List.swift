@@ -1,7 +1,8 @@
-import SwiftUI
 import ComposableArchitecture
+import CoreData
+import SwiftUI
 
-// MARK: Logic
+// MARK: - Logic
 
 struct ListState: Equatable {
     var items: IdentifiedArrayOf<ListItem> = []
@@ -66,7 +67,7 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
     }
 )
 
-// MARK: View
+// MARK: - View
 
 struct ListView: View {
     let store: Store<ListState, ListAction>
@@ -91,11 +92,25 @@ struct ListView: View {
     }
 }
 
+// MARK: - Preview
+
+extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
+    static let preview: Self = [
+        ListItem(
+            id: NSManagedObjectID(),
+            title: "Avocado",
+            isDone: false,
+            amount: 1,
+            createdAt: Date()
+        ),
+    ]
+}
+
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
         ListView(
             store: Store(
-                initialState: ListState(),
+                initialState: ListState(items: .preview),
                 reducer: listReducer,
                 environment: ListEnvironment(
                     persistence: PersistenceController.mock
