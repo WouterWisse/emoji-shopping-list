@@ -81,17 +81,29 @@ struct PersistenceController {
     }()
     
     final class MockItem: Item {
-        convenience init(title: String? = "") {
+        convenience init(title: String? = "", done: Bool = false) {
             self.init()
             self.stubbedTitle = title
-            self.done = false
-            self.createdAt = Date()
+            self.stubbedDone = done
+            self.stubbedCreatedAt = Date()
         }
         
         var stubbedTitle: String? = ""
         override var title: String? {
             set { stubbedTitle = newValue }
             get { stubbedTitle }
+        }
+        
+        var stubbedDone: Bool = false
+        override var done: Bool {
+            set { stubbedDone = newValue }
+            get { stubbedDone }
+        }
+        
+        var stubbedCreatedAt: Date? = Date()
+        override var createdAt: Date? {
+            set { stubbedCreatedAt = newValue }
+            get { stubbedCreatedAt }
         }
     }
     
@@ -101,7 +113,7 @@ struct PersistenceController {
                 [
                     MockItem(title: "Avocado"),
                     MockItem(title: "Banana"),
-                    MockItem(title: "Broccoli"),
+                    MockItem(title: "Broccoli", done: true),
                 ]
             },
             add: { _ in fatalError("Mock not implemented") },
