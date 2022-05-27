@@ -2,6 +2,7 @@ import CoreData
 
 struct PersistenceController {
     var items: () -> [Item]
+    var update: (_ listItem: ListItem) -> Void
     var add: (_ title: String) -> Void
     var delete: (_ objectID: NSManagedObjectID) -> Void
     var deleteAll: (_ isDone: Bool) -> Void
@@ -42,6 +43,14 @@ struct PersistenceController {
                     print("🍎 Failed to fetch items")
                     return []
                 }
+            },
+            update: { listItem in
+                guard var item = viewContext.object(with: listItem.id) as? Item else {
+                    return print("🍎 Item for \(listItem.id) to update not found")
+                }
+                
+                item.done = listItem.isDone
+                save()
             },
             add: { title in
                 print("🍏 Add item with title: \(title)")
@@ -114,8 +123,13 @@ struct PersistenceController {
                     MockItem(title: "Avocado"),
                     MockItem(title: "Banana"),
                     MockItem(title: "Broccoli", done: true),
+                    MockItem(title: "Beer"),
+                    MockItem(title: "Strawberries"),
+                    MockItem(title: "Bell Pepper"),
+                    MockItem(title: "Carrot"),
                 ]
             },
+            update: { _ in fatalError("Mock not implemented") },
             add: { _ in fatalError("Mock not implemented") },
             delete: { _ in fatalError("Mock not implemented") },
             deleteAll: { _ in fatalError("Mock not implemented") }
