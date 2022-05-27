@@ -5,6 +5,7 @@ struct PersistenceController {
     var items: () -> [Item]
     var add: (_ title: String) -> Void
     var delete: (_ objectID: NSManagedObjectID) -> Void
+    var deleteAll: (_ isDone: Bool) -> Void
     
     
     static let shared: PersistenceController = {
@@ -61,6 +62,21 @@ struct PersistenceController {
                 }
                 viewContext.delete(item)
                 save()
+            },
+            deleteAll: { isDone in
+                let request = NSFetchRequest<Item>(entityName: "Item")
+                if isDone {
+                    request.predicate = NSPredicate(format: "done == YES")
+                }
+                
+                do {
+                    let items = try viewContext.fetch(request) as [Item]
+                    items.forEach(viewContext.delete)
+                    save()
+                    print("🍏 \(items.count) items successfully deleted")
+                } catch {
+                    print("🍎 Failed to delete items")
+                }
             }
         )
     }()
