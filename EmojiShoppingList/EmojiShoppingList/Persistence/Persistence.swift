@@ -2,6 +2,7 @@ import CoreData
 
 
 struct PersistenceController {
+    var items: () -> [Item]
     var add: (_ title: String) -> Void
     var delete: (_ objectID: NSManagedObjectID) -> Void
     
@@ -28,6 +29,20 @@ struct PersistenceController {
         }
         
         return .init(
+            items: {
+                let request = NSFetchRequest<Item>(entityName: "Item")
+                let sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
+                request.sortDescriptors = sortDescriptors
+                
+                do {
+                    let items = try viewContext.fetch(request) as [Item]
+                    print("🍏 Items successfully fetched")
+                    return items
+                } catch {
+                    print("🍎 Failed to fetch items")
+                    return []
+                }
+            },
             add: { title in
                 print("🍏 Add item with title: \(title)")
                 guard let newItem = NSEntityDescription.insertNewObject(
