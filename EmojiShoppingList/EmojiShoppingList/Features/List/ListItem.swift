@@ -35,11 +35,14 @@ struct ListItem: Equatable, Identifiable {
 }
 
 enum ListItemAction: Equatable {
-    
+    case incrementAmount
+    case decrementAmount
+    case delete
+    case toggleDone
 }
 
 struct ListItemEnvironment {
-    
+    // Add haptic feedback unit
 }
 
 let listItemReducer = Reducer<
@@ -48,64 +51,186 @@ let listItemReducer = Reducer<
     ListItemEnvironment
 > { state, action, environment in
     switch action {
-
+    case .incrementAmount:
+        state.amount += 1
+        return .none
+        
+    case .decrementAmount:
+        state.amount -= 1
+        return .none
+        
+    case .delete:
+        return .none
+        
+    case .toggleDone:
+        state.isDone.toggle()
+        return .none
     }
 }
 
 // MARK: - Views
 
 struct ListItemView: View {
-    let item: Item
-    
-    @State private var amount: Int = 1
-    
+    let store: Store<ListItem, ListItemAction>
     
     var body: some View {
-        HStack(spacing: 12) {
-            RoundEmojiView(
-                emoji: item.emojiString,
-                color: item.color,
-                done: item.done
-            )
-            
-            Text(item.title ?? "")
-                .font(.headline)
-                .strikethrough(item.done)
-            
-            Spacer()
-            
-            if !item.done {
-                HStack(spacing: 4) {
-                    RoundStepperButtonView(
-                        title: "-",
-                        action: decrease
-                    )
-                    .tint(item.color)
-                    
-                    Text("\(self.amount)")
-                        .font(.headline)
-                        .foregroundColor(item.color)
-                        .frame(width: 30, height: 20, alignment: .center)
-                    
-                    RoundStepperButtonView(
-                        title: "+",
-                        action: increase
-                    )
-                    .tint(item.color)
+        WithViewStore(self.store) { viewStore in
+            HStack(spacing: 12) {
+                RoundEmojiView(
+                    emoji: viewStore.emojiString,
+                    color: viewStore.color,
+                    done: viewStore.isDone
+                )
+                
+                Text(viewStore.state.title)
+                    .font(.headline)
+                    .strikethrough(viewStore.state.isDone)
+                
+                Spacer()
+                
+                if !viewStore.isDone {
+                    HStack(spacing: 4) {
+                        RoundStepperButtonView(
+                            title: "-",
+                            action: { viewStore.send(.decrementAmount) }
+                        )
+                        .tint(viewStore.color)
+                        
+                        Text("\(viewStore.amount)")
+                            .font(.headline)
+                            .foregroundColor(viewStore.color)
+                            .frame(width: 30, height: 20, alignment: .center)
+                        
+                        RoundStepperButtonView(
+                            title: "+",
+                            action: { viewStore.send(.incrementAmount) }
+                        )
+                        .tint(viewStore.color)
+                    }
                 }
             }
+            .swipeActions(edge: .leading) {
+                Button {
+                    withAnimation {                    
+                        viewStore.send(.toggleDone)
+                    }
+                } label: {
+                    if viewStore.isDone {
+                        Label("Remove", systemImage: "arrow.uturn.right.circle.fill")
+                    } else {
+                        Label("Add", systemImage: "checkmark.circle.fill")
+                    }
+                    
+                }
+                .tint(viewStore.color)
+            }
+            .swipeActions(edge: .trailing) {
+                Button(role: .destructive) {
+                    withAnimation {
+                        viewStore.send(.delete)
+                    }
+                } label: {
+                    Label("Delete", systemImage: "trash.fill")
+                }
+            }
+            .padding(.vertical, 8)
         }
-        .padding(.vertical, 8)
+    }
+}
+
+extension ListItem {
+    var color: Color {
+        var colorDict: [String: Color] = [:]
+        colorDict["Avocado"] = .green
+        colorDict["Banana"] = .yellow
+        colorDict["Cheese"] = .yellow
+        colorDict["Broccoli"] = .green
+        colorDict["Tofu"] = .white
+        colorDict["Beer"] = .brown
+        colorDict["Bread"] = .brown
+        colorDict["Strawberries"] = .red
+        colorDict["Blueberries"] = .blue
+        colorDict["Pepper"] = .red
+        colorDict["Bell pepper"] = .green
+        colorDict["Apple"] = .red
+        colorDict["Onion"] = .brown
+        colorDict["Orange"] = .orange
+        colorDict["Wine"] = .red
+        colorDict["Red Wine"] = .red
+        colorDict["White Wine"] = .gray.opacity(0.5)
+        colorDict["Eggs"] = .gray.opacity(0.5)
+        colorDict["Milk"] = .gray.opacity(0.5)
+        colorDict["Champagne"] = .brown
+        colorDict["Corn"] = .yellow
+        colorDict["Beans"] = .brown
+        colorDict["Tacos"] = .yellow
+        colorDict["Tomato"] = .red
+        colorDict["Guacamole"] = .green
+        colorDict["Lemon"] = .yellow
+        colorDict["Lime"] = .green
+        
+        // Check for direct match
+        let directMatch = colorDict.first { key, color in
+            return key.lowercased() == title.lowercased()
+        }
+        
+        if let color = directMatch?.value {
+            return color
+        }
+        
+        // Check for containing match
+        let containingMatch = colorDict.first { key, color in
+            return key.lowercased().contains(title.lowercased())
+        }
+        
+        return containingMatch?.value ?? .gray
     }
     
-    private func increase() {
-        Haptics.shared.play(.light)
-        amount += 1
-    }
-    
-    private func decrease() {
-        Haptics.shared.play(.light)
-        amount -= 1
+    var emojiString: String {
+        var emojiDict: [String: String] = [:]
+        emojiDict["Avocado"] = "🥑"
+        emojiDict["Banana"] = "🍌"
+        emojiDict["Cheese"] = "🧀"
+        emojiDict["Broccoli"] = "🥦"
+        emojiDict["Tofu"] = "🤷🏼‍♂️"
+        emojiDict["Beer"] = "🍺"
+        emojiDict["Bread"] = "🍞"
+        emojiDict["Strawberries"] = "🍓"
+        emojiDict["Blueberries"] = "🫐"
+        emojiDict["Pepper"] = "🌶"
+        emojiDict["Bell pepper"] = "🫑"
+        emojiDict["Apple"] = "🍎"
+        emojiDict["Onion"] = "🧅"
+        emojiDict["Orange"] = "🍊"
+        emojiDict["Wine"] = "🍷"
+        emojiDict["Red Wine"] = "🍷"
+        emojiDict["White Wine"] = "🍾"
+        emojiDict["Eggs"] = "🥚"
+        emojiDict["Milk"] = "🥛"
+        emojiDict["Champagne"] = "🍾"
+        emojiDict["Corn"] = "🌽"
+        emojiDict["Beans"] = "🫘"
+        emojiDict["Tacos"] = "🌮"
+        emojiDict["Tomato"] = "🍅"
+        emojiDict["Guacamole"] = "🥑"
+        emojiDict["Lemon"] = "🍋"
+        emojiDict["Lime"] = "🍋"
+        
+        // Check for direct match
+        let directMatch = emojiDict.first { key, emoji in
+            return key.lowercased() == title.lowercased()
+        }
+        
+        if let emoji = directMatch?.value {
+            return emoji
+        }
+        
+        // Check for containing match
+        let containingMatch = emojiDict.first { key, emoji in
+            return key.lowercased().contains(title.lowercased())
+        }
+        
+        return containingMatch?.value ?? "🤷🏼‍♂️"
     }
 }
 
