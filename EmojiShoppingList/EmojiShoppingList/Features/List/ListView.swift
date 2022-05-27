@@ -11,6 +11,7 @@ struct ListView: View {
                     ForEach(viewStore.items) { item in
                         Text(item.title)
                             .font(.headline)
+                            .strikethrough(item.done, color: .primary)
                             .frame(height: 50, alignment: .leading)
                     }
                 }
