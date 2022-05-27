@@ -1,7 +1,6 @@
-
 <p align="center">
   <p align="center">
-    <img width="200" src="https://github.com/WouterWisse/emoji-shopping-list/blob/develop/EmojiShoppingList/EmojiShoppingList/Resources/Assets.xcassets/Icon.imageset/icon-list-test.png" alt="NU.nl logo">
+    <img width="200" src="EmojiShoppingList/EmojiShoppingList/Resources/Assets.xcassets/Icon.imageset/emoji-shopping-list-icon.png" alt="NU.nl logo" style="border-radius:10%">
   </p>
   <p align="center">
   <strong>Emoji Shopping List</strong><BR>
