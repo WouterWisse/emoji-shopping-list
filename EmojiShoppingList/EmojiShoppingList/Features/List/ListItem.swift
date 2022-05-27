@@ -3,13 +3,13 @@ import CoreData
 struct ListItem: Equatable, Identifiable {
     let id: NSManagedObjectID
     let title: String
-    var done: Bool
+    var isDone: Bool
     let createdAt: Date
     
     init(item: Item) {
         self.id = item.objectID
         self.title = item.title!
-        self.done = item.done
+        self.isDone = item.done
         self.createdAt = item.createdAt!
     }
     
@@ -21,7 +21,7 @@ struct ListItem: Equatable, Identifiable {
     ) {
         self.id = id
         self.title = title
-        self.done = done
+        self.isDone = done
         self.createdAt = createdAt
     }
 }
