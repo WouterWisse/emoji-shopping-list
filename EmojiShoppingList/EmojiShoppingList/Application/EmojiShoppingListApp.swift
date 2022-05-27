@@ -5,7 +5,7 @@ import SwiftUI
 struct EmojiShoppingListApp: App {
     var body: some Scene {
         WindowGroup {
-            TheListView(
+            ListView(
                 store: Store(
                     initialState: ListState(),
                     reducer: listReducer,

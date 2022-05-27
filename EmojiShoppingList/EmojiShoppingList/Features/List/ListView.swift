@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct TheListView: View {
+struct ListView: View {
     let store: Store<ListState, ListAction>
     
     var body: some View {
@@ -22,9 +22,9 @@ struct TheListView: View {
     }
 }
 
-struct TheListView_Previews: PreviewProvider {
+struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        TheListView(
+        ListView(
             store: Store(
                 initialState: ListState(),
                 reducer: listReducer,
