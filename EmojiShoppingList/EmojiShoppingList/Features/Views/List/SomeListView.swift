@@ -1,6 +1,5 @@
 import SwiftUI
 import CoreData
-import SlideOverCard
 
 struct SomeListView: View {
     @Environment(\.managedObjectContext) private var viewContext
