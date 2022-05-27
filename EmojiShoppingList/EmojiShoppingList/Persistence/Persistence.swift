@@ -1,6 +1,5 @@
 import CoreData
 
-
 struct PersistenceController {
     var items: () -> [Item]
     var add: (_ title: String) -> Void
@@ -8,7 +7,7 @@ struct PersistenceController {
     var deleteAll: (_ isDone: Bool) -> Void
     
     
-    static let shared: PersistenceController = {
+    static let `default`: PersistenceController = {
         let container = NSPersistentCloudKitContainer(name: "EmojiShoppingList")
         container.viewContext.automaticallyMergesChangesFromParent = true
         
@@ -78,6 +77,36 @@ struct PersistenceController {
                     print("🍎 Failed to delete items")
                 }
             }
+        )
+    }()
+    
+    final class MockItem: Item {
+        convenience init(title: String? = "") {
+            self.init()
+            self.stubbedTitle = title
+            self.done = false
+            self.createdAt = Date()
+        }
+        
+        var stubbedTitle: String? = ""
+        override var title: String? {
+            set { stubbedTitle = newValue }
+            get { stubbedTitle }
+        }
+    }
+    
+    static let mock: PersistenceController = {
+        return .init(
+            items: {
+                [
+                    MockItem(title: "Avocado"),
+                    MockItem(title: "Banana"),
+                    MockItem(title: "Broccoli"),
+                ]
+            },
+            add: { _ in fatalError("Mock not implemented") },
+            delete: { _ in fatalError("Mock not implemented") },
+            deleteAll: { _ in fatalError("Mock not implemented") }
         )
     }()
 }
