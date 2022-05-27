@@ -55,18 +55,18 @@ struct ListItemView: View {
     }
 }
 
-struct ListItemView_Previews: PreviewProvider {
-    static let items: [Item] = [PersistenceController.previewItem, PersistenceController.previewDoneItem]
-    static let colorSchemes: [ColorScheme] = [.light, .dark]
-    
-    static var previews: some View {
-        ForEach(items, id: \.self) { item in
-            ForEach(colorSchemes, id: \.self) { colorScheme in
-                ListItemView(item: item)
-                    .preferredColorScheme(colorScheme)
-                    .previewLayout(.sizeThatFits)
-                    .padding()
-            }
-        }
-    }
-}
+//struct ListItemView_Previews: PreviewProvider {
+//    static let items: [Item] = [PersistenceController.previewItem, PersistenceController.previewDoneItem]
+//    static let colorSchemes: [ColorScheme] = [.light, .dark]
+//    
+//    static var previews: some View {
+//        ForEach(items, id: \.self) { item in
+//            ForEach(colorSchemes, id: \.self) { colorScheme in
+//                ListItemView(item: item)
+//                    .preferredColorScheme(colorScheme)
+//                    .previewLayout(.sizeThatFits)
+//                    .padding()
+//            }
+//        }
+//    }
+//}
