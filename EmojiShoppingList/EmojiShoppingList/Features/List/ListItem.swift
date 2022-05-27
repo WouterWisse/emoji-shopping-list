@@ -3,7 +3,7 @@ import CoreData
 struct ListItem: Equatable, Identifiable {
     let id: NSManagedObjectID
     let title: String
-    let done: Bool
+    var done: Bool
     let createdAt: Date
     
     init(item: Item) {
