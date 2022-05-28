@@ -5,19 +5,20 @@ import SwiftUI
 // MARK: - Logic
 
 struct ListState: Equatable {
-    var inputState: InputState
-    
     var items: IdentifiedArrayOf<ListItem> = []
     var isSettingsPresented: Bool = false
     var isDeletePresented: Bool = false
+    
+    var inputState: InputState
 }
 
-enum ListAction: Equatable {
+enum ListAction {
     case onAppear
     case fetched(items: IdentifiedArrayOf<ListItem>)
-    case listItem(id: ListItem.ID, action: ListItemAction)
     case settingsButtonTapped
     case deleteButtonTapped
+    
+    case listItem(id: ListItem.ID, action: ListItemAction)
     case inputAction(InputAction)
 }
 
@@ -74,7 +75,7 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
             
         case .inputAction(let inputAction):
             switch inputAction {
-            case .textFieldFocus, .dismissKeyboard, .textFieldChanged:
+            case .dismissKeyboard, .binding:
                 return .none
                 
             case .submit(let title):
@@ -265,8 +266,8 @@ struct ListView_Previews: PreviewProvider {
         ListView(
             store: Store(
                 initialState: ListState(
-                    inputState: .init(),
-                    items: .preview
+                    items: .preview,
+                    inputState: InputState()
                 ),
                 reducer: listReducer,
                 environment: ListEnvironment(

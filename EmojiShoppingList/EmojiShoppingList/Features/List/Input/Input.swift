@@ -4,13 +4,11 @@ import ComposableArchitecture
 // MARK: - Logic
 
 struct InputState: Equatable {
-    var title = ""
-    var isFocused: Bool = false
+    @BindableState var inputText: String = ""
 }
 
-enum InputAction: Equatable {
-    case textFieldFocus(Bool)
-    case textFieldChanged(String)
+enum InputAction: BindableAction {
+    case binding(BindingAction<InputState>)
     case submit(String)
     case dismissKeyboard
 }
@@ -19,31 +17,25 @@ struct InputEnvironment {}
 
 let inputReducer = Reducer<InputState, InputAction, InputEnvironment> { state, action, environment in
     switch action {
-    case .textFieldFocus(let isFocused):
-        state.isFocused = isFocused
-        return .none
-        
-    case .textFieldChanged(let string):
-        state.title = string
-        return .none
-        
     case .submit:
-        state.title = ""
-        state.isFocused = true
+        state.inputText = ""
         return .none
-         
+        
     case .dismissKeyboard:
-        state.isFocused = false
+        return .none
+        
+    case .binding(\.$inputText):
+        return .none
+        
+    case .binding:
         return .none
     }
-}
+}.binding()
 
 // MARK: - View
 
 struct InputView: View {
     let store: Store<InputState, InputAction>
-    
-    @FocusState private var isFocused: Bool
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
@@ -55,37 +47,28 @@ struct InputView: View {
                 
                 TextField(
                     "",
-                    text: viewStore.binding(
-                        get: \.title,
-                        send: InputAction.textFieldChanged
-                    ),
+                    text: viewStore.binding(\.$inputText),
                     prompt: Text("Add new item")
                 )
                 .font(.headline)
-                .focused($isFocused)
                 .onSubmit {
                     withAnimation {
-                        viewStore.send(.submit(viewStore.title))
+                        viewStore.send(.submit(viewStore.inputText))
                     }
-                }
-                .onChange(of: viewStore.isFocused) { focused in
-                    isFocused = focused
                 }
                 
                 Spacer()
                 
-                if viewStore.isFocused {
-                    Button {
-                        withAnimation {
-                            viewStore.send(.dismissKeyboard)
-                        }
-                    } label: {
-                        Image(systemName: "keyboard.chevron.compact.down")
+                Button {
+                    withAnimation {
+                        viewStore.send(.dismissKeyboard)
                     }
-                    .buttonStyle(.bordered)
-                    .controlSize(.regular)
-                    .tint(.accentColor)
+                } label: {
+                    Image(systemName: "keyboard.chevron.compact.down")
                 }
+                .buttonStyle(.bordered)
+                .controlSize(.regular)
+                .tint(.accentColor)
             }
             .listRowSeparatorTint(.clear)
         }
