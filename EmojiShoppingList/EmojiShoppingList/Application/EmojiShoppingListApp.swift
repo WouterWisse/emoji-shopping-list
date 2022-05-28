@@ -7,7 +7,9 @@ struct EmojiShoppingListApp: App {
         WindowGroup {
             ListView(
                 store: Store(
-                    initialState: ListState(),
+                    initialState: ListState(
+                        inputState: .init()
+                    ),
                     reducer: listReducer,
                     environment: ListEnvironment(persistence: PersistenceController.default)
                 )
