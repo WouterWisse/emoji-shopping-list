@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6CA6E3F62840153F0069CDD9 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3F52840153F0069CDD9 /* App.swift */; };
 		6CA6E3F8284015DD0069CDD9 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3F7284015DD0069CDD9 /* List.swift */; };
 		6CA6E400284152B90069CDD9 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3FF284152B90069CDD9 /* ListItem.swift */; };
 		6CA6E40A284170770069CDD9 /* ListItem+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E409284170770069CDD9 /* ListItem+Mock.swift */; };
@@ -45,7 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6CA6E3F52840153F0069CDD9 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		6CA6E3F7284015DD0069CDD9 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		6CA6E3FF284152B90069CDD9 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		6CA6E409284170770069CDD9 /* ListItem+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListItem+Mock.swift"; sourceTree = "<group>"; };
@@ -248,7 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				6CFEF96D2834432F00254038 /* EmojiShoppingListApp.swift */,
-				6CA6E3F52840153F0069CDD9 /* App.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -399,7 +396,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CA6E3F62840153F0069CDD9 /* App.swift in Sources */,
 				6CFEF9772834433100254038 /* Persistence.swift in Sources */,
 				6CA853E9283AB87E0010E85B /* RoundStepperButtonView.swift in Sources */,
 				6CA6E3F8284015DD0069CDD9 /* List.swift in Sources */,
