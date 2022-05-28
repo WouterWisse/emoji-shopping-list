@@ -3,7 +3,7 @@ import CoreData
 struct PersistenceController {
     var items: () -> [Item]
     var update: (_ listItem: ListItem) -> Void
-    var add: (_ title: String) -> Void
+    var add: (_ title: String) -> Item?
     var delete: (_ objectID: NSManagedObjectID) -> Void
     var deleteAll: (_ isDone: Bool) -> Void
     
@@ -58,12 +58,17 @@ struct PersistenceController {
                 guard let newItem = NSEntityDescription.insertNewObject(
                     forEntityName: "Item",
                     into: viewContext
-                ) as? Item else { return print("🍎 Creating new item failed") }
+                ) as? Item else {
+                    print("🍎 Creating new item failed")
+                    return nil
+                }
                 
                 newItem.title = title
                 newItem.createdAt = Date()
                 newItem.done = false
                 save()
+                
+                return newItem
             },
             delete: { objectID in
                 guard let item = viewContext.object(with: objectID) as? Item else {
