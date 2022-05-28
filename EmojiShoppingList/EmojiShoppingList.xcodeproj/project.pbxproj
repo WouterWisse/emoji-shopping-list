@@ -154,7 +154,6 @@
 		6CA853DE28396C360010E85B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */,
 				6CA853E3283AB54E0010E85B /* List */,
 				6CA853E2283AB5440010E85B /* Settings */,
 			);
@@ -181,9 +180,17 @@
 		6CA853EA283ABA4B0010E85B /* ListItem */ = {
 			isa = PBXGroup;
 			children = (
-				6CA853E8283AB87E0010E85B /* RoundStepperButtonView.swift */,
 			);
 			path = ListItem;
+			sourceTree = "<group>";
+		};
+		6CD569682842A4250022DBE3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */,
+				6CA853E8283AB87E0010E85B /* RoundStepperButtonView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		6CFEF9612834432F00254038 = {
@@ -211,6 +218,7 @@
 			children = (
 				6CFEF99E2834440800254038 /* Application */,
 				6CA6E40F28428F530069CDD9 /* Extensions */,
+				6CD569682842A4250022DBE3 /* Views */,
 				6CFEF99F2834442A00254038 /* Features */,
 				6CFEF99D283443FC00254038 /* Persistence */,
 				6CFEF99C283443F400254038 /* Resources */,
