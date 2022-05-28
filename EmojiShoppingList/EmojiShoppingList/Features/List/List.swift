@@ -9,7 +9,8 @@ struct ListState: Equatable {
     var isSettingsPresented: Bool = false
     var isDeletePresented: Bool = false
     
-    var inputState: InputState
+    var inputState = InputState()
+    var deleteState = DeleteState()
 }
 
 enum ListAction {
@@ -20,6 +21,7 @@ enum ListAction {
     
     case listItem(id: ListItem.ID, action: ListItemAction)
     case inputAction(InputAction)
+    case deleteAction(DeleteAction)
 }
 
 struct ListEnvironment {
@@ -36,6 +38,11 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
         state: \.inputState,
         action: /ListAction.inputAction,
         environment: { _ in InputEnvironment(mainQueue: { .main }) }
+    ),
+    deleteReducer.pullback(
+        state: \.deleteState,
+        action: /ListAction.deleteAction,
+        environment: { _ in DeleteEnvironment() }
     ),
     Reducer { state, action, environment in
         switch action {
@@ -87,6 +94,22 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
                 state.items.append(newListItem)
                 return .none
             }
+            
+        case .deleteAction(let deleteAction):
+            switch deleteAction {
+            case .deleteAllTapped:
+                state.items.removeAll()
+                environment.persistence.deleteAll(false)
+                return Effect(value: .deleteButtonTapped)
+                
+            case .deleteStrikedTapped:
+                state.items.removeAll(where: { $0.isDone })
+                environment.persistence.deleteAll(true)
+                return Effect(value: .deleteButtonTapped)
+                
+            case .cancelTapped:
+                return Effect(value: .deleteButtonTapped)
+            }
         }
     }
 )
@@ -101,7 +124,12 @@ struct ListView: View {
             NavigationView {
                 List {
                     if viewStore.isDeletePresented {
-                        deleteView
+                        DeleteView(
+                            store: self.store.scope(
+                                state: \.deleteState,
+                                action: ListAction.deleteAction
+                            )
+                        )
                     } else {
                         InputView(
                             store: self.store.scope(
@@ -266,8 +294,7 @@ struct ListView_Previews: PreviewProvider {
         ListView(
             store: Store(
                 initialState: ListState(
-                    items: .preview,
-                    inputState: InputState()
+                    items: .preview
                 ),
                 reducer: listReducer,
                 environment: ListEnvironment(
