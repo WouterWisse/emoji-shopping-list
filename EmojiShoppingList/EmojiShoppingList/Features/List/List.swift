@@ -146,6 +146,7 @@ struct ListView: View {
                         ),
                         content: ListItemView.init(store:)
                     )
+                    
                     if viewStore.items.isEmpty {
                         VStack {
                             Text("👀")
@@ -188,90 +189,6 @@ struct ListView: View {
                 .navigationTitle("Shopping List")
             }
         }
-    }
-    
-    @State private var text: String = ""
-    @FocusState private var isAddItemTextFieldFocussed: Bool
-    
-    var inputView: some View {
-        HStack(spacing: 12) {
-            Text("✏️")
-                .font(.title2)
-                .frame(width: 50, height: 50, alignment: .center)
-                .multilineTextAlignment(.center)
-            
-            TextField("", text: $text, prompt: Text("Add new item"))
-                .font(.headline)
-                .focused($isAddItemTextFieldFocussed)
-                .onSubmit(onSubmit)
-            
-            Spacer()
-            
-            if isAddItemTextFieldFocussed {
-                Button {
-                    withAnimation {
-                        isAddItemTextFieldFocussed = false
-                    }
-                } label: {
-                    Image(systemName: "keyboard.chevron.compact.down")
-                }
-                .buttonStyle(.bordered)
-                .controlSize(.regular)
-                .tint(.accentColor)
-            }
-        }
-        .listRowSeparatorTint(.clear)
-    }
-    
-    var deleteView: some View {
-        HStack(spacing: 12) {
-            Text("🗑")
-                .font(.title2)
-                .frame(width: 50, height: 50, alignment: .center)
-                .multilineTextAlignment(.center)
-            
-            Button {
-                //
-            } label: {
-                Text("All (12)")
-            }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.small)
-            .tint(.red)
-            
-            Button {
-                //
-            } label: {
-                Text("Striked (5)")
-                    .strikethrough(true, color: .red.opacity(0.5))
-            }
-            .buttonStyle(.bordered)
-            .controlSize(.small)
-            .tint(.red)
-            
-            Button {
-                withAnimation {
-//                    isDeletePresented.toggle()
-                }
-            } label: {
-                Text("Cancel")
-            }
-            .buttonStyle(.bordered)
-            .controlSize(.small)
-            .tint(.gray)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .listRowSeparatorTint(.clear)
-    }
-    
-    private func onSubmit() {
-        guard !text.isEmpty else {
-            return isAddItemTextFieldFocussed = false
-        }
-        
-//        addItem()
-        text = ""
-        isAddItemTextFieldFocussed = true
     }
 }
 
