@@ -17,3 +17,15 @@ struct EmojiShoppingListApp: App {
         }
     }
 }
+
+struct AppState: Equatable {}
+
+enum AppAction {}
+
+struct AppEnvironment {}
+
+let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
+    switch action {
+        // TODO: Add
+    }
+}
