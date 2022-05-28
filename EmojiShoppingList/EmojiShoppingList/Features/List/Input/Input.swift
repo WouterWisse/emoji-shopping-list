@@ -9,28 +9,30 @@ struct InputState: Equatable {
 }
 
 enum InputAction: Equatable {
-    case textFieldFocus
+    case textFieldFocus(Bool)
     case textFieldChanged(String)
-    case submit
-    case dismissKeyBoard
+    case submit(String)
+    case dismissKeyboard
 }
 
 struct InputEnvironment {}
 
 let inputReducer = Reducer<InputState, InputAction, InputEnvironment> { state, action, environment in
     switch action {
-    case .textFieldFocus:
-        state.isFocused = true
+    case .textFieldFocus(let isFocused):
+        state.isFocused = isFocused
         return .none
         
     case .textFieldChanged(let string):
+        state.title = string
         return .none
         
     case .submit:
-        state.isFocused = false
+        state.title = ""
+        state.isFocused = true
         return .none
          
-    case .dismissKeyBoard:
+    case .dismissKeyboard:
         state.isFocused = false
         return .none
     }
@@ -61,20 +63,21 @@ struct InputView: View {
                 )
                 .font(.headline)
                 .focused($isFocused)
-                .onSubmit { viewStore.send(.submit) }
+                .onSubmit {
+                    withAnimation {
+                        viewStore.send(.submit(viewStore.title))
+                    }
+                }
                 .onChange(of: viewStore.isFocused) { focused in
                     isFocused = focused
                 }
-//                .onChange(of: isFocused) { focused in
-//                    viewStore.send(.textFieldFocus)
-//                }
                 
                 Spacer()
                 
                 if viewStore.isFocused {
                     Button {
                         withAnimation {
-                            viewStore.send(.submit)
+                            viewStore.send(.dismissKeyboard)
                         }
                     } label: {
                         Image(systemName: "keyboard.chevron.compact.down")
