@@ -13,9 +13,9 @@ struct ListState: Equatable {
 enum ListAction: Equatable {
     case onAppear
     case fetched(items: IdentifiedArrayOf<ListItem>)
+    case listItem(id: ListItem.ID, action: ListItemAction)
     case settingsButtonTapped
     case deleteButtonTapped
-    case listItem(id: ListItem.ID, action: ListItemAction)
 }
 
 struct ListEnvironment {
@@ -42,14 +42,6 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
             state.items = items
             return .none
             
-        case .settingsButtonTapped:
-            state.isSettingsPresented.toggle()
-            return .none
-            
-        case .deleteButtonTapped:
-            state.isDeletePresented.toggle()
-            return .none
-            
         case .listItem(let id, let action):
             guard let item = state.items.first(where: { $0.id == id }) else { return .none }
             
@@ -63,6 +55,14 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
                 environment.persistence.delete(item.id)
                 return .none
             }
+            
+        case .settingsButtonTapped:
+            state.isSettingsPresented.toggle()
+            return .none
+            
+        case .deleteButtonTapped:
+            state.isDeletePresented.toggle()
+            return .none
         }
     }
 )
