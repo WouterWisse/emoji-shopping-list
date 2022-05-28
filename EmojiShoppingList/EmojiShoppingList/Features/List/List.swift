@@ -35,7 +35,7 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
     inputReducer.pullback(
         state: \.inputState,
         action: /ListAction.inputAction,
-        environment: { _ in InputEnvironment() }
+        environment: { _ in InputEnvironment(mainQueue: { .main }) }
     ),
     Reducer { state, action, environment in
         switch action {
@@ -75,7 +75,7 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
             
         case .inputAction(let inputAction):
             switch inputAction {
-            case .dismissKeyboard, .binding:
+            case .dismissKeyboard, .binding, .focusInputField:
                 return .none
                 
             case .submit(let title):
