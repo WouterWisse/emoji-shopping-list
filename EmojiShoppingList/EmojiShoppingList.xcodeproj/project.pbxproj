@@ -15,7 +15,7 @@
 		6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */; };
 		6CA853E9283AB87E0010E85B /* RoundStepperButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E8283AB87E0010E85B /* RoundStepperButtonView.swift */; };
 		6CA853EC283ABB3E0010E85B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853EB283ABB3E0010E85B /* SettingsView.swift */; };
-		6CFEF96E2834432F00254038 /* EmojiShoppingListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF96D2834432F00254038 /* EmojiShoppingListApp.swift */; };
+		6CFEF96E2834432F00254038 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF96D2834432F00254038 /* App.swift */; };
 		6CFEF9702834432F00254038 /* SomeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF96F2834432F00254038 /* SomeListView.swift */; };
 		6CFEF9722834433100254038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEF9712834433100254038 /* Assets.xcassets */; };
 		6CFEF9752834433100254038 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEF9742834433100254038 /* Preview Assets.xcassets */; };
@@ -54,7 +54,7 @@
 		6CA853E8283AB87E0010E85B /* RoundStepperButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundStepperButtonView.swift; sourceTree = "<group>"; };
 		6CA853EB283ABB3E0010E85B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6CFEF96A2834432F00254038 /* List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = List.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6CFEF96D2834432F00254038 /* EmojiShoppingListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiShoppingListApp.swift; sourceTree = "<group>"; };
+		6CFEF96D2834432F00254038 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		6CFEF96F2834432F00254038 /* SomeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeListView.swift; sourceTree = "<group>"; };
 		6CFEF9712834433100254038 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CFEF9742834433100254038 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -216,7 +216,6 @@
 		6CFEF96C2834432F00254038 /* EmojiShoppingList */ = {
 			isa = PBXGroup;
 			children = (
-				6CFEF99E2834440800254038 /* Application */,
 				6CA6E40F28428F530069CDD9 /* Extensions */,
 				6CD569682842A4250022DBE3 /* Views */,
 				6CFEF99F2834442A00254038 /* Features */,
@@ -261,17 +260,10 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
-		6CFEF99E2834440800254038 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				6CFEF96D2834432F00254038 /* EmojiShoppingListApp.swift */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
 		6CFEF99F2834442A00254038 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				6CFEF96D2834432F00254038 /* App.swift */,
 				6CA6E3F3284013C80069CDD9 /* List */,
 				6CA6E3F4284013D70069CDD9 /* Settings */,
 				6CA853DE28396C360010E85B /* Views */,
@@ -425,7 +417,7 @@
 				6CA6E400284152B90069CDD9 /* ListItem.swift in Sources */,
 				6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */,
 				6CFEF97A2834433100254038 /* EmojiShoppingList.xcdatamodeld in Sources */,
-				6CFEF96E2834432F00254038 /* EmojiShoppingListApp.swift in Sources */,
+				6CFEF96E2834432F00254038 /* App.swift in Sources */,
 				6CA6E41128428F6B0069CDD9 /* View+Synchronize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
