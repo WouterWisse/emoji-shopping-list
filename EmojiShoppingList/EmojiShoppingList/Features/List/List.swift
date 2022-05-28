@@ -121,73 +121,71 @@ struct ListView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            NavigationView {
-                List {
-                    if viewStore.isDeletePresented {
-                        DeleteView(
-                            store: self.store.scope(
-                                state: \.deleteState,
-                                action: ListAction.deleteAction
-                            )
+            List {
+                if viewStore.isDeletePresented {
+                    DeleteView(
+                        store: self.store.scope(
+                            state: \.deleteState,
+                            action: ListAction.deleteAction
                         )
-                    } else {
-                        InputView(
-                            store: self.store.scope(
-                                state: \.inputState,
-                                action: ListAction.inputAction
-                            )
-                        )
-                    }
-                    
-                    ForEachStore(
-                        self.store.scope(
-                            state: \.items,
-                            action: ListAction.listItem(id:action:)
-                        ),
-                        content: ListItemView.init(store:)
                     )
-                    
-                    if viewStore.items.isEmpty {
-                        VStack {
-                            Text("👀")
-                                .font(.largeTitle)
-                            Text("Nothing on your list yet")
-                                .font(.headline)
-                                .opacity(0.25)
-                        }
-                        .frame(maxWidth: .infinity, minHeight: 300, maxHeight: .infinity, alignment: .center)
-                        .listRowSeparator(.hidden)
-                    }
+                } else {
+                    InputView(
+                        store: self.store.scope(
+                            state: \.inputState,
+                            action: ListAction.inputAction
+                        )
+                    )
                 }
-                .onAppear {
-                    viewStore.send(.onAppear)
-                }
-                .listStyle(.plain)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            withAnimation {
-                                viewStore.send(.settingsButtonTapped)
-                            }
-                        } label: {
-                            Image(systemName: "gearshape")
-                        }
+                
+                ForEachStore(
+                    self.store.scope(
+                        state: \.items,
+                        action: ListAction.listItem(id:action:)
+                    ),
+                    content: ListItemView.init(store:)
+                )
+                
+                if viewStore.items.isEmpty {
+                    VStack {
+                        Text("👀")
+                            .font(.largeTitle)
+                        Text("Nothing on your list yet")
+                            .font(.headline)
+                            .opacity(0.25)
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            withAnimation {
-                                viewStore.send(.deleteButtonTapped)
-                            }
-                        } label: {
-                            Image(systemName: viewStore.isDeletePresented ? "trash.slash" : "trash")
-                        }
-                    }
+                    .frame(maxWidth: .infinity, minHeight: 300, maxHeight: .infinity, alignment: .center)
+                    .listRowSeparator(.hidden)
                 }
-//                .sheet(isPresented: $isSettingsPresented, content: {
-//                    SettingsView()
-//                })
-                .navigationTitle("Shopping List")
             }
+            .onAppear {
+                viewStore.send(.onAppear)
+            }
+            .listStyle(.plain)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        withAnimation {
+                            viewStore.send(.settingsButtonTapped)
+                        }
+                    } label: {
+                        Image(systemName: "gearshape")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        withAnimation {
+                            viewStore.send(.deleteButtonTapped)
+                        }
+                    } label: {
+                        Image(systemName: viewStore.isDeletePresented ? "trash.slash" : "trash")
+                    }
+                }
+            }
+            //                .sheet(isPresented: $isSettingsPresented, content: {
+            //                    SettingsView()
+            //                })
+            .navigationTitle("Shopping List")
         }
     }
 }

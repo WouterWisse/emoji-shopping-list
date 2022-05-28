@@ -5,27 +5,33 @@ import SwiftUI
 struct EmojiShoppingListApp: App {
     var body: some Scene {
         WindowGroup {
-            ListView(
-                store: Store(
-                    initialState: ListState(
-                        inputState: .init()
-                    ),
-                    reducer: listReducer,
-                    environment: ListEnvironment(persistence: PersistenceController.default)
+            NavigationView {
+                ListView(
+                    store: Store(
+                        initialState: ListState(),
+                        reducer: listReducer,
+                        environment: ListEnvironment(persistence: .default)
+                    )
                 )
-            )
+            }
+            // TODO: Add navigation buttons and logic here.
         }
     }
 }
 
-struct AppState: Equatable {}
+struct AppState: Equatable {
+    var listState = ListState()
+}
 
-enum AppAction {}
+enum AppAction {
+    case listAction(ListAction)
+}
 
 struct AppEnvironment {}
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
     switch action {
-        // TODO: Add
+    case .listAction(let listAction):
+        return .none
     }
 }
