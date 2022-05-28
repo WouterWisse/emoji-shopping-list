@@ -5,6 +5,8 @@ import SwiftUI
 // MARK: - Logic
 
 struct ListState: Equatable {
+    var inputState: InputState
+    
     var items: IdentifiedArrayOf<ListItem> = []
     var isSettingsPresented: Bool = false
     var isDeletePresented: Bool = false
@@ -16,6 +18,7 @@ enum ListAction: Equatable {
     case listItem(id: ListItem.ID, action: ListItemAction)
     case settingsButtonTapped
     case deleteButtonTapped
+    case inputAction(InputAction)
 }
 
 struct ListEnvironment {
@@ -27,6 +30,11 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
         state: \.items,
         action: /ListAction.listItem(id:action:),
         environment: { _ in ListItemEnvironment() }
+    ),
+    inputReducer.pullback(
+        state: \.inputState,
+        action: /ListAction.inputAction,
+        environment: { _ in InputEnvironment() }
     ),
     Reducer { state, action, environment in
         switch action {
@@ -63,6 +71,21 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
         case .deleteButtonTapped:
             state.isDeletePresented.toggle()
             return .none
+            
+        case .inputAction(let inputAction):
+            switch inputAction {
+            case .textFieldFocus, .dismissKeyboard, .textFieldChanged:
+                return .none
+                
+            case .submit(let title):
+                guard
+                    title.isEmpty == false,
+                    let newItem = environment.persistence.add(title)
+                else { return .none }
+                let newListItem = ListItem(item: newItem)
+                state.items.append(newListItem)
+                return .none
+            }
         }
     }
 )
@@ -79,7 +102,12 @@ struct ListView: View {
                     if viewStore.isDeletePresented {
                         deleteView
                     } else {
-                        inputView
+                        InputView(
+                            store: self.store.scope(
+                                state: \.inputState,
+                                action: ListAction.inputAction
+                            )
+                        )
                     }
                     
                     ForEachStore(
@@ -236,10 +264,13 @@ struct ListView_Previews: PreviewProvider {
     static var previews: some View {
         ListView(
             store: Store(
-                initialState: ListState(items: .preview),
+                initialState: ListState(
+                    inputState: .init(),
+                    items: .preview
+                ),
                 reducer: listReducer,
                 environment: ListEnvironment(
-                    persistence: PersistenceController.mock
+                    persistence: .mock
                 )
             )
         )
