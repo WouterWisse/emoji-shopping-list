@@ -79,6 +79,7 @@ struct InputView: View {
                 )
                 .font(.headline)
                 .focused($focusedField, equals: .input)
+                .submitLabel(.done)
                 .onSubmit {
                     withAnimation {
                         viewStore.send(.submit(viewStore.inputText))
