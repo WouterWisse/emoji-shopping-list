@@ -59,7 +59,7 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
             return .none
             
         case .listItem(let id, let action):
-            guard let item = state.items.first(where: { $0.id == id }) else { return .none }
+            guard let item = state.items[id: id] else { return .none }
             
             switch action {
             case .incrementAmount, .decrementAmount, .toggleDone:
