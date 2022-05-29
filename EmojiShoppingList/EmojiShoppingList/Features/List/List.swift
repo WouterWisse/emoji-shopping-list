@@ -18,6 +18,7 @@ enum ListAction {
     case fetched(items: IdentifiedArrayOf<ListItem>)
     case settingsButtonTapped
     case deleteButtonTapped
+    case sortItems
     
     case listItem(id: ListItem.ID, action: ListItemAction)
     case inputAction(InputAction)
@@ -26,6 +27,7 @@ enum ListAction {
 
 struct ListEnvironment {
     var persistence: PersistenceController
+    var mainQueue: () -> AnySchedulerOf<DispatchQueue>
 }
 
 let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
@@ -56,20 +58,32 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
             
         case .fetched(let items):
             state.items = items
-            return .none
+            return Effect(value: .sortItems)
             
         case .listItem(let id, let action):
             guard let item = state.items[id: id] else { return .none }
+            struct DebounceId: Hashable {}
             
             switch action {
-            case .incrementAmount, .decrementAmount, .toggleDone:
+            case .incrementAmount, .decrementAmount:
                 environment.persistence.update(item)
                 return .none
+                
+            case .toggleDone:
+                environment.persistence.update(item)
+                return Effect(value: .sortItems)
+                    .debounce(
+                        id: DebounceId(),
+                        for: .milliseconds(500),
+                        scheduler: environment.mainQueue()
+                            .animation()
+                            .eraseToAnyScheduler()
+                    )
                 
             case .delete:
                 state.items.remove(item)
                 environment.persistence.delete(item.id)
-                return .none
+                return Effect(value: .sortItems)
             }
             
         case .settingsButtonTapped:
@@ -78,6 +92,12 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
             
         case .deleteButtonTapped:
             state.isDeletePresented.toggle()
+            return Effect(value: .sortItems)
+            
+        case .sortItems:
+            state.items.sort(by: { lhs, rhs in
+                lhs.createdAt > rhs.createdAt && lhs.isDone != rhs.isDone
+            })
             return .none
             
         case .inputAction(let inputAction):
@@ -92,7 +112,7 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
                 else { return .none }
                 let newListItem = ListItem(item: newItem)
                 state.items.append(newListItem)
-                return .none
+                return Effect(value: .sortItems)
             }
             
         case .deleteAction(let deleteAction):
@@ -213,7 +233,8 @@ struct ListView_Previews: PreviewProvider {
                 ),
                 reducer: listReducer,
                 environment: ListEnvironment(
-                    persistence: .mock
+                    persistence: .mock,
+                    mainQueue: { .main }
                 )
             )
         )
