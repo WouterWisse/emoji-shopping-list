@@ -10,7 +10,10 @@ struct EmojiShoppingListApp: App {
                     store: Store(
                         initialState: ListState(),
                         reducer: listReducer,
-                        environment: ListEnvironment(persistence: .default)
+                        environment: ListEnvironment(
+                            persistence: .default,
+                            mainQueue: { .main }
+                        )
                     )
                 )
             }
