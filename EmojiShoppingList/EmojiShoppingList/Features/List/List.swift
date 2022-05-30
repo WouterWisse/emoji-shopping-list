@@ -51,9 +51,7 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
         case .onAppear:
             let items = environment.persistence.items()
             var listItems: IdentifiedArrayOf<ListItem> = []
-            items.forEach { item in
-                listItems.append(ListItem(item: item))
-            }
+            items.forEach { listItems.append(ListItem(item: $0)) }
             return Effect(value: .fetched(items: listItems))
             
         case .fetched(let items):
@@ -99,7 +97,6 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
                 guard lhs.isDone == rhs.isDone else {
                     return !lhs.isDone && rhs.isDone
                 }
-                
                 return lhs.createdAt > rhs.createdAt
             })
             return .none
@@ -186,29 +183,6 @@ struct ListView: View {
                 viewStore.send(.onAppear)
             }
             .listStyle(.plain)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        withAnimation {
-                            viewStore.send(.settingsButtonTapped)
-                        }
-                    } label: {
-                        Image(systemName: "gearshape")
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        withAnimation {
-                            viewStore.send(.deleteButtonTapped)
-                        }
-                    } label: {
-                        Image(systemName: viewStore.isDeletePresented ? "trash.slash" : "trash")
-                    }
-                }
-            }
-            //                .sheet(isPresented: $isSettingsPresented, content: {
-            //                    SettingsView()
-            //                })
             .navigationTitle("Shopping List")
         }
     }
