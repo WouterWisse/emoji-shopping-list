@@ -96,7 +96,11 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
             
         case .sortItems:
             state.items.sort(by: { lhs, rhs in
-                lhs.createdAt > rhs.createdAt && lhs.isDone != rhs.isDone
+                guard lhs.isDone == rhs.isDone else {
+                    return !lhs.isDone && rhs.isDone
+                }
+                
+                return lhs.createdAt > rhs.createdAt
             })
             return .none
             
