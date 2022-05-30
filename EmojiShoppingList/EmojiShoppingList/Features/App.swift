@@ -5,11 +5,14 @@ import SwiftUI
 
 struct AppState: Equatable {
     var listState = ListState()
+    var settingsState = SettingsState()
     var isSettingsPresented: Bool = false
 }
 
 enum AppAction {
     case listAction(ListAction)
+    case settingsAction(SettingsAction)
+    
     case setSettings(isPresented: Bool)
     case settingsButtonTapped
     case deleteButtonTapped
@@ -67,7 +70,12 @@ struct EmojiShoppingListApp: App {
                         get: { $0.isSettingsPresented },
                         send:  AppAction.setSettings(isPresented:))
                     ) {
-                        SettingsView()
+                        SettingsView(
+                            store: self.store.scope(
+                                state: \.settingsState,
+                                action: AppAction.settingsAction
+                            )
+                        )
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {

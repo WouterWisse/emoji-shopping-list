@@ -1,49 +1,70 @@
 import SwiftUI
+import ComposableArchitecture
 
 // MARK: - Logic
+
+struct SettingsState: Equatable {
+    
+}
+
+enum SettingsAction {
+    
+}
+
+struct SettingsEnvironment {}
+
+let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvironment> { state, action, environment in
+    switch action {
+        
+    }
+}
 
 // MARK: - View
 
 struct SettingsView: View {
+    let store: Store<SettingsState, SettingsAction>
+    
     var body: some View {
-        NavigationView {
-            List {
-                Section {
-                    SettingsItemListView(emoji: "✏️", color: .yellow, title: "Change list name")
-                    SettingsItemListView(emoji: "🤩", color: .yellow, title: "Rate on AppStore")
-                }
-
-                Section("Consider a donation") {
-                    DonateListView(emoji: "🍏", color: .green, title: "Buy me an apple", price: "$0.99")
-                    DonateListView(emoji: "☕️", color: .brown, title: "Buy me a coffee", price: "$2.99")
-                    DonateListView(emoji: "🍺", color: .yellow, title: "Buy me a beer", price: "$4.99")
-                }
-                
-                Section {
-                    VStack {
-                        Image("Icon")
-                            .resizable()
-                            .frame(width: 60, height: 60, alignment: .center)
-                            .cornerRadius(12)
-                        Text("1.0")
-                            .font(.caption)
-                        
-                        Button {
-                            UIApplication.shared.open(URL(string: "http://www.twitter.com/wouterwisse")!)
-                        } label: {
-                            Text("👨🏼‍💻 @WouterWisse")
-                        }
-                        .tint(.gray)
-                        .buttonStyle(.bordered)
-                        .controlSize(.small)
+        WithViewStore(self.store) { viewStore in
+            NavigationView {
+                List {
+                    Section {
+                        SettingsItemListView(emoji: "✏️", color: .yellow, title: "Change list name")
+                        SettingsItemListView(emoji: "🤩", color: .yellow, title: "Rate on AppStore")
                     }
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    Section("Consider a donation") {
+                        DonateListView(emoji: "🍏", color: .green, title: "Buy me an apple", price: "$0.99")
+                        DonateListView(emoji: "☕️", color: .brown, title: "Buy me a coffee", price: "$2.99")
+                        DonateListView(emoji: "🍺", color: .yellow, title: "Buy me a beer", price: "$4.99")
+                    }
+                    
+                    Section {
+                        VStack {
+                            Image("Icon")
+                                .resizable()
+                                .frame(width: 60, height: 60, alignment: .center)
+                                .cornerRadius(12)
+                            Text("1.0")
+                                .font(.caption)
+                            
+                            Button {
+                                UIApplication.shared.open(URL(string: "http://www.twitter.com/wouterwisse")!)
+                            } label: {
+                                Text("👨🏼‍💻 @WouterWisse")
+                            }
+                            .tint(.gray)
+                            .buttonStyle(.bordered)
+                            .controlSize(.small)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    }
+                    .listRowBackground(Color.clear)
                 }
-                .listRowBackground(Color.clear)
+                .listStyle(.insetGrouped)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Emoji Shopping List")
             }
-            .listStyle(.insetGrouped)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Emoji Shopping List")
         }
     }
 }
@@ -95,7 +116,7 @@ struct DonateListView: View {
             .tint(color)
             .buttonStyle(.bordered)
             .controlSize(.small)
-
+            
         }
         .padding(.vertical, 8)
     }
@@ -106,9 +127,15 @@ struct SettingsView_Previews: PreviewProvider {
     
     static var previews: some View {
         ForEach(colorSchemes, id: \.self) { colorScheme in
-            SettingsView()
-                .padding()
-                .preferredColorScheme(colorScheme)
+            SettingsView(
+                store: Store(
+                    initialState: SettingsState(),
+                    reducer: settingsReducer,
+                    environment: SettingsEnvironment()
+                )
+            )
+            .padding()
+            .preferredColorScheme(colorScheme)
         }
     }
 }
