@@ -11,3 +11,10 @@
     <img src="https://github.com/dpgmediamagazines/nunl-ios/workflows/Nightly/badge.svg?branch=develop" alt="nightly">
   </p>
 </p>
+
+## Todo
+- [x] Use The Composable Architeture
+- [ ] Add Unit Tests
+- [ ] Add RevenueCat for IAP
+- [ ] Fastlane
+- [ ] Github Actions workflows
