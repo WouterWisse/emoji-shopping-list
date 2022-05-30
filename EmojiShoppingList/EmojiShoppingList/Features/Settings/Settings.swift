@@ -1,5 +1,9 @@
 import SwiftUI
 
+// MARK: - Logic
+
+// MARK: - View
+
 struct SettingsView: View {
     var body: some View {
         NavigationView {
