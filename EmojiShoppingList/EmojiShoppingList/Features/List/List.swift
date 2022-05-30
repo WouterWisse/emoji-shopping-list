@@ -179,11 +179,11 @@ struct ListView: View {
                     .listRowSeparator(.hidden)
                 }
             }
+            .listStyle(.plain)
+            .navigationTitle("Shopping List")
             .onAppear {
                 viewStore.send(.onAppear)
             }
-            .listStyle(.plain)
-            .navigationTitle("Shopping List")
         }
     }
 }

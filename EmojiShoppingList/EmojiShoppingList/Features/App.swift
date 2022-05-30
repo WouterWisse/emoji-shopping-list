@@ -12,6 +12,7 @@ enum AppAction {
     case listAction(ListAction)
     case setSettings(isPresented: Bool)
     case settingsButtonTapped
+    case deleteButtonTapped
 }
 
 struct AppEnvironment {}
@@ -33,6 +34,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             
         case .settingsButtonTapped:
             state.isSettingsPresented.toggle()
+            return .none
+            
+        case .deleteButtonTapped:
+            state.listState.isDeletePresented.toggle()
             return .none
         }
     }
@@ -77,15 +82,14 @@ struct EmojiShoppingListApp: App {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
                                 withAnimation {
-                                    //                                viewStore.send(.deleteButtonTapped)
+                                    viewStore.send(.deleteButtonTapped)
                                 }
                             } label: {
-                                //                            Image(systemName: viewStore.isDeletePresented ? "trash.slash" : "trash")
+                                Image(systemName: viewStore.listState.isDeletePresented ? "trash.slash" : "trash")
                             }
                         }
                     }
                 }
-                // TODO: Add navigation buttons and logic here.
             }
         }
     }
