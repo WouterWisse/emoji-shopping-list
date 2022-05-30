@@ -26,6 +26,11 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         action: /AppAction.listAction,
         environment: { _ in ListEnvironment(persistence: .default, mainQueue: { .main }) }
     ),
+    settingsReducer.pullback(
+        state: \.settingsState,
+        action: /AppAction.settingsAction,
+        environment: { _ in SettingsEnvironment() }
+    ),
     Reducer { state, action, environment in
         switch action {
         case .listAction(let listAction):
