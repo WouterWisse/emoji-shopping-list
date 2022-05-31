@@ -85,18 +85,14 @@ struct EmojiShoppingListApp: App {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button {
-                                withAnimation {
-                                    viewStore.send(.settingsButtonTapped)
-                                }
+                                withAnimation { viewStore.send(.settingsButtonTapped) }
                             } label: {
                                 Image(systemName: "gearshape")
                             }
                         }
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
-                                withAnimation {
-                                    viewStore.send(.deleteButtonTapped)
-                                }
+                                withAnimation { viewStore.send(.deleteButtonTapped) }
                             } label: {
                                 Image(systemName: viewStore.listState.isDeletePresented ? "trash.slash" : "trash")
                             }
