@@ -96,11 +96,12 @@ struct PersistenceController {
     }()
     
     final class MockItem: Item {
-        convenience init(title: String? = "", done: Bool = false) {
+        convenience init(title: String? = "", done: Bool = false, amount: Int16 = 1) {
             self.init()
             self.stubbedTitle = title
             self.stubbedDone = done
             self.stubbedCreatedAt = Date()
+            self.stubbedAmount = amount
         }
         
         var stubbedTitle: String? = ""
@@ -119,6 +120,12 @@ struct PersistenceController {
         override var createdAt: Date? {
             set { stubbedCreatedAt = newValue }
             get { stubbedCreatedAt }
+        }
+        
+        var stubbedAmount: Int16 = 1
+        override var amount: Int16 {
+            set { stubbedAmount = newValue }
+            get { stubbedAmount }
         }
     }
     
