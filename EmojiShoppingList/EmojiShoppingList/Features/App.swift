@@ -6,7 +6,6 @@ import SwiftUI
 struct AppState: Equatable {
     var listState = ListState()
     var settingsState = SettingsState()
-    var isSettingsPresented: Bool = false
 }
 
 enum AppAction {
@@ -36,11 +35,11 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
             return .none
             
         case .setSettings(let isPresented):
-            state.isSettingsPresented = isPresented
+            state.settingsState.isPresented = isPresented
             return .none
             
         case .settingsButtonTapped:
-            state.isSettingsPresented.toggle()
+            state.settingsState.isPresented.toggle()
             return .none
             
         case .deleteButtonTapped:
@@ -71,7 +70,7 @@ struct EmojiShoppingListApp: App {
                         )
                     )
                     .sheet(isPresented: viewStore.binding(
-                        get: { $0.isSettingsPresented },
+                        get: { $0.settingsState.isPresented },
                         send:  AppAction.setSettings(isPresented:))
                     ) {
                         SettingsView(

@@ -4,7 +4,7 @@ import ComposableArchitecture
 // MARK: - Logic
 
 struct SettingsState: Equatable {
-    
+    var isPresented: Bool = false
 }
 
 enum SettingsAction {
