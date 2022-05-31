@@ -22,30 +22,33 @@ enum ListAction {
 }
 
 struct ListEnvironment {
-    var persistence: PersistenceController
-    var mainQueue: () -> AnySchedulerOf<DispatchQueue>
+    var persistence: () -> PersistenceController
 }
 
-let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
+let listReducer = Reducer<
+    ListState,
+    ListAction,
+    SharedEnvironment<ListEnvironment>
+>.combine(
     listItemReducer.forEach(
         state: \.items,
         action: /ListAction.listItem(id:action:),
-        environment: { _ in ListItemEnvironment() }
+        environment: { _ in .live(environment: ListItemEnvironment()) }
     ),
     inputReducer.pullback(
         state: \.inputState,
         action: /ListAction.inputAction,
-        environment: { _ in InputEnvironment(mainQueue: { .main }) }
+        environment: { _ in .live(environment: InputEnvironment()) }
     ),
     deleteReducer.pullback(
         state: \.deleteState,
         action: /ListAction.deleteAction,
-        environment: { _ in DeleteEnvironment() }
+        environment: { _ in .live(environment: DeleteEnvironment()) }
     ),
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
-            let items = environment.persistence.items()
+            let items = environment.persistence().items()
             var listItems: IdentifiedArrayOf<ListItem> = []
             items.forEach { listItems.append(ListItem(item: $0)) }
             return Effect(value: .fetched(items: listItems))
@@ -60,11 +63,11 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
             
             switch action {
             case .incrementAmount, .decrementAmount:
-                environment.persistence.update(item)
+                environment.persistence().update(item)
                 return .none
                 
             case .toggleDone:
-                environment.persistence.update(item)
+                environment.persistence().update(item)
                 return Effect(value: .sortItems)
                     .debounce(
                         id: DebounceId(),
@@ -76,7 +79,7 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
                 
             case .delete:
                 state.items.remove(item)
-                environment.persistence.delete(item.id)
+                environment.persistence().delete(item.id)
                 return Effect(value: .sortItems)
             }
             
@@ -101,7 +104,7 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
             case .submit(let title):
                 guard
                     title.isEmpty == false,
-                    let newItem = environment.persistence.add(title)
+                    let newItem = environment.persistence().add(title)
                 else { return .none }
                 let newListItem = ListItem(item: newItem)
                 state.items.append(newListItem)
@@ -112,12 +115,12 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
             switch deleteAction {
             case .deleteAllTapped:
                 state.items.removeAll()
-                environment.persistence.deleteAll(false)
+                environment.persistence().deleteAll(false)
                 return Effect(value: .deleteButtonTapped)
                 
             case .deleteStrikedTapped:
                 state.items.removeAll(where: { $0.isDone })
-                environment.persistence.deleteAll(true)
+                environment.persistence().deleteAll(true)
                 return Effect(value: .deleteButtonTapped)
                 
             case .cancelTapped:
@@ -219,9 +222,10 @@ struct ListView_Previews: PreviewProvider {
                     items: .preview
                 ),
                 reducer: listReducer,
-                environment: ListEnvironment(
-                    persistence: .mock,
-                    mainQueue: { .main }
+                environment: .mock(
+                    environment: ListEnvironment(
+                        persistence: { .mock }
+                    )
                 )
             )
         )

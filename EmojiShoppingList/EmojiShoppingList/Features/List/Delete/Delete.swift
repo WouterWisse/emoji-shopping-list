@@ -13,7 +13,11 @@ enum DeleteAction {
 
 struct DeleteEnvironment {}
 
-let deleteReducer = Reducer<DeleteState, DeleteAction, DeleteEnvironment> { state, action, environment in
+let deleteReducer = Reducer<
+    DeleteState,
+    DeleteAction,
+    SharedEnvironment<DeleteEnvironment>
+> { state, action, environment in
     switch action {
     case .deleteAllTapped:
         return .none
@@ -85,7 +89,7 @@ struct DeleteView_Previews: PreviewProvider {
             store: Store(
                 initialState: DeleteState(),
                 reducer: deleteReducer,
-                environment: DeleteEnvironment()
+                environment: .mock(environment: DeleteEnvironment())
             )
         )
     }

@@ -41,14 +41,12 @@ enum ListItemAction: Equatable {
     case toggleDone
 }
 
-struct ListItemEnvironment {
-    // Add haptic feedback unit
-}
+struct ListItemEnvironment {}
 
 let listItemReducer = Reducer<
     ListItem,
     ListItemAction,
-    ListItemEnvironment
+    SharedEnvironment<ListItemEnvironment>
 > { state, action, environment in
     switch action {
     case .incrementAmount:

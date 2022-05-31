@@ -13,7 +13,11 @@ enum SettingsAction {
 
 struct SettingsEnvironment {}
 
-let settingsReducer = Reducer<SettingsState, SettingsAction, SettingsEnvironment> { state, action, environment in
+let settingsReducer = Reducer<
+    SettingsState,
+    SettingsAction,
+    SharedEnvironment<SettingsEnvironment>
+> { state, action, environment in
     switch action {
         
     }
@@ -131,7 +135,7 @@ struct SettingsView_Previews: PreviewProvider {
                 store: Store(
                     initialState: SettingsState(),
                     reducer: settingsReducer,
-                    environment: SettingsEnvironment()
+                    environment: .mock(environment: SettingsEnvironment())
                 )
             )
             .padding()

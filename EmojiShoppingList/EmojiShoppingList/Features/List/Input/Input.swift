@@ -19,11 +19,13 @@ enum InputAction: BindableAction {
     case focusInputField
 }
 
-struct InputEnvironment {
-    var mainQueue: () -> AnySchedulerOf<DispatchQueue>
-}
+struct InputEnvironment {}
 
-let inputReducer = Reducer<InputState, InputAction, InputEnvironment> { state, action, environment in
+let inputReducer = Reducer<
+    InputState,
+    InputAction,
+    SharedEnvironment<InputEnvironment>
+> { state, action, environment in
     struct TimerId: Hashable {}
     switch action {
     case .submit:
@@ -115,7 +117,7 @@ struct InputView_Previews: PreviewProvider {
             store: Store(
                 initialState: InputState(),
                 reducer: inputReducer,
-                environment: InputEnvironment(mainQueue: { .main })
+                environment: .mock(environment: InputEnvironment())
             )
         )
     }

@@ -23,12 +23,12 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
     listReducer.pullback(
         state: \.listState,
         action: /AppAction.listAction,
-        environment: { _ in ListEnvironment(persistence: .default, mainQueue: { .main }) }
+        environment: { _ in .live(environment: ListEnvironment(persistence: { .default })) }
     ),
     settingsReducer.pullback(
         state: \.settingsState,
         action: /AppAction.settingsAction,
-        environment: { _ in SettingsEnvironment() }
+        environment: { _ in .live(environment: SettingsEnvironment()) }
     ),
     Reducer { state, action, environment in
         switch action {
