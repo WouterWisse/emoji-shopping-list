@@ -5,7 +5,6 @@ struct SharedEnvironment<Environment> {
     var environment: Environment
     
     var mainQueue: () -> AnySchedulerOf<DispatchQueue>
-    var persistence: () -> PersistenceController
 }
 
 // MARK: Environments
@@ -14,16 +13,14 @@ extension SharedEnvironment {
     static func live(environment: Environment) -> Self {
         Self(
             environment: environment,
-            mainQueue: { .main },
-            persistence: { .default }
+            mainQueue: { .main }
         )
     }
     
     static func mock(environment: Environment) -> Self {
         Self(
             environment: environment,
-            mainQueue: { .main },
-            persistence: { .mock }
+            mainQueue: { .main }
         )
     }
 }
