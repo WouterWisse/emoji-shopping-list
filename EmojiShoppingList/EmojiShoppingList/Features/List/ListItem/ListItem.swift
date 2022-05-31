@@ -157,9 +157,9 @@ extension ListItem {
         colorDict["Orange"] = .orange
         colorDict["Wine"] = .red
         colorDict["Red Wine"] = .red
-        colorDict["White Wine"] = .gray.opacity(0.5)
-        colorDict["Eggs"] = .gray.opacity(0.5)
-        colorDict["Milk"] = .gray.opacity(0.5)
+        colorDict["White Wine"] = .gray
+        colorDict["Eggs"] = .gray
+        colorDict["Milk"] = .gray
         colorDict["Champagne"] = .brown
         colorDict["Corn"] = .yellow
         colorDict["Beans"] = .brown
@@ -168,6 +168,31 @@ extension ListItem {
         colorDict["Guacamole"] = .green
         colorDict["Lemon"] = .yellow
         colorDict["Lime"] = .green
+        colorDict["Carrot"] = .orange
+        colorDict["Eggplant"] = .indigo
+        colorDict["Zucchini"] = .green
+        colorDict["Cucumber"] = .green
+        colorDict["Garlic"] = .brown
+        colorDict["Green"] = .green
+        colorDict["Leaves"] = .green
+        colorDict["Spinach"] = .green
+        colorDict["Salad"] = .green
+        colorDict["Bacon"] = .brown
+        colorDict["Meat"] = .red
+        colorDict["Fish"] = .teal
+        colorDict["Shrimp"] = .red
+        colorDict["Sweet potato"] = .indigo
+        colorDict["Peanuts"] = .brown
+        colorDict["Peanut butter"] = .brown
+        colorDict["Tomato saus"] = .red
+        colorDict["Red saus"] = .red
+        colorDict["Kiwi"] = .green
+        colorDict["Melon"] = .green
+        colorDict["Pear"] = .green
+        colorDict["Water melon"] = .red
+        colorDict["Grapes"] = .red
+        colorDict["Peach"] = .orange
+        colorDict["Pineapple"] = .yellow
         
         // Check for direct match
         let directMatch = colorDict.first { key, color in
@@ -215,6 +240,31 @@ extension ListItem {
         emojiDict["Guacamole"] = "🥑"
         emojiDict["Lemon"] = "🍋"
         emojiDict["Lime"] = "🍋"
+        emojiDict["Carrot"] = "🥕"
+        emojiDict["Eggplant"] = "🍆"
+        emojiDict["Zucchini"] = "🥒"
+        emojiDict["Cucumber"] = "🥒"
+        emojiDict["Garlic"] = "🧄"
+        emojiDict["Green"] = "🥬"
+        emojiDict["Leaves"] = "🥬"
+        emojiDict["Spinach"] = "🥬"
+        emojiDict["Salad"] = "🥬"
+        emojiDict["Bacon"] = "🥓"
+        emojiDict["Meat"] = "🥩"
+        emojiDict["Fish"] = "🐟"
+        emojiDict["Shrimp"] = "🦐"
+        emojiDict["Sweet potato"] = "🍠"
+        emojiDict["Peanuts"] = "🥜"
+        emojiDict["Peanut butter"] = "🥜"
+        emojiDict["Tomato saus"] = "🥫"
+        emojiDict["Red saus"] = "🥫"
+        emojiDict["Kiwi"] = "🥝"
+        emojiDict["Melon"] = "🍈"
+        emojiDict["Pear"] = "🍐"
+        emojiDict["Water melon"] = "🍉"
+        emojiDict["Grapes"] = "🍇"
+        emojiDict["Peach"] = "🍑"
+        emojiDict["Pineapple"] = "🍍"
         
         // Check for direct match
         let directMatch = emojiDict.first { key, emoji in
