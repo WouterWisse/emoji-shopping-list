@@ -12,7 +12,6 @@ struct AppState: Equatable {
 enum AppAction {
     case listAction(ListAction)
     case settingsAction(SettingsAction)
-    
     case setSettings(isPresented: Bool)
     case settingsButtonTapped
     case deleteButtonTapped

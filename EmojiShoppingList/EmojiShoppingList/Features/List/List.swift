@@ -6,9 +6,7 @@ import SwiftUI
 
 struct ListState: Equatable {
     var items: IdentifiedArrayOf<ListItem> = []
-    var isSettingsPresented: Bool = false
     var isDeletePresented: Bool = false
-    
     var inputState = InputState()
     var deleteState = DeleteState()
 }
@@ -16,10 +14,8 @@ struct ListState: Equatable {
 enum ListAction {
     case onAppear
     case fetched(items: IdentifiedArrayOf<ListItem>)
-    case settingsButtonTapped
     case deleteButtonTapped
     case sortItems
-    
     case listItem(id: ListItem.ID, action: ListItemAction)
     case inputAction(InputAction)
     case deleteAction(DeleteAction)
@@ -83,10 +79,6 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
                 environment.persistence.delete(item.id)
                 return Effect(value: .sortItems)
             }
-            
-        case .settingsButtonTapped:
-            state.isSettingsPresented.toggle()
-            return .none
             
         case .deleteButtonTapped:
             state.isDeletePresented.toggle()
