@@ -18,3 +18,10 @@ extension FeedbackGenerator {
         )
     }
 }
+
+extension FeedbackGenerator {
+    static let mock: FeedbackGenerator  = FeedbackGenerator(
+        impact: { _ in },
+        notify: { _ in }
+    )
+}
