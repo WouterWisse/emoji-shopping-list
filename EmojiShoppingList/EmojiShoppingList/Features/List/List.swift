@@ -6,7 +6,6 @@ import SwiftUI
 
 struct ListState: Equatable {
     var items: IdentifiedArrayOf<ListItem> = []
-    var isDeletePresented: Bool = false
     var inputState = InputState()
     var deleteState = DeleteState()
 }
@@ -84,7 +83,7 @@ let listReducer = Reducer<
             }
             
         case .deleteButtonTapped:
-            state.isDeletePresented.toggle()
+            state.deleteState.isPresented.toggle()
             return Effect(value: .sortItems)
             
         case .sortItems:
@@ -139,7 +138,7 @@ struct ListView: View {
         WithViewStore(self.store) { viewStore in
             GeometryReader { geometryProxy in
                 List {
-                    if viewStore.isDeletePresented {
+                    if viewStore.deleteState.isPresented {
                         DeleteView(
                             store: self.store.scope(
                                 state: \.deleteState,

@@ -43,7 +43,7 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
             return .none
             
         case .deleteButtonTapped:
-            state.listState.isDeletePresented.toggle()
+            state.listState.deleteState.isPresented.toggle()
             return .none
         }
     }
@@ -92,7 +92,11 @@ struct EmojiShoppingListApp: App {
                             Button {
                                 withAnimation { viewStore.send(.deleteButtonTapped) }
                             } label: {
-                                Image(systemName: viewStore.listState.isDeletePresented ? "trash.slash" : "trash")
+                                Image(
+                                    systemName: viewStore.listState.deleteState.isPresented
+                                    ? "trash.slash"
+                                    : "trash"
+                                )
                             }
                         }
                     }

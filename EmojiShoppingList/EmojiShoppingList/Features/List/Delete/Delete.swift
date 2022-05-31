@@ -3,7 +3,9 @@ import ComposableArchitecture
 
 // MARK: - Logic
 
-struct DeleteState: Equatable {}
+struct DeleteState: Equatable {
+    var isPresented: Bool = false
+}
 
 enum DeleteAction {
     case deleteAllTapped
