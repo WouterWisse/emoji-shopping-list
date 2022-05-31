@@ -19,7 +19,7 @@ enum AppAction {
 
 struct AppEnvironment {}
 
-let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
+let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>.combine(
     listReducer.pullback(
         state: \.listState,
         action: /AppAction.listAction,
@@ -57,7 +57,7 @@ struct EmojiShoppingListApp: App {
     let store: Store<AppState, AppAction> = Store(
         initialState: AppState(),
         reducer: appReducer,
-        environment: AppEnvironment()
+        environment: .live(environment: AppEnvironment())
     )
     
     var body: some Scene {
