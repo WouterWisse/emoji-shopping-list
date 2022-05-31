@@ -50,18 +50,22 @@ let listItemReducer = Reducer<
 > { state, action, environment in
     switch action {
     case .incrementAmount:
+        environment.feedbackGenerator().impact(.soft)
         state.amount += 1
         return .none
         
     case .decrementAmount:
+        environment.feedbackGenerator().impact(.soft)
         state.amount -= 1
         return .none
         
     case .delete:
+        environment.feedbackGenerator().impact(.rigid)
         return .none
         
     case .toggleDone:
         state.isDone.toggle()
+        environment.feedbackGenerator().impact(.rigid)
         return .none
     }
 }

@@ -39,11 +39,16 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
             return .none
             
         case .settingsButtonTapped:
+            environment.feedbackGenerator().impact(.soft)
             state.settingsState.isPresented.toggle()
             return .none
             
         case .deleteButtonTapped:
+            environment.feedbackGenerator().impact(.soft)
             state.listState.deleteState.isPresented.toggle()
+            return .none
+            
+        case .settingsAction:
             return .none
         }
     }
