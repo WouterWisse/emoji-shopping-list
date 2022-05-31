@@ -17,6 +17,7 @@
 		6CA853E9283AB87E0010E85B /* RoundStepperButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E8283AB87E0010E85B /* RoundStepperButtonView.swift */; };
 		6CA853EC283ABB3E0010E85B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853EB283ABB3E0010E85B /* Settings.swift */; };
 		6CF5CC6B28469A0B00117790 /* SharedEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5CC6A28469A0B00117790 /* SharedEnvironment.swift */; };
+		6CF5CC6F2846A35700117790 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5CC6E2846A35700117790 /* FeedbackGenerator.swift */; };
 		6CFEF96E2834432F00254038 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF96D2834432F00254038 /* App.swift */; };
 		6CFEF9722834433100254038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEF9712834433100254038 /* Assets.xcassets */; };
 		6CFEF9752834433100254038 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEF9742834433100254038 /* Preview Assets.xcassets */; };
@@ -56,6 +57,7 @@
 		6CA853E8283AB87E0010E85B /* RoundStepperButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundStepperButtonView.swift; sourceTree = "<group>"; };
 		6CA853EB283ABB3E0010E85B /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		6CF5CC6A28469A0B00117790 /* SharedEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnvironment.swift; sourceTree = "<group>"; };
+		6CF5CC6E2846A35700117790 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		6CFEF96A2834432F00254038 /* List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = List.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CFEF96D2834432F00254038 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		6CFEF9712834433100254038 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -172,6 +174,15 @@
 			path = Reusable;
 			sourceTree = "<group>";
 		};
+		6CF5CC6D2846A34300117790 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				6CF5CC6A28469A0B00117790 /* SharedEnvironment.swift */,
+				6CF5CC6E2846A35700117790 /* FeedbackGenerator.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		6CFEF9612834432F00254038 = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +208,7 @@
 			children = (
 				6CA6E40F28428F530069CDD9 /* Extensions */,
 				6CD569682842A4250022DBE3 /* Reusable */,
+				6CF5CC6D2846A34300117790 /* Shared */,
 				6CFEF99F2834442A00254038 /* Features */,
 				6CFEF99D283443FC00254038 /* Persistence */,
 				6CFEF99C283443F400254038 /* Resources */,
@@ -242,7 +254,6 @@
 		6CFEF99F2834442A00254038 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				6CF5CC6A28469A0B00117790 /* SharedEnvironment.swift */,
 				6CFEF96D2834432F00254038 /* App.swift */,
 				6CA6E3F3284013C80069CDD9 /* List */,
 				6CA6E3F4284013D70069CDD9 /* Settings */,
@@ -394,6 +405,7 @@
 				6CA853EC283ABB3E0010E85B /* Settings.swift in Sources */,
 				6CA6E400284152B90069CDD9 /* ListItem.swift in Sources */,
 				6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */,
+				6CF5CC6F2846A35700117790 /* FeedbackGenerator.swift in Sources */,
 				6CFEF97A2834433100254038 /* EmojiShoppingList.xcdatamodeld in Sources */,
 				6CFEF96E2834432F00254038 /* App.swift in Sources */,
 				6CF5CC6B28469A0B00117790 /* SharedEnvironment.swift in Sources */,
