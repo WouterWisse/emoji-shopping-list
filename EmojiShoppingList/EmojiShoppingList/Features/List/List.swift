@@ -72,7 +72,7 @@ let listReducer = Reducer<ListState, ListAction, ListEnvironment>.combine(
                 return Effect(value: .sortItems)
                     .debounce(
                         id: DebounceId(),
-                        for: .milliseconds(500),
+                        for: .seconds(1),
                         scheduler: environment.mainQueue()
                             .animation()
                             .eraseToAnyScheduler()
