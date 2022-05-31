@@ -142,41 +142,37 @@ struct ListView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            List {
-                if viewStore.isDeletePresented {
-                    DeleteView(
-                        store: self.store.scope(
-                            state: \.deleteState,
-                            action: ListAction.deleteAction
+            GeometryReader { geometryProxy in
+                List {
+                    if viewStore.isDeletePresented {
+                        DeleteView(
+                            store: self.store.scope(
+                                state: \.deleteState,
+                                action: ListAction.deleteAction
+                            )
                         )
-                    )
-                } else {
-                    InputView(
-                        store: self.store.scope(
-                            state: \.inputState,
-                            action: ListAction.inputAction
+                    } else {
+                        InputView(
+                            store: self.store.scope(
+                                state: \.inputState,
+                                action: ListAction.inputAction
+                            )
                         )
-                    )
-                }
-                
-                ForEachStore(
-                    self.store.scope(
-                        state: \.items,
-                        action: ListAction.listItem(id:action:)
-                    ),
-                    content: ListItemView.init(store:)
-                )
-                
-                if viewStore.items.isEmpty {
-                    VStack {
-                        Text("👀")
-                            .font(.largeTitle)
-                        Text("Nothing on your list yet")
-                            .font(.headline)
-                            .opacity(0.25)
                     }
-                    .frame(maxWidth: .infinity, minHeight: 300, maxHeight: .infinity, alignment: .center)
-                    .listRowSeparator(.hidden)
+                    
+                    ForEachStore(
+                        self.store.scope(
+                            state: \.items,
+                            action: ListAction.listItem(id:action:)
+                        ),
+                        content: ListItemView.init(store:)
+                    )
+                    
+                    if viewStore.items.isEmpty {
+                        EmptyStateView(
+                            height: geometryProxy.size.height - geometryProxy.safeAreaInsets.top
+                        )
+                    }
                 }
             }
             .listStyle(.plain)
@@ -185,6 +181,27 @@ struct ListView: View {
                 viewStore.send(.onAppear)
             }
         }
+    }
+}
+
+struct EmptyStateView: View {
+    let height: CGFloat
+    
+    var body: some View {
+        VStack {
+            Text("👀")
+                .font(.largeTitle)
+            Text("Nothing on your list yet")
+                .font(.headline)
+                .opacity(0.25)
+        }
+        .frame(
+            maxWidth: .infinity,
+            minHeight: height,
+            maxHeight: .infinity,
+            alignment: .center
+        )
+        .listRowSeparator(.hidden)
     }
 }
 
