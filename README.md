@@ -18,3 +18,5 @@
 - [ ] Add RevenueCat for IAP
 - [ ] Fastlane
 - [ ] Github Actions workflows
+- [ ] Localization
+- [ ] Add all Emoji's
