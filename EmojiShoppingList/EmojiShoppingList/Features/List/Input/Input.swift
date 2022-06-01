@@ -5,7 +5,7 @@ import ComposableArchitecture
 
 struct InputState: Equatable {
     @BindableState var inputText: String = ""
-    @BindableState var focusedField: Field? = .input
+    @BindableState var focusedField: Field?
     var isFirstFieldFocus: Bool = true
     
     enum Field: String, Hashable {
