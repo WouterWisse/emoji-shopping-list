@@ -89,14 +89,22 @@ struct DeleteView: View {
     }
 }
 
+// MARK: Preview
+
 struct DeleteView_Previews: PreviewProvider {
+    static let colorSchemes: [ColorScheme] = [.light, .dark]
     static var previews: some View {
-        DeleteView(
-            store: Store(
-                initialState: DeleteState(),
-                reducer: deleteReducer,
-                environment: .mock(environment: DeleteEnvironment())
+        ForEach(colorSchemes, id: \.self) { colorScheme in
+            DeleteView(
+                store: Store(
+                    initialState: DeleteState(),
+                    reducer: deleteReducer,
+                    environment: .mock(environment: DeleteEnvironment())
+                )
             )
-        )
+            .preferredColorScheme(colorScheme)
+            .previewLayout(.sizeThatFits)
+            .padding()
+        }
     }
 }
