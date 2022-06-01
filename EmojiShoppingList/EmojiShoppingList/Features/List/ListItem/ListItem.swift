@@ -34,6 +34,26 @@ struct ListItem: Equatable, Identifiable {
     }
 }
 
+extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
+    static let preview: Self = [
+        ListItem(
+            id: NSManagedObjectID(),
+            title: "Avocado",
+            isDone: false,
+            amount: 1,
+            createdAt: Date.distantFuture
+        ),
+        
+        ListItem(
+            id: NSManagedObjectID(),
+            title: "Eggplant",
+            isDone: true,
+            amount: 2,
+            createdAt: Date.distantPast
+        ),
+    ]
+}
+
 enum ListItemAction: Equatable {
     case incrementAmount
     case decrementAmount
@@ -56,7 +76,7 @@ let listItemReducer = Reducer<
         
     case .decrementAmount:
         environment.feedbackGenerator().impact(.soft)
-        if state.amount > 1 {        
+        if state.amount > 1 {
             state.amount -= 1
         }
         return .none
@@ -288,18 +308,26 @@ extension ListItem {
     }
 }
 
-//struct ListItemView_Previews: PreviewProvider {
-//    static let items: [Item] = [PersistenceController.previewItem, PersistenceController.previewDoneItem]
-//    static let colorSchemes: [ColorScheme] = [.light, .dark]
-//
-//    static var previews: some View {
-//        ForEach(items, id: \.self) { item in
-//            ForEach(colorSchemes, id: \.self) { colorScheme in
-//                ListItemView(item: item)
-//                    .preferredColorScheme(colorScheme)
-//                    .previewLayout(.sizeThatFits)
-//                    .padding()
-//            }
-//        }
-//    }
-//}
+// MARK: Preview
+
+struct ListItemView_Previews: PreviewProvider {
+    static let previewItems: IdentifiedArrayOf<ListItem> = .preview
+    static let colorSchemes: [ColorScheme] = [.light, .dark]
+    
+    static var previews: some View {
+        ForEach(previewItems) { item in
+            ForEach(colorSchemes, id: \.self) { colorScheme in
+                ListItemView(
+                    store: Store(
+                        initialState: item,
+                        reducer: listItemReducer,
+                        environment: .mock(environment: ListItemEnvironment())
+                    )
+                )
+                .preferredColorScheme(colorScheme)
+                .previewLayout(.sizeThatFits)
+                .padding()
+            }
+        }
+    }
+}

@@ -212,18 +212,6 @@ struct EmptyStateView: View {
 
 // MARK: - Preview
 
-extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
-    static let preview: Self = [
-        ListItem(
-            id: NSManagedObjectID(),
-            title: "Avocado",
-            isDone: false,
-            amount: 1,
-            createdAt: Date()
-        ),
-    ]
-}
-
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
         ListView(
