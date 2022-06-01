@@ -53,6 +53,7 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
         }
     }
 )
+//.debug()
 
 // MARK: - View
 

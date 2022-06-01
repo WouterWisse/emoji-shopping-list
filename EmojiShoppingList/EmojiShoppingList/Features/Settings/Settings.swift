@@ -22,6 +22,7 @@ let settingsReducer = Reducer<
         
     }
 }
+.debug()
 
 // MARK: - View
 

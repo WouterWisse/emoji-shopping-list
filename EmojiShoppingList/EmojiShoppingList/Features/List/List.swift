@@ -97,7 +97,7 @@ let listReducer = Reducer<
             
         case .inputAction(let inputAction):
             switch inputAction {
-            case .dismissKeyboard, .binding, .focusInputField:
+            case .dismissKeyboard, .binding, .prepareForNextItem:
                 return .none
                 
             case .submit(let title):
@@ -128,6 +128,7 @@ let listReducer = Reducer<
         }
     }
 )
+//.debug()
 
 // MARK: - View
 

@@ -34,6 +34,7 @@ let deleteReducer = Reducer<
         return .none
     }
 }
+//.debug()
 
 // MARK: - View
 
