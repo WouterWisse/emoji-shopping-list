@@ -34,26 +34,6 @@ struct ListItem: Equatable, Identifiable {
     }
 }
 
-extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
-    static let preview: Self = [
-        ListItem(
-            id: NSManagedObjectID(),
-            title: "Avocado",
-            isDone: false,
-            amount: 1,
-            createdAt: Date.distantFuture
-        ),
-        
-        ListItem(
-            id: NSManagedObjectID(),
-            title: "Eggplant",
-            isDone: true,
-            amount: 2,
-            createdAt: Date.distantPast
-        ),
-    ]
-}
-
 enum ListItemAction: Equatable {
     case incrementAmount
     case decrementAmount
