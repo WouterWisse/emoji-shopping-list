@@ -56,7 +56,9 @@ let listItemReducer = Reducer<
         
     case .decrementAmount:
         environment.feedbackGenerator().impact(.soft)
-        state.amount -= 1
+        if state.amount > 1 {        
+            state.amount -= 1
+        }
         return .none
         
     case .delete:
@@ -192,7 +194,7 @@ extension ListItem {
         colorDict["Melon"] = .green
         colorDict["Pear"] = .green
         colorDict["Water melon"] = .red
-        colorDict["Grapes"] = .red
+        colorDict["Grapes"] = .pink
         colorDict["Peach"] = .orange
         colorDict["Pineapple"] = .yellow
         
