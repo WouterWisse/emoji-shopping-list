@@ -6,6 +6,7 @@ import ComposableArchitecture
 struct InputState: Equatable {
     @BindableState var inputText: String = ""
     @BindableState var focusedField: Field? = .input
+    var isFirstFieldFocus: Bool = true
     
     enum Field: String, Hashable {
         case input
@@ -16,7 +17,7 @@ enum InputAction: BindableAction {
     case binding(BindingAction<InputState>)
     case submit(String)
     case dismissKeyboard
-    case focusInputField
+    case prepareForNextItem
 }
 
 struct InputEnvironment {}
@@ -29,24 +30,15 @@ let inputReducer = Reducer<
     struct TimerId: Hashable {}
     switch action {
     case .submit:
-        guard !state.inputText.isEmpty else {
-            return Effect(value: .dismissKeyboard)
-        }
-        
-        state.inputText = ""
-        return Effect(value: .focusInputField)
-            .debounce(
-                id: TimerId(),
-                for: .milliseconds(100),
-                scheduler: environment.mainQueue().eraseToAnyScheduler()
-            )
+        return .none
         
     case .dismissKeyboard:
         state.focusedField = nil
         return .none
         
-    case .focusInputField:
-        state.focusedField = .input
+    case .prepareForNextItem:
+        state.isFirstFieldFocus = false
+        state.inputText = ""
         return .none
         
     case .binding(\.$inputText):
@@ -87,6 +79,14 @@ struct InputView: View {
                         viewStore.send(.submit(viewStore.inputText))
                     }
                 }
+                .onChange(of: focusedField) { _ in
+                    if viewStore.state.inputText.isEmpty && !viewStore.isFirstFieldFocus {
+                        focusedField = nil
+                    } else {
+                        focusedField = .input
+                        viewStore.send(.prepareForNextItem)
+                    }
+                }
                 
                 Spacer()
                 
@@ -96,11 +96,11 @@ struct InputView: View {
                             viewStore.send(.dismissKeyboard)
                         }
                     } label: {
-                        Image(systemName: "keyboard.chevron.compact.down")
+                        Image(systemName: viewStore.inputText.isEmpty ? "checkmark.circle.fill": "xmark.circle.fill")
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.regular)
-                    .tint(.accentColor)
+                    .tint(viewStore.inputText.isEmpty ? .green : .red)
                 }
             }
             .synchronize(viewStore.binding(\.$focusedField), self.$focusedField)
