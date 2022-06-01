@@ -57,8 +57,9 @@ let inputReducer = Reducer<
 // MARK: - View
 
 struct InputView: View {
-    @FocusState var focusedField: InputState.Field?
     let store: Store<InputState, InputAction>
+    
+    @FocusState var focusedField: InputState.Field?
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
@@ -92,7 +93,7 @@ struct InputView: View {
                 
                 Spacer()
                 
-                if focusedField != nil {
+                if viewStore.focusedField != nil {
                     Button {
                         withAnimation {
                             viewStore.send(.dismissKeyboard)
@@ -114,13 +115,25 @@ struct InputView: View {
 // MARK: - Preview
 
 struct InputView_Previews: PreviewProvider {
+    static let colorSchemes: [ColorScheme] = [.light, .dark]
+    static let inputTexts: [String] = ["", "Avocado"]
     static var previews: some View {
-        InputView(
-            store: Store(
-                initialState: InputState(),
-                reducer: inputReducer,
-                environment: .mock(environment: InputEnvironment())
-            )
-        )
+        ForEach(inputTexts, id: \.self) { inputText in
+            ForEach(colorSchemes, id: \.self) { colorScheme in
+                InputView(
+                    store: Store(
+                        initialState: InputState(
+                            inputText: inputText,
+                            focusedField: .input
+                        ),
+                        reducer: inputReducer,
+                        environment: .mock(environment: InputEnvironment())
+                    )
+                )
+                .preferredColorScheme(colorScheme)
+                .previewLayout(.sizeThatFits)
+                .padding()
+            }
+        }
     }
 }
