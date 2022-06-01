@@ -29,13 +29,21 @@ let settingsReducer = Reducer<
 struct SettingsView: View {
     let store: Store<SettingsState, SettingsAction>
     
+    @State var isSheetPresented: Bool = false
+    
     var body: some View {
         WithViewStore(self.store) { viewStore in
             NavigationView {
                 List {
-                    Section {
-                        SettingsItemListView(emoji: "✏️", color: .yellow, title: "Change list name")
+                    Section("Settings") {
+                        SettingsItemListView(emoji: "🔧", color: .gray, title: "Settings")
                         SettingsItemListView(emoji: "🤩", color: .yellow, title: "Rate on AppStore")
+                        
+                        Button {
+                            isSheetPresented.toggle()
+                        } label: {
+                            SettingsItemListView(emoji: "👨🏼‍💻", color: .blue, title: "About the app")
+                        }
                     }
                     
                     Section("Consider a donation") {
@@ -43,28 +51,9 @@ struct SettingsView: View {
                         DonateListView(emoji: "☕️", color: .brown, title: "Buy me a coffee", price: "$2.99")
                         DonateListView(emoji: "🍺", color: .yellow, title: "Buy me a beer", price: "$4.99")
                     }
-                    
-                    Section {
-                        VStack {
-                            Image("Icon")
-                                .resizable()
-                                .frame(width: 60, height: 60, alignment: .center)
-                                .cornerRadius(12)
-                            Text("1.0")
-                                .font(.caption)
-                            
-                            Button {
-                                UIApplication.shared.open(URL(string: "http://www.twitter.com/wouterwisse")!)
-                            } label: {
-                                Text("👨🏼‍💻 @WouterWisse")
-                            }
-                            .tint(.gray)
-                            .buttonStyle(.bordered)
-                            .controlSize(.small)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    }
-                    .listRowBackground(Color.clear)
+                }
+                .sheet(isPresented: $isSheetPresented) {
+                    AboutTheAppView()
                 }
                 .listStyle(.insetGrouped)
                 .navigationBarTitleDisplayMode(.inline)
@@ -126,6 +115,45 @@ struct DonateListView: View {
         .padding(.vertical, 8)
     }
 }
+
+struct AboutTheAppView: View {
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 8) {
+            Image("Icon")
+                .resizable()
+                .frame(width: 124, height: 124, alignment: .center)
+                .cornerRadius(24)
+                
+                Text("Emoji Shopping List")
+                    .font(.headline)
+                Text("Super simple & fun shopping list that links emoji to products.")
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                
+                Spacer()
+                    .frame(height: 20, alignment: .center)
+            
+                Text("Developed with ❤️ by")
+                    .font(.caption)
+                
+            Button {
+                UIApplication.shared.open(URL(string: "http://www.twitter.com/wouterwisse")!)
+            } label: {
+                Text("👨🏼‍💻 @WouterWisse")
+                    .font(.headline)
+            }
+            .tint(.blue)
+            .buttonStyle(.bordered)
+            .controlSize(.regular)
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .navigationTitle("About")
+        }
+    }
+}
+
+// MARK: Preview
 
 struct SettingsView_Previews: PreviewProvider {
     static let colorSchemes: [ColorScheme] = [.light, .dark]
