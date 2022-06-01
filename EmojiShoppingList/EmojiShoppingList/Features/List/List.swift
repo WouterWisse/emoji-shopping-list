@@ -137,47 +137,57 @@ struct ListView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            GeometryReader { geometryProxy in
-                List {
-                    if viewStore.deleteState.isPresented {
-                        DeleteView(
-                            store: self.store.scope(
-                                state: \.deleteState,
-                                action: ListAction.deleteAction
+            ScrollViewReader { scrollProxy in
+                GeometryReader { geometryProxy in
+                    List {
+                        if viewStore.deleteState.isPresented {
+                            DeleteView(
+                                store: self.store.scope(
+                                    state: \.deleteState,
+                                    action: ListAction.deleteAction
+                                )
                             )
-                        )
-                    } else {
-                        InputView(
-                            store: self.store.scope(
-                                state: \.inputState,
-                                action: ListAction.inputAction
+                            .id(DeleteViewID())
+                        } else {
+                            InputView(
+                                store: self.store.scope(
+                                    state: \.inputState,
+                                    action: ListAction.inputAction
+                                )
                             )
+                        }
+                        
+                        ForEachStore(
+                            self.store.scope(
+                                state: \.items,
+                                action: ListAction.listItem(id:action:)
+                            ),
+                            content: ListItemView.init(store:)
                         )
+                        
+                        if viewStore.items.isEmpty {
+                            EmptyStateView(
+                                height: geometryProxy.size.height - geometryProxy.safeAreaInsets.top
+                            )
+                        }
                     }
-                    
-                    ForEachStore(
-                        self.store.scope(
-                            state: \.items,
-                            action: ListAction.listItem(id:action:)
-                        ),
-                        content: ListItemView.init(store:)
-                    )
-                    
-                    if viewStore.items.isEmpty {
-                        EmptyStateView(
-                            height: geometryProxy.size.height - geometryProxy.safeAreaInsets.top
-                        )
+                    .listStyle(.plain)
+                    .navigationTitle("Shopping List")
+                    .onAppear {
+                        viewStore.send(.onAppear)
                     }
+                    .onChange(of: viewStore.state.deleteState.isPresented, perform: { isPresented in
+                        if isPresented {
+                            withAnimation { scrollProxy.scrollTo(DeleteViewID(), anchor: .top) }
+                        }
+                    })
                 }
-            }
-            .listStyle(.plain)
-            .navigationTitle("Shopping List")
-            .onAppear {
-                viewStore.send(.onAppear)
             }
         }
     }
 }
+
+private struct DeleteViewID: Hashable {}
 
 struct EmptyStateView: View {
     let height: CGFloat
