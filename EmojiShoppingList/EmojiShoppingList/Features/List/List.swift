@@ -47,10 +47,14 @@ let listReducer = Reducer<
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
-            let items = environment.persistence().items()
-            var listItems: IdentifiedArrayOf<ListItem> = []
-            items.forEach { listItems.append(ListItem(item: $0)) }
-            return Effect(value: .fetched(items: listItems))
+            if state.items.isEmpty {
+                let items = environment.persistence().items()
+                var listItems: IdentifiedArrayOf<ListItem> = []
+                items.forEach { listItems.append(ListItem(item: $0)) }
+                return Effect(value: .fetched(items: listItems))
+            } else {
+                return Effect(value: .fetched(items: state.items))
+            }
             
         case .fetched(let items):
             state.items = items
@@ -213,19 +217,27 @@ struct EmptyStateView: View {
 // MARK: - Preview
 
 struct ListView_Previews: PreviewProvider {
+    static let previewItems: IdentifiedArrayOf<ListItem> = .preview
+    static let colorSchemes: [ColorScheme] = [.light, .dark]
+    
     static var previews: some View {
-        ListView(
-            store: Store(
-                initialState: ListState(
-                    items: .preview
-                ),
-                reducer: listReducer,
-                environment: .mock(
-                    environment: ListEnvironment(
-                        persistence: { .mock }
+        ForEach(colorSchemes, id: \.self) { colorScheme in
+            NavigationView {
+                ListView(
+                    store: Store(
+                        initialState: ListState(
+                            items: previewItems
+                        ),
+                        reducer: listReducer,
+                        environment: .mock(
+                            environment: ListEnvironment(
+                                persistence: { .mock }
+                            )
+                        )
                     )
                 )
-            )
-        )
+                .preferredColorScheme(colorScheme)
+            }
+        }
     }
 }
