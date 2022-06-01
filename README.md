@@ -14,9 +14,9 @@
 
 ## Todo
 - [x] Use The Composable Architeture
-- [ ] Add Unit Tests
-- [ ] Add RevenueCat for IAP
-- [ ] Fastlane
-- [ ] Github Actions workflows
 - [ ] Localization
 - [ ] Add all Emoji's
+- [ ] Add Unit Tests
+- [ ] Fastlane
+- [ ] Github Actions workflows
+- [ ] Add RevenueCat for IAP
