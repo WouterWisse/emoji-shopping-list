@@ -29,31 +29,43 @@ let settingsReducer = Reducer<
 struct SettingsView: View {
     let store: Store<SettingsState, SettingsAction>
     
-    @State var isSheetPresented: Bool = false
-    
     var body: some View {
         WithViewStore(self.store) { viewStore in
             NavigationView {
                 List {
-                    Section("Settings") {
-                        SettingsItemListView(emoji: "🔧", color: .gray, title: "Settings")
-                        SettingsItemListView(emoji: "🤩", color: .yellow, title: "Rate on AppStore")
-                        
-                        Button {
-                            isSheetPresented.toggle()
-                        } label: {
-                            SettingsItemListView(emoji: "👨🏼‍💻", color: .blue, title: "About the app")
-                        }
+                    Section("Change list name") {
+                        SettingsItemListView(emoji: "✏️", color: .yellow, title: "Shopping List")
                     }
                     
-                    Section("Consider a donation") {
-                        DonateListView(emoji: "🍏", color: .green, title: "Buy me an apple", price: "$0.99")
-                        DonateListView(emoji: "☕️", color: .brown, title: "Buy me a coffee", price: "$2.99")
-                        DonateListView(emoji: "🍺", color: .yellow, title: "Buy me a beer", price: "$4.99")
+                    Section("Show some ❤️") {
+                        SettingsItemListView(emoji: "🤩", color: .yellow, title: "Rate on AppStore")
+                        DonateListView(
+                            emoji: "🍏",
+                            color: .green,
+                            title: "Buy me an apple",
+                            price: "$0.99",
+                            action: {}
+                        )
+                        DonateListView(
+                            emoji: "☕️",
+                            color: .green,
+                            title: "Buy me a coffee",
+                            price: "$2.99",
+                            action: {}
+                        )
+                        DonateListView(
+                            emoji: "🍺",
+                            color: .green,
+                            title: "Buy me a beer",
+                            price: "$4.99",
+                            action: {}
+                        )
                     }
-                }
-                .sheet(isPresented: $isSheetPresented) {
-                    AboutTheAppView()
+                    
+                    Section {
+                        DeveloperView()
+                            .listRowBackground(Color.clear)
+                    }
                 }
                 .listStyle(.insetGrouped)
                 .navigationBarTitleDisplayMode(.inline)
@@ -88,6 +100,7 @@ struct DonateListView: View {
     let color: Color
     let title: String
     let price: String
+    let action: () -> Void
     
     var body: some View {
         HStack(spacing: 12) {
@@ -103,7 +116,7 @@ struct DonateListView: View {
             Spacer()
             
             Button {
-                // Do something
+                action()
             } label: {
                 Text(price)
             }
@@ -116,27 +129,12 @@ struct DonateListView: View {
     }
 }
 
-struct AboutTheAppView: View {
+struct DeveloperView: View {
     var body: some View {
-        NavigationView {
-            VStack(spacing: 8) {
-            Image("Icon")
-                .resizable()
-                .frame(width: 124, height: 124, alignment: .center)
-                .cornerRadius(24)
-                
-                Text("Emoji Shopping List")
-                    .font(.headline)
-                Text("Super simple & fun shopping list that links emoji to products.")
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                
-                Spacer()
-                    .frame(height: 20, alignment: .center)
+        VStack(spacing: 8) {
+            Text("Developed with 💙 by")
+                .font(.caption)
             
-                Text("Developed with ❤️ by")
-                    .font(.caption)
-                
             Button {
                 UIApplication.shared.open(URL(string: "http://www.twitter.com/wouterwisse")!)
             } label: {
@@ -148,8 +146,6 @@ struct AboutTheAppView: View {
             .controlSize(.regular)
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .navigationTitle("About")
-        }
     }
 }
 
