@@ -43,12 +43,6 @@ let inputReducer = Reducer<
         state.inputText = ""
         return .none
         
-    case .binding(\.$inputText):
-        return .none
-        
-    case .binding(\.$focusedField):
-        return .none
-        
     case .binding:
         return .none
     }
