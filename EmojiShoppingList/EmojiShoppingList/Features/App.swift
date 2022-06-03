@@ -32,7 +32,21 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
     Reducer { state, action, environment in
         switch action {
         case .listAction(let listAction):
-            return .none
+            switch listAction {
+            case .onAppear:
+                let settings = environment.settingsPersistence()
+                if let listName = settings.setting(.listName) as? String {
+                    state.listState.listName = listName
+                } else {
+                    let defaultListName = "Shopping List"
+                    settings.saveSetting(defaultListName, .listName)
+                    state.listState.listName = defaultListName
+                }
+                return .none
+                
+            default:
+                return .none
+            }
             
         case .setSettings(let isPresented):
             state.settingsState.isPresented = isPresented
@@ -48,8 +62,12 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
             state.listState.deleteState.isPresented.toggle()
             return .none
             
-        case .settingsAction:
-            return .none
+        case .settingsAction(let settingsAction):
+            switch settingsAction {
+            case .binding, .onAppear: return .none
+            case .submit:
+                return Effect(value: .listAction(.onAppear))
+            }
         }
     }
 )
