@@ -76,6 +76,13 @@ struct SettingsView: View {
                             }
                         }
                         .padding(.vertical, 8)
+                        SettingsItemListView(
+                            emoji: "📱",
+                            color: .green,
+                            title: "Change app icon",
+                            reason: "Just for fun",
+                            locked: true
+                        )
                     }
                     
                     Section {
@@ -111,13 +118,11 @@ struct SettingsView: View {
                         )
                     } header: {
                     } footer: {
-                        Text("Donations are highly appreciated and will fuel me to create new updates and features ✌️")
-                            .multilineTextAlignment(.center)
-                    }
-                    
-                    Section {
-                        DeveloperView()
-                            .listRowBackground(Color.clear)
+                        VStack(spacing: 24) {
+                            Text("Any of the above purchases will unlock the functionality to change the app's icon and will fuel me to create new features and updates. ✌️")
+                            
+                            DeveloperView()
+                        }
                     }
                 }
                 .onAppear {
@@ -136,23 +141,26 @@ struct SettingsItemListView: View {
     let color: Color
     let title: String
     let reason: String
+    var locked: Bool = false
     
     var body: some View {
         HStack(spacing: 12) {
             RoundEmojiView(
-                emoji: emoji,
-                color: color,
+                emoji: locked ? "🔒" : emoji,
+                color: locked ? .gray : color,
                 done: false
             )
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(.primary)
-                Text(reason)
+                    .foregroundColor(locked ? .secondary : .primary)
+                Text(locked ? "This functionality is locked" : reason)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
+            
+            Spacer()
         }
         .padding(.vertical, 8)
     }
