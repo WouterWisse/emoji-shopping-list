@@ -1,5 +1,6 @@
 import Foundation
 import CoreData
+import ComposableArchitecture
 
 @testable import Shopping_List
 
@@ -29,9 +30,9 @@ final class MockPersistenceController {
 
     var invokedItems = false
     var invokedItemsCount = 0
-    var stubbedItemsResult: [Item]! = []
+    var stubbedItemsResult: IdentifiedArrayOf<ListItem>! = []
 
-    func items() -> [Item] {
+    func items() -> IdentifiedArrayOf<ListItem> {
         invokedItems = true
         invokedItemsCount += 1
         return stubbedItemsResult

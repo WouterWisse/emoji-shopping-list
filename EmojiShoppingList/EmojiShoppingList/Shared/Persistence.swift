@@ -1,7 +1,8 @@
 import CoreData
+import ComposableArchitecture
 
 struct PersistenceController {
-    var items: () -> [Item]
+    var items: () -> IdentifiedArrayOf<ListItem>
     var update: (_ listItem: ListItem) -> Void
     var add: (_ title: String) -> Item?
     var delete: (_ objectID: NSManagedObjectID) -> Void
@@ -39,7 +40,9 @@ extension PersistenceController {
                 do {
                     let items = try viewContext.fetch(request) as [Item]
                     print("🍏 Items successfully fetched")
-                    return items
+                    var listItems: IdentifiedArrayOf<ListItem> = []
+                    items.forEach { listItems.append(ListItem(item: $0)) }
+                    return listItems
                 } catch {
                     print("🍎 Failed to fetch items")
                     return []
@@ -95,4 +98,8 @@ extension PersistenceController {
             }
         )
     }()
+}
+
+extension PersistenceController {
+    static let preview = PersistenceController.default
 }
