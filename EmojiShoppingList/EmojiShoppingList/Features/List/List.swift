@@ -230,7 +230,7 @@ struct ListView_Previews: PreviewProvider {
                             items: previewItems
                         ),
                         reducer: listReducer,
-                        environment: .mock(
+                        environment: .preview(
                             environment: ListEnvironment(
                                 persistence: { .mock }
                             )

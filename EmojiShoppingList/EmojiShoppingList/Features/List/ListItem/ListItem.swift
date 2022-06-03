@@ -301,7 +301,7 @@ struct ListItemView_Previews: PreviewProvider {
                     store: Store(
                         initialState: item,
                         reducer: listItemReducer,
-                        environment: .mock(environment: ListItemEnvironment())
+                        environment: .preview(environment: ListItemEnvironment())
                     )
                 )
                 .preferredColorScheme(colorScheme)

@@ -121,7 +121,7 @@ struct InputView_Previews: PreviewProvider {
                             focusedField: .input
                         ),
                         reducer: inputReducer,
-                        environment: .mock(environment: InputEnvironment())
+                        environment: .preview(environment: InputEnvironment())
                     )
                 )
                 .preferredColorScheme(colorScheme)

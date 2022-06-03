@@ -239,7 +239,7 @@ struct SettingsView_Previews: PreviewProvider {
                 store: Store(
                     initialState: SettingsState(),
                     reducer: settingsReducer,
-                    environment: .mock(
+                    environment: .preview(
                         environment: SettingsEnvironment()
                     )
                 )

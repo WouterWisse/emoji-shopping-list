@@ -21,12 +21,12 @@ extension SharedEnvironment {
         )
     }
     
-    static func mock(environment: Environment) -> Self {
+    static func preview(environment: Environment) -> Self {
         Self(
             environment: environment,
             mainQueue: { .main },
             settingsPersistence: { .default },
-            feedbackGenerator: { .mock }
+            feedbackGenerator: { .mock(nil) }
         )
     }
 }

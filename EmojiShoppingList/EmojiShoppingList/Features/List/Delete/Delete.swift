@@ -99,7 +99,7 @@ struct DeleteView_Previews: PreviewProvider {
                 store: Store(
                     initialState: DeleteState(),
                     reducer: deleteReducer,
-                    environment: .mock(environment: DeleteEnvironment())
+                    environment: .preview(environment: DeleteEnvironment())
                 )
             )
             .preferredColorScheme(colorScheme)
