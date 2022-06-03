@@ -5,10 +5,13 @@ import ComposableArchitecture
 
 struct SettingsState: Equatable {
     var isPresented: Bool = false
+    @BindableState var listNameInput: String = ""
 }
 
-enum SettingsAction {
-    
+enum SettingsAction: BindableAction {
+    case binding(BindingAction<SettingsState>)
+    case submit
+    case onAppear
 }
 
 struct SettingsEnvironment {}
@@ -19,10 +22,24 @@ let settingsReducer = Reducer<
     SharedEnvironment<SettingsEnvironment>
 > { state, action, environment in
     switch action {
+    case .onAppear:
+        guard let name = environment.settingsPersistence().setting(.listName) as? String else {
+            state.listNameInput = "Shopping List"
+            return .none
+        }
         
+        state.listNameInput = name
+        return .none
+        
+    case .submit:
+        environment.settingsPersistence().saveSetting(state.listNameInput, .listName)
+        return .none
+
+    case .binding:
+        return .none
     }
 }
-.debug()
+.binding()
 
 // MARK: - View
 
@@ -34,12 +51,31 @@ struct SettingsView: View {
             NavigationView {
                 List {
                     Section {
-                        SettingsItemListView(
-                            emoji: "✏️",
-                            color: .yellow,
-                            title: "Shopping List",
-                            reason: "Change the name of the list"
-                        )
+                        HStack(spacing: 12) {
+                            RoundEmojiView(
+                                emoji: "✏️",
+                                color: .yellow,
+                                done: false
+                            )
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                TextField(
+                                    viewStore.listNameInput,
+                                    text: viewStore.binding(\.$listNameInput),
+                                    prompt: Text("Shopping List")
+                                )
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                                .onSubmit {
+                                    viewStore.send(.submit)
+                                }
+                                
+                                Text("Change the name of the list")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.vertical, 8)
                     }
                     
                     Section {
@@ -53,7 +89,7 @@ struct SettingsView: View {
                             emoji: "🍩",
                             color: .green,
                             title: "Get me a snack",
-                            reason: "Sugar gives me energy",
+                            reason: "Gives me energy",
                             price: "$0.99",
                             action: {}
                         )
@@ -61,7 +97,7 @@ struct SettingsView: View {
                             emoji: "☕️",
                             color: .green,
                             title: "Get me a coffee",
-                            reason: "Caffeine keeps me awake",
+                            reason: "Keeps me awake",
                             price: "$2.99",
                             action: {}
                         )
@@ -69,7 +105,7 @@ struct SettingsView: View {
                             emoji: "🍺",
                             color: .green,
                             title: "Get me a beer",
-                            reason: "Beer boosts my creativity",
+                            reason: "Boosts my creativity",
                             price: "$4.99",
                             action: {}
                         )
@@ -83,6 +119,9 @@ struct SettingsView: View {
                         DeveloperView()
                             .listRowBackground(Color.clear)
                     }
+                }
+                .onAppear {
+                    viewStore.send(.onAppear)
                 }
                 .listStyle(.insetGrouped)
                 .navigationBarTitleDisplayMode(.inline)
@@ -192,10 +231,11 @@ struct SettingsView_Previews: PreviewProvider {
                 store: Store(
                     initialState: SettingsState(),
                     reducer: settingsReducer,
-                    environment: .mock(environment: SettingsEnvironment())
+                    environment: .mock(
+                        environment: SettingsEnvironment()
+                    )
                 )
             )
-            .padding()
             .preferredColorScheme(colorScheme)
         }
     }
