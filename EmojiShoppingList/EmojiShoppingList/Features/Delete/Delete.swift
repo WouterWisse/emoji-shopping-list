@@ -7,7 +7,7 @@ struct DeleteState: Equatable {
     var isPresented: Bool = false
 }
 
-enum DeleteAction {
+enum DeleteAction: Equatable {
     case deleteAllTapped
     case deleteStrikedTapped
     case cancelTapped

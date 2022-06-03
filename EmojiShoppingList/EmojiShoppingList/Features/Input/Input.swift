@@ -13,7 +13,7 @@ struct InputState: Equatable {
     }
 }
 
-enum InputAction: BindableAction {
+enum InputAction: BindableAction, Equatable {
     case binding(BindingAction<InputState>)
     case submit(String)
     case dismissKeyboard

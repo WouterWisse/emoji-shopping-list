@@ -6,8 +6,9 @@ struct PersistenceController {
     var add: (_ title: String) -> Item?
     var delete: (_ objectID: NSManagedObjectID) -> Void
     var deleteAll: (_ isDone: Bool) -> Void
-    
-    
+}
+
+extension PersistenceController {
     static let `default`: PersistenceController = {
         let container = NSPersistentCloudKitContainer(name: "EmojiShoppingList")
         container.viewContext.automaticallyMergesChangesFromParent = true
@@ -92,16 +93,6 @@ struct PersistenceController {
                     print("🍎 Failed to delete items")
                 }
             }
-        )
-    }()
-    
-    static let mock: PersistenceController = {
-        return .init(
-            items: { [] },
-            update: { _ in fatalError("Mock not implemented") },
-            add: { _ in fatalError("Mock not implemented") },
-            delete: { _ in fatalError("Mock not implemented") },
-            deleteAll: { _ in fatalError("Mock not implemented") }
         )
     }()
 }

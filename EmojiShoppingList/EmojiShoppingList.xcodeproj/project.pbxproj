@@ -13,6 +13,8 @@
 		6C260CEF284AC50200756E74 /* FeedbackGenerator+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEE284AC50200756E74 /* FeedbackGenerator+Mock.swift */; };
 		6C260CF1284AC58700756E74 /* SettingsPersistence+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF0284AC58700756E74 /* SettingsPersistence+Mock.swift */; };
 		6C260CF4284ACD5500756E74 /* ListItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF3284ACD5500756E74 /* ListItemTests.swift */; };
+		6C260CF7284ACF0A00756E74 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF6284ACF0A00756E74 /* ListTests.swift */; };
+		6C260CF9284AD14200756E74 /* Persistence+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF8284AD14200756E74 /* Persistence+Mock.swift */; };
 		6C2F28EF2848192000E85F94 /* ListItem+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F28EE2848192000E85F94 /* ListItem+Preview.swift */; };
 		6C913E7E2842DD6C00E34326 /* Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C913E7D2842DD6C00E34326 /* Delete.swift */; };
 		6CA6E3F8284015DD0069CDD9 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3F7284015DD0069CDD9 /* List.swift */; };
@@ -59,6 +61,8 @@
 		6C260CEE284AC50200756E74 /* FeedbackGenerator+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedbackGenerator+Mock.swift"; sourceTree = "<group>"; };
 		6C260CF0284AC58700756E74 /* SettingsPersistence+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsPersistence+Mock.swift"; sourceTree = "<group>"; };
 		6C260CF3284ACD5500756E74 /* ListItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemTests.swift; sourceTree = "<group>"; };
+		6C260CF6284ACF0A00756E74 /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
+		6C260CF8284AD14200756E74 /* Persistence+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Persistence+Mock.swift"; sourceTree = "<group>"; };
 		6C2F28EE2848192000E85F94 /* ListItem+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListItem+Preview.swift"; sourceTree = "<group>"; };
 		6C913E7D2842DD6C00E34326 /* Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delete.swift; sourceTree = "<group>"; };
 		6CA6E3F7284015DD0069CDD9 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 				6C260CEC284AC46500756E74 /* SharedEnvironment+Mock.swift */,
 				6C260CEE284AC50200756E74 /* FeedbackGenerator+Mock.swift */,
 				6C260CF0284AC58700756E74 /* SettingsPersistence+Mock.swift */,
+				6C260CF8284AD14200756E74 /* Persistence+Mock.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -130,6 +135,7 @@
 		6C260CF5284ACED100756E74 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				6C260CF6284ACF0A00756E74 /* ListTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -219,6 +225,7 @@
 				6CF5CC6A28469A0B00117790 /* SharedEnvironment.swift */,
 				6CF5CC6E2846A35700117790 /* FeedbackGenerator.swift */,
 				6C260CE7284A940F00756E74 /* SettingsPersistence.swift */,
+				6CFEF9762834433100254038 /* Persistence.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -250,7 +257,7 @@
 				6CD569682842A4250022DBE3 /* Reusable */,
 				6CF5CC6D2846A34300117790 /* Shared */,
 				6CFEF99F2834442A00254038 /* Features */,
-				6CFEF99D283443FC00254038 /* Persistence */,
+				6CFEF99D283443FC00254038 /* DataModel */,
 				6CFEF99C283443F400254038 /* Resources */,
 			);
 			path = EmojiShoppingList;
@@ -281,13 +288,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		6CFEF99D283443FC00254038 /* Persistence */ = {
+		6CFEF99D283443FC00254038 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				6CFEF9762834433100254038 /* Persistence.swift */,
 				6CFEF9782834433100254038 /* EmojiShoppingList.xcdatamodeld */,
 			);
-			path = Persistence;
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 		6CFEF99F2834442A00254038 /* Features */ = {
@@ -465,8 +471,10 @@
 				6C260CEF284AC50200756E74 /* FeedbackGenerator+Mock.swift in Sources */,
 				6C260CEB284AC1C900756E74 /* InputTests.swift in Sources */,
 				6C260CED284AC46500756E74 /* SharedEnvironment+Mock.swift in Sources */,
+				6C260CF9284AD14200756E74 /* Persistence+Mock.swift in Sources */,
 				6C260CF4284ACD5500756E74 /* ListItemTests.swift in Sources */,
 				6C260CF1284AC58700756E74 /* SettingsPersistence+Mock.swift in Sources */,
+				6C260CF7284ACF0A00756E74 /* ListTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

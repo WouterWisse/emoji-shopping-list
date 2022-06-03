@@ -11,9 +11,8 @@ struct ListState: Equatable {
     var listName: String = "Shopping List"
 }
 
-enum ListAction {
+enum ListAction: Equatable {
     case onAppear
-    case fetched(items: IdentifiedArrayOf<ListItem>)
     case deleteButtonTapped
     case sortItems
     case listItem(id: ListItem.ID, action: ListItemAction)
@@ -52,14 +51,11 @@ let listReducer = Reducer<
                 let items = environment.persistence().items()
                 var listItems: IdentifiedArrayOf<ListItem> = []
                 items.forEach { listItems.append(ListItem(item: $0)) }
-                return Effect(value: .fetched(items: listItems))
+                state.items = listItems
+                return Effect(value: .sortItems)
             } else {
-                return Effect(value: .fetched(items: state.items))
+                return Effect(value: .sortItems)
             }
-            
-        case .fetched(let items):
-            state.items = items
-            return Effect(value: .sortItems)
             
         case .listItem(let id, let action):
             guard let item = state.items[id: id] else { return .none }
