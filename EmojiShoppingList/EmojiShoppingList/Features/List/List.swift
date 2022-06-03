@@ -48,10 +48,7 @@ let listReducer = Reducer<
         switch action {
         case .onAppear:
             if state.items.isEmpty {
-                let items = environment.persistence().items()
-                var listItems: IdentifiedArrayOf<ListItem> = []
-                items.forEach { listItems.append(ListItem(item: $0)) }
-                state.items = listItems
+                state.items = environment.persistence().items()
                 return Effect(value: .sortItems)
             } else {
                 return Effect(value: .sortItems)
@@ -237,7 +234,7 @@ struct ListView_Previews: PreviewProvider {
                         reducer: listReducer,
                         environment: .preview(
                             environment: ListEnvironment(
-                                persistence: { .mock }
+                                persistence: { .preview }
                             )
                         )
                     )
