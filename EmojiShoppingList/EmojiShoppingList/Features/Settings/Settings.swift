@@ -33,33 +33,50 @@ struct SettingsView: View {
         WithViewStore(self.store) { viewStore in
             NavigationView {
                 List {
-                    Section("Change list name") {
-                        SettingsItemListView(emoji: "✏️", color: .yellow, title: "Shopping List")
+                    Section {
+                        SettingsItemListView(
+                            emoji: "✏️",
+                            color: .yellow,
+                            title: "Shopping List",
+                            reason: "Change the name of the list"
+                        )
                     }
                     
-                    Section("Show some ❤️") {
-                        SettingsItemListView(emoji: "🤩", color: .yellow, title: "Rate on AppStore")
+                    Section {
+                        SettingsItemListView(
+                            emoji: "🤩",
+                            color: .yellow,
+                            title: "Rate on AppStore",
+                            reason: "Let me know what you think!"
+                        )
                         DonateListView(
-                            emoji: "🍏",
+                            emoji: "🍩",
                             color: .green,
-                            title: "Buy me an apple",
+                            title: "Get me a snack",
+                            reason: "Sugar gives me energy",
                             price: "$0.99",
                             action: {}
                         )
                         DonateListView(
                             emoji: "☕️",
                             color: .green,
-                            title: "Buy me a coffee",
+                            title: "Get me a coffee",
+                            reason: "Caffeine keeps me awake",
                             price: "$2.99",
                             action: {}
                         )
                         DonateListView(
                             emoji: "🍺",
                             color: .green,
-                            title: "Buy me a beer",
+                            title: "Get me a beer",
+                            reason: "Beer boosts my creativity",
                             price: "$4.99",
                             action: {}
                         )
+                    } header: {
+                    } footer: {
+                        Text("Donations are highly appreciated and will fuel me to create new updates and features ✌️")
+                            .multilineTextAlignment(.center)
                     }
                     
                     Section {
@@ -79,6 +96,7 @@ struct SettingsItemListView: View {
     let emoji: String
     let color: Color
     let title: String
+    let reason: String
     
     var body: some View {
         HStack(spacing: 12) {
@@ -88,8 +106,14 @@ struct SettingsItemListView: View {
                 done: false
             )
             
-            Text(title)
-                .font(.headline)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                Text(reason)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
         }
         .padding(.vertical, 8)
     }
@@ -99,6 +123,7 @@ struct DonateListView: View {
     let emoji: String
     let color: Color
     let title: String
+    let reason: String
     let price: String
     let action: () -> Void
     
@@ -110,8 +135,14 @@ struct DonateListView: View {
                 done: false
             )
             
-            Text(title)
-                .font(.headline)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                Text(reason)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
             
             Spacer()
             
@@ -132,18 +163,19 @@ struct DonateListView: View {
 struct DeveloperView: View {
     var body: some View {
         VStack(spacing: 8) {
-            Text("Developed with 💙 by")
+            Text("Developed with 💙")
                 .font(.caption)
+                .foregroundColor(.secondary)
             
             Button {
                 UIApplication.shared.open(URL(string: "http://www.twitter.com/wouterwisse")!)
             } label: {
                 Text("👨🏼‍💻 @WouterWisse")
-                    .font(.headline)
+                    .font(.caption)
             }
             .tint(.blue)
             .buttonStyle(.bordered)
-            .controlSize(.regular)
+            .controlSize(.small)
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
