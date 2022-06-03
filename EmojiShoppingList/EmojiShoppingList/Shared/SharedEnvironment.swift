@@ -26,7 +26,7 @@ extension SharedEnvironment {
             environment: environment,
             mainQueue: { .main },
             settingsPersistence: { .default },
-            feedbackGenerator: { .mock(nil) }
+            feedbackGenerator: { .default() }
         )
     }
 }
