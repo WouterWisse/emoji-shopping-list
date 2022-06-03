@@ -8,6 +8,7 @@ struct ListState: Equatable {
     var items: IdentifiedArrayOf<ListItem> = []
     var inputState = InputState()
     var deleteState = DeleteState()
+    var listName: String = "Shopping List"
 }
 
 enum ListAction {
@@ -176,11 +177,11 @@ struct ListView: View {
                         }
                     }
                     .listStyle(.plain)
-                    .navigationTitle("Shopping List")
+                    .navigationTitle(viewStore.listName)
                     .onAppear {
                         viewStore.send(.onAppear)
                     }
-                    .onChange(of: viewStore.state.deleteState.isPresented, perform: { isPresented in
+                    .onChange(of: viewStore.deleteState.isPresented, perform: { isPresented in
                         if isPresented {
                             withAnimation { scrollProxy.scrollTo(DeleteViewID(), anchor: .top) }
                         }
