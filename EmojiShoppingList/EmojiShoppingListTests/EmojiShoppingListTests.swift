@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import EmojiShoppingList
+@testable import Shopping_List
 
 class EmojiShoppingListTests: XCTestCase {
 
