@@ -22,15 +22,12 @@ let deleteReducer = Reducer<
 > { state, action, environment in
     switch action {
     case .deleteAllTapped:
-        environment.feedbackGenerator().notify(.error)
         return .none
         
     case .deleteStrikedTapped:
-        environment.feedbackGenerator().notify(.error)
         return .none
         
     case .cancelTapped:
-        environment.feedbackGenerator().impact(.soft)
         return .none
     }
 }

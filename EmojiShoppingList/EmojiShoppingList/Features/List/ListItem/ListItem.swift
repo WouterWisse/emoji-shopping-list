@@ -62,7 +62,6 @@ let listItemReducer = Reducer<
         return .none
         
     case .delete:
-        environment.feedbackGenerator().impact(.rigid)
         return .none
         
     case .toggleDone:

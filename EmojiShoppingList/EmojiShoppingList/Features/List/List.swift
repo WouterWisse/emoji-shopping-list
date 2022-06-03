@@ -84,6 +84,7 @@ let listReducer = Reducer<
             case .delete:
                 state.items.remove(item)
                 environment.persistence().delete(item.id)
+                environment.feedbackGenerator().impact(.rigid)
                 return Effect(value: .sortItems)
             }
             
@@ -102,10 +103,15 @@ let listReducer = Reducer<
             
         case .inputAction(let inputAction):
             switch inputAction {
-            case .dismissKeyboard, .binding, .prepareForNextItem:
+            case .dismissKeyboard:
+                environment.feedbackGenerator().impact(.soft)
+                return .none
+                
+            case .binding, .prepareForNextItem:
                 return .none
                 
             case .submit(let title):
+                environment.feedbackGenerator().impact(.soft)
                 guard
                     title.isEmpty == false,
                     let newItem = environment.persistence().add(title)
@@ -120,14 +126,17 @@ let listReducer = Reducer<
             case .deleteAllTapped:
                 state.items.removeAll()
                 environment.persistence().deleteAll(false)
+                environment.feedbackGenerator().notify(.error)
                 return Effect(value: .deleteButtonTapped)
                 
             case .deleteStrikedTapped:
                 state.items.removeAll(where: { $0.isDone })
                 environment.persistence().deleteAll(true)
+                environment.feedbackGenerator().notify(.error)
                 return Effect(value: .deleteButtonTapped)
                 
             case .cancelTapped:
+                environment.feedbackGenerator().impact(.soft)
                 return Effect(value: .deleteButtonTapped)
             }
         }

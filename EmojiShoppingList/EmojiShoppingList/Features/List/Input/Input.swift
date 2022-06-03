@@ -30,12 +30,10 @@ let inputReducer = Reducer<
     struct TimerId: Hashable {}
     switch action {
     case .submit:
-        environment.feedbackGenerator().impact(.soft)
         return .none
         
     case .dismissKeyboard:
         state.focusedField = nil
-        environment.feedbackGenerator().impact(.soft)
         return .none
         
     case .prepareForNextItem:
