@@ -8,7 +8,7 @@ struct AppState: Equatable {
     var settingsState = SettingsState()
 }
 
-enum AppAction {
+enum AppAction: Equatable {
     case listAction(ListAction)
     case settingsAction(SettingsAction)
     case setSettings(isPresented: Bool)
@@ -35,7 +35,7 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
             switch listAction {
             case .onAppear:
                 let settings = environment.settingsPersistence()
-                if let listName = settings.setting(.listName) as? String {
+                if let listName = settings.setting(.listName) as? String, listName.isEmpty {
                     state.listState.listName = listName
                 } else {
                     let defaultListName = "Shopping List"

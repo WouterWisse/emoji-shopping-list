@@ -46,14 +46,8 @@ final class ListItemTests: XCTestCase {
         
         store.send(.incrementAmount) { state in
             state.amount = 2
-            XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedImpactCount,
-                1
-            )
-            XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle,
-                .soft
-            )
+            XCTAssertEqual(self.mockFeedbackGenerator.invokedImpactCount, 1)
+            XCTAssertEqual(self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle, .soft)
         }
     }
     
@@ -77,14 +71,8 @@ final class ListItemTests: XCTestCase {
         
         store.send(.decrementAmount) { state in
             state.amount = 1
-            XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedImpactCount,
-                1
-            )
-            XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle,
-                .soft
-            )
+            XCTAssertEqual(self.mockFeedbackGenerator.invokedImpactCount, 1)
+            XCTAssertEqual(self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle, .soft)
         }
     }
     
@@ -108,14 +96,8 @@ final class ListItemTests: XCTestCase {
         
         store.send(.toggleDone) { state in
             state.isDone = true
-            XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedImpactCount,
-                1
-            )
-            XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle,
-                .rigid
-            )
+            XCTAssertEqual(self.mockFeedbackGenerator.invokedImpactCount, 1)
+            XCTAssertEqual(self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle, .rigid)
         }
     }
 }

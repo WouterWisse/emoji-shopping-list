@@ -8,7 +8,7 @@ struct ListState: Equatable {
     var items: IdentifiedArrayOf<ListItem> = []
     var inputState = InputState()
     var deleteState = DeleteState()
-    var listName: String = "Shopping List"
+    var listName: String = ""
 }
 
 enum ListAction: Equatable {

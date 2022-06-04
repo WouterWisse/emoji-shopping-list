@@ -8,7 +8,7 @@ struct SettingsState: Equatable {
     @BindableState var listNameInput: String = ""
 }
 
-enum SettingsAction: BindableAction {
+enum SettingsAction: BindableAction, Equatable {
     case binding(BindingAction<SettingsState>)
     case submit
     case onAppear

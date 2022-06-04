@@ -15,6 +15,7 @@
 		6C260CF4284ACD5500756E74 /* ListItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF3284ACD5500756E74 /* ListItemTests.swift */; };
 		6C260CF7284ACF0A00756E74 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF6284ACF0A00756E74 /* ListTests.swift */; };
 		6C260CF9284AD14200756E74 /* Persistence+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF8284AD14200756E74 /* Persistence+Mock.swift */; };
+		6C260CFD284BC64000756E74 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CFC284BC64000756E74 /* AppTests.swift */; };
 		6C2F28EF2848192000E85F94 /* ListItem+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F28EE2848192000E85F94 /* ListItem+Preview.swift */; };
 		6C913E7E2842DD6C00E34326 /* Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C913E7D2842DD6C00E34326 /* Delete.swift */; };
 		6CA6E3F8284015DD0069CDD9 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3F7284015DD0069CDD9 /* List.swift */; };
@@ -63,6 +64,7 @@
 		6C260CF3284ACD5500756E74 /* ListItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemTests.swift; sourceTree = "<group>"; };
 		6C260CF6284ACF0A00756E74 /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		6C260CF8284AD14200756E74 /* Persistence+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Persistence+Mock.swift"; sourceTree = "<group>"; };
+		6C260CFC284BC64000756E74 /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
 		6C2F28EE2848192000E85F94 /* ListItem+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListItem+Preview.swift"; sourceTree = "<group>"; };
 		6C913E7D2842DD6C00E34326 /* Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delete.swift; sourceTree = "<group>"; };
 		6CA6E3F7284015DD0069CDD9 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
@@ -136,6 +138,23 @@
 			isa = PBXGroup;
 			children = (
 				6C260CF6284ACF0A00756E74 /* ListTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		6C260CFA284BC62200756E74 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6C260CFB284BC62B00756E74 /* Tests */,
+				6CFEF96D2834432F00254038 /* App.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		6C260CFB284BC62B00756E74 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6C260CFC284BC64000756E74 /* AppTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -299,7 +318,7 @@
 		6CFEF99F2834442A00254038 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				6CFEF96D2834432F00254038 /* App.swift */,
+				6C260CFA284BC62200756E74 /* App */,
 				6CA6E3F3284013C80069CDD9 /* List */,
 				6CA6E40B2841B4D80069CDD9 /* ListItem */,
 				6CA6E40C2841B5160069CDD9 /* Input */,
@@ -473,6 +492,7 @@
 				6C260CED284AC46500756E74 /* SharedEnvironment+Mock.swift in Sources */,
 				6C260CF9284AD14200756E74 /* Persistence+Mock.swift in Sources */,
 				6C260CF4284ACD5500756E74 /* ListItemTests.swift in Sources */,
+				6C260CFD284BC64000756E74 /* AppTests.swift in Sources */,
 				6C260CF1284AC58700756E74 /* SettingsPersistence+Mock.swift in Sources */,
 				6C260CF7284ACF0A00756E74 /* ListTests.swift in Sources */,
 			);
@@ -691,6 +711,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q6AEA497G4;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
@@ -711,6 +732,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q6AEA497G4;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
