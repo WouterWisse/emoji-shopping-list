@@ -4,7 +4,7 @@ import ComposableArchitecture
 struct PersistenceController {
     var items: () -> IdentifiedArrayOf<ListItem>
     var update: (_ listItem: ListItem) -> Void
-    var add: (_ title: String) -> Item?
+    var add: (_ title: String) -> ListItem?
     var delete: (_ objectID: NSManagedObjectID) -> Void
     var deleteAll: (_ isDone: Bool) -> Void
 }
@@ -72,7 +72,7 @@ extension PersistenceController {
                 newItem.done = false
                 save()
                 
-                return newItem
+                return ListItem(item: newItem)
             },
             delete: { objectID in
                 guard let item = viewContext.object(with: objectID) as? Item else {
