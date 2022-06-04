@@ -96,11 +96,7 @@ let listReducer = Reducer<
             
         case .inputAction(let inputAction):
             switch inputAction {
-            case .dismissKeyboard:
-                environment.feedbackGenerator().impact(.soft)
-                return .none
-                
-            case .binding, .prepareForNextItem:
+            case .binding, .prepareForNextItem, .dismissKeyboard:
                 return .none
                 
             case .submit(let title):
@@ -109,8 +105,7 @@ let listReducer = Reducer<
                     title.isEmpty == false,
                     let newItem = environment.persistence().add(title)
                 else { return .none }
-                let newListItem = ListItem(item: newItem)
-                state.items.append(newListItem)
+                state.items.append(newItem)
                 return Effect(value: .sortItems)
             }
             
@@ -120,17 +115,20 @@ let listReducer = Reducer<
                 state.items.removeAll()
                 environment.persistence().deleteAll(false)
                 environment.feedbackGenerator().notify(.error)
-                return Effect(value: .deleteButtonTapped)
+                state.deleteState.isPresented = false
+                return Effect(value: .sortItems)
                 
             case .deleteStrikedTapped:
                 state.items.removeAll(where: { $0.isDone })
                 environment.persistence().deleteAll(true)
                 environment.feedbackGenerator().notify(.error)
-                return Effect(value: .deleteButtonTapped)
+                state.deleteState.isPresented = false
+                return Effect(value: .sortItems)
                 
             case .cancelTapped:
                 environment.feedbackGenerator().impact(.soft)
-                return Effect(value: .deleteButtonTapped)
+                state.deleteState.isPresented = false
+                return Effect(value: .sortItems)
             }
         }
     }
