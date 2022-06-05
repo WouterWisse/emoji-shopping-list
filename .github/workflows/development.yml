@@ -1,0 +1,24 @@
+name: Develop
+
+on:
+  push:
+    branches:
+    - develop
+  workflow_dispatch:
+
+jobs:
+  Develop:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout 
+        timeout-minutes: 5
+        uses: actions/checkout@v1
+
+      - name: Install Dependencies
+        if: success()
+        run: bundle install
+        
+      - name: Build and Unit Tests
+        if: success()
+        run: bundle exec fastlane scan --scheme "EmojiShoppingList" --device "iPhone 13 Pro" --clean
