@@ -253,7 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				6CFEF96C2834432F00254038 /* EmojiShoppingList */,
-				6CFEF9822834433100254038 /* EmojiShoppingListTests */,
 				6CFEF98C2834433100254038 /* EmojiShoppingListUITests */,
 				6CFEF96B2834432F00254038 /* Products */,
 			);
@@ -280,13 +279,6 @@
 				6CFEF99C283443F400254038 /* Resources */,
 			);
 			path = EmojiShoppingList;
-			sourceTree = "<group>";
-		};
-		6CFEF9822834433100254038 /* EmojiShoppingListTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = EmojiShoppingListTests;
 			sourceTree = "<group>";
 		};
 		6CFEF98C2834433100254038 /* EmojiShoppingListUITests */ = {
