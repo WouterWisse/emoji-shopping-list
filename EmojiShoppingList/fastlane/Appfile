@@ -1,0 +1,8 @@
+app_identifier("com.wouterwisse.emojishoppinglist") # The bundle identifier of your app
+apple_id("accounts@wouterwisse.com") # Your Apple email address
+
+itc_team_id("117928868") # App Store Connect Team ID
+team_id("Q6AEA497G4") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
