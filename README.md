@@ -7,6 +7,6 @@
   Super simple &amp; fun shopping list that links emoji to products.
 </p>
   <p align="center">
-    <img src="https://github.com/WouterWisse/emoji-shopping-list/actions/workflows/CI.yml/badge.svg" alt="CI">
+    <img src="https://github.com/WouterWisse/emoji-shopping-list/actions/workflows/development.yml/badge.svg" alt="Build & Unit Tests">
   </p>
 </p>
