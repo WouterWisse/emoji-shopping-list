@@ -66,6 +66,7 @@ struct SettingsView: View {
                                 )
                                 .font(.headline)
                                 .foregroundColor(.primary)
+                                .submitLabel(.done)
                                 .onSubmit {
                                     viewStore.send(.submit)
                                 }
