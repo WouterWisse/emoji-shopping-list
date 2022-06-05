@@ -35,7 +35,7 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
             switch listAction {
             case .onAppear:
                 let settings = environment.settingsPersistence()
-                if let listName = settings.setting(.listName) as? String, listName.isEmpty {
+                if let listName = settings.setting(.listName) as? String, !listName.isEmpty {
                     state.listState.listName = listName
                 } else {
                     let defaultListName = "Shopping List"
