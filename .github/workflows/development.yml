@@ -1,4 +1,4 @@
-name: Develop
+name: Build & Unit Tests
 
 on:
   push:
