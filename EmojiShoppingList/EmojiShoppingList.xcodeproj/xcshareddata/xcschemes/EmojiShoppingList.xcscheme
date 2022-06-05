@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6CFEF9692834432F00254038"
-               BuildableName = "List.app"
+               BuildableName = "Shopping List.app"
                BlueprintName = "EmojiShoppingList"
                ReferencedContainer = "container:EmojiShoppingList.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6CFEF9692834432F00254038"
-            BuildableName = "List.app"
+            BuildableName = "Shopping List.app"
             BlueprintName = "EmojiShoppingList"
             ReferencedContainer = "container:EmojiShoppingList.xcodeproj">
          </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6CFEF9692834432F00254038"
-            BuildableName = "List.app"
+            BuildableName = "Shopping List.app"
             BlueprintName = "EmojiShoppingList"
             ReferencedContainer = "container:EmojiShoppingList.xcodeproj">
          </BuildableReference>
