@@ -174,7 +174,7 @@ final class ListTests: XCTestCase {
     func test_inputAction_submit() {
         let item = ListItem(
             id: NSManagedObjectID(),
-            title: "Broccoli",
+            title: "Avocado",
             isDone: false,
             amount: 1,
             createdAt: Date.distantPast
@@ -288,7 +288,10 @@ final class ListTests: XCTestCase {
         ]
         
         let store = TestStore(
-            initialState: ListState(items: items, deleteState: DeleteState(isPresented: true)),
+            initialState: ListState(
+                items: items,
+                deleteState: DeleteState(isPresented: true)
+            ),
             reducer: listReducer,
             environment: .mock(
                 environment: ListEnvironment(persistence: { .mock(self.mockPersistenceController) }),
