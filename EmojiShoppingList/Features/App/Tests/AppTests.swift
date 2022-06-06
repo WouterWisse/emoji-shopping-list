@@ -35,7 +35,8 @@ final class AppTests: XCTestCase {
             reducer: appReducer,
             environment: .mock(
                 environment: AppEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -55,7 +56,8 @@ final class AppTests: XCTestCase {
             reducer: appReducer,
             environment: .mock(
                 environment: AppEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -75,7 +77,8 @@ final class AppTests: XCTestCase {
             reducer: appReducer,
             environment: .mock(
                 environment: AppEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -97,7 +100,8 @@ final class AppTests: XCTestCase {
             reducer: appReducer,
             environment: .mock(
                 environment: AppEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -118,7 +122,8 @@ final class AppTests: XCTestCase {
             reducer: appReducer,
             environment: .mock(
                 environment: AppEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -139,7 +144,8 @@ final class AppTests: XCTestCase {
             reducer: appReducer,
             environment: .mock(
                 environment: AppEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -149,106 +155,6 @@ final class AppTests: XCTestCase {
             $0.listState.deleteState.isPresented = false
             XCTAssertEqual(self.mockFeedbackGenerator.invokedImpactCount, 1)
             XCTAssertEqual(self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle, .soft)
-        }
-    }
-    
-    // MARK: List Action
-    
-    func test_listAction_onAppear_shouldGetListNameFromSettings() {
-        mockSettingsPersistence.stubbedSettingResult = "Pizza Night"
-        
-        let listItem = ListItem(
-            id: NSManagedObjectID(),
-            title: "Avocado",
-            isDone: false,
-            amount: 1,
-            createdAt: Date()
-        )
-        
-        let store = TestStore(
-            initialState: AppState(listState: ListState(items: [listItem])),
-            reducer: appReducer,
-            environment: .mock(
-                environment: AppEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
-                settingsPersistence: mockSettingsPersistence,
-                feedbackGenerator: mockFeedbackGenerator
-            )
-        )
-        
-        store.send(.listAction(.onAppear)) {
-            $0.listState.listName = "Pizza Night"
-            store.receive(.listAction(.sortItems))
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSettingCount, 1)
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSettingParameters?.key, .listName)
-        }
-    }
-    
-    func test_listAction_onAppear_withNoSavedListName_shouldCreateNewDefaultListName() {
-        mockSettingsPersistence.stubbedSettingResult = nil
-        
-        let listItem = ListItem(
-            id: NSManagedObjectID(),
-            title: "Avocado",
-            isDone: false,
-            amount: 1,
-            createdAt: Date()
-        )
-        
-        let store = TestStore(
-            initialState: AppState(listState: ListState(items: [listItem])),
-            reducer: appReducer,
-            environment: .mock(
-                environment: AppEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
-                settingsPersistence: mockSettingsPersistence,
-                feedbackGenerator: mockFeedbackGenerator
-            )
-        )
-        
-        store.send(.listAction(.onAppear)) {
-            $0.listState.listName = "Shopping List"
-            store.receive(.listAction(.sortItems))
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingCount, 1)
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingParameters?.key, .listName)
-            XCTAssertEqual(
-                self.mockSettingsPersistence.invokedSaveSettingParameters?.value as? String,
-                "Shopping List"
-            )
-        }
-    }
-    
-    func test_listAction_onAppear_withEmptySavedListName_shouldCreateNewDefaultListName() {
-        mockSettingsPersistence.stubbedSettingResult = ""
-        
-        let listItem = ListItem(
-            id: NSManagedObjectID(),
-            title: "Avocado",
-            isDone: false,
-            amount: 1,
-            createdAt: Date()
-        )
-        
-        let store = TestStore(
-            initialState: AppState(listState: ListState(items: [listItem])),
-            reducer: appReducer,
-            environment: .mock(
-                environment: AppEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
-                settingsPersistence: mockSettingsPersistence,
-                feedbackGenerator: mockFeedbackGenerator
-            )
-        )
-        
-        store.send(.listAction(.onAppear)) {
-            $0.listState.listName = "Shopping List"
-            store.receive(.listAction(.sortItems))
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingCount, 1)
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingParameters?.key, .listName)
-            XCTAssertEqual(
-                self.mockSettingsPersistence.invokedSaveSettingParameters?.value as? String,
-                "Shopping List"
-            )
         }
     }
     

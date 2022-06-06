@@ -22,7 +22,7 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
     listReducer.pullback(
         state: \.listState,
         action: /AppAction.listAction,
-        environment: { _ in .live(environment: ListEnvironment(persistence: { .default })) }
+        environment: { _ in .live(environment: ListEnvironment()) }
     ),
     settingsReducer.pullback(
         state: \.settingsState,
@@ -32,21 +32,7 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
     Reducer { state, action, environment in
         switch action {
         case .listAction(let listAction):
-            switch listAction {
-            case .onAppear:
-                let settings = environment.settingsPersistence()
-                if let listName = settings.setting(.listName) as? String, !listName.isEmpty {
-                    state.listState.listName = listName
-                } else {
-                    let defaultListName = "Shopping List"
-                    settings.saveSetting(defaultListName, .listName)
-                    state.listState.listName = defaultListName
-                }
-                return .none
-                
-            default:
-                return .none
-            }
+            return .none
             
         case .setSettings(let isPresented):
             state.settingsState.isPresented = isPresented
@@ -66,7 +52,7 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
             switch settingsAction {
             case .binding, .onAppear: return .none
             case .submit:
-                return Effect(value: .listAction(.onAppear))
+                return Effect(value: .listAction(.updateListName))
             }
         }
     }
