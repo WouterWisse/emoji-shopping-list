@@ -176,7 +176,8 @@ final class AppTests: XCTestCase {
 //            reducer: appReducer,
 //            environment: .mock(
 //                environment: AppEnvironment(),
-//                mainQueue: self.scheduler.eraseToAnyScheduler(),
+//                mainQueue: scheduler.eraseToAnyScheduler(),
+//                persistenceController: mockPersistenceController,
 //                settingsPersistence: mockSettingsPersistence,
 //                feedbackGenerator: mockFeedbackGenerator
 //            )
@@ -184,8 +185,9 @@ final class AppTests: XCTestCase {
 //        
 //        store.send(.settingsAction(.submit)) {
 //            $0.listState.listName = "New Title"
-//            store.receive(.listAction(.onAppear))
-//            store.receive(.listAction(.sortItems))
+//            store.receive(.listAction(.updateListName)) {
+//                $0.listState.listName = "New Title"
+//            }
 //        }
 //    }
 }

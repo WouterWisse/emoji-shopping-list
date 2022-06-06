@@ -30,49 +30,107 @@ final class ListTests: XCTestCase {
     // MARK: Tests
     
     func test_onAppear() {
-        let listItems: IdentifiedArrayOf<ListItem> = [
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Broccoli",
-                isDone: false,
-                amount: 1,
-                createdAt: Date()
-            )
-        ]
-        mockPersistenceController.stubbedItemsResult = listItems
+        let item = ListItem(
+            id: NSManagedObjectID(),
+            title: "Broccoli",
+            isDone: false,
+            amount: 1,
+            createdAt: Date()
+        )
+        mockPersistenceController.stubbedItemsResult = [item]
         
         let store = TestStore(
             initialState: ListState(),
             reducer: listReducer,
             environment: .mock(
-                environment: ListEnvironment(persistence: { .mock(self.mockPersistenceController) }),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                environment: ListEnvironment(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
         
         store.send(.onAppear) {
-            $0.items = listItems
-            store.receive(.sortItems)
+            $0.items = [item]
+            store.receive(.sortItems) {
+                $0.items = [item]
+            }
+            XCTAssertEqual(self.mockPersistenceController.invokedItemsCount, 1)
         }
     }
     
-    func test_deleteButtonTapped() {
+    func test_updateListName_shouldGetListNameFromSettings() {
+        mockSettingsPersistence.stubbedSettingResult = "Pizza Night"
+
         let store = TestStore(
             initialState: ListState(),
             reducer: listReducer,
             environment: .mock(
-                environment: ListEnvironment(persistence: { .mock(self.mockPersistenceController) }),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                environment: ListEnvironment(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
         
-        store.send(.deleteButtonTapped) {
-            $0.deleteState.isPresented = true
-            store.receive(.sortItems)
+        store.send(.updateListName) {
+            $0.listName = "Pizza Night"
+            XCTAssertEqual(self.mockSettingsPersistence.invokedSettingCount, 1)
+            XCTAssertEqual(self.mockSettingsPersistence.invokedSettingParameters?.key, .listName)
+        }
+    }
+    
+    func test_updateListName_withNoSavedListName_shouldCreateNewDefaultListName() {
+        mockSettingsPersistence.stubbedSettingResult = nil
+        
+        let store = TestStore(
+            initialState: ListState(),
+            reducer: listReducer,
+            environment: .mock(
+                environment: ListEnvironment(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
+                settingsPersistence: mockSettingsPersistence,
+                feedbackGenerator: mockFeedbackGenerator
+            )
+        )
+        
+        store.send(.updateListName) {
+            $0.listName = "Shopping List"
+            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingCount, 1)
+            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingParameters?.key, .listName)
+            XCTAssertEqual(
+                self.mockSettingsPersistence.invokedSaveSettingParameters?.value as? String,
+                "Shopping List"
+            )
+        }
+    }
+    
+    func test_updateListName_withEmptySavedListName_shouldCreateNewDefaultListName() {
+        mockSettingsPersistence.stubbedSettingResult = ""
+
+        let store = TestStore(
+            initialState: ListState(),
+            reducer: listReducer,
+            environment: .mock(
+                environment: ListEnvironment(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
+                settingsPersistence: mockSettingsPersistence,
+                feedbackGenerator: mockFeedbackGenerator
+            )
+        )
+        
+        store.send(.updateListName) {
+            $0.listName = "Shopping List"
+            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingCount, 1)
+            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingParameters?.key, .listName)
+            XCTAssertEqual(
+                self.mockSettingsPersistence.invokedSaveSettingParameters?.value as? String,
+                "Shopping List"
+            )
         }
     }
     
@@ -112,8 +170,9 @@ final class ListTests: XCTestCase {
             initialState: ListState(items: items),
             reducer: listReducer,
             environment: .mock(
-                environment: ListEnvironment(persistence: { .mock(self.mockPersistenceController) }),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                environment: ListEnvironment(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -127,29 +186,42 @@ final class ListTests: XCTestCase {
     // MARK: ListItem Action
     
     func test_listItemAction_delete() {
-        let id = NSManagedObjectID()
-        let item = ListItem(
-            id: id,
-            title: "Broccoli",
-            isDone: false,
-            amount: 1,
-            createdAt: Date()
-        )
+        let items: IdentifiedArrayOf<ListItem> = [
+            ListItem(
+                id: NSManagedObjectID(),
+                title: "Broccoli",
+                isDone: false,
+                amount: 1,
+                createdAt: Date.distantPast
+            ),
+            ListItem(
+                id: NSManagedObjectID(),
+                title: "Avocado",
+                isDone: false,
+                amount: 1,
+                createdAt: Date()
+            )
+        ]
         
         let store = TestStore(
-            initialState: ListState(items: [item]),
+            initialState: ListState(items: items),
             reducer: listReducer,
             environment: .mock(
-                environment: ListEnvironment(persistence: { .mock(self.mockPersistenceController) }),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                environment: ListEnvironment(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
         
-        store.send(.listItem(id: id, action: .delete)) {
-            $0.items.remove(item)
-            store.receive(.sortItems)
+        let itemToDelete: ListItem = items[0]
+        
+        store.send(.listItem(id: itemToDelete.id, action: .delete)) {
+            $0.items.remove(items[0])
+            store.receive(.sortItems) {
+                $0.items.remove(items[0])
+            }
             XCTAssertEqual(
                 self.mockFeedbackGenerator.invokedImpactCount,
                 1
@@ -164,7 +236,7 @@ final class ListTests: XCTestCase {
             )
             XCTAssertEqual(
                 self.mockPersistenceController.invokedDeleteParameters?.objectID,
-                id
+                itemToDelete.id
             )
         }
     }
@@ -185,8 +257,9 @@ final class ListTests: XCTestCase {
             initialState: ListState(),
             reducer: listReducer,
             environment: .mock(
-                environment: ListEnvironment(persistence: { .mock(self.mockPersistenceController) }),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                environment: ListEnvironment(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -194,7 +267,9 @@ final class ListTests: XCTestCase {
         
         store.send(.inputAction(.submit("Avocado"))) {
             $0.items.append(item)
-            store.receive(.sortItems)
+            store.receive(.sortItems) {
+                $0.items.append(item)
+            }
             XCTAssertEqual(
                 self.mockFeedbackGenerator.invokedImpactCount,
                 1
@@ -238,8 +313,9 @@ final class ListTests: XCTestCase {
             initialState: ListState(items: items, deleteState: DeleteState(isPresented: true)),
             reducer: listReducer,
             environment: .mock(
-                environment: ListEnvironment(persistence: { .mock(self.mockPersistenceController) }),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                environment: ListEnvironment(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -248,7 +324,10 @@ final class ListTests: XCTestCase {
         store.send(.deleteAction(.deleteAllTapped)) {
             $0.items = []
             $0.deleteState.isPresented = false
-            store.receive(.sortItems)
+            store.receive(.sortItems) {
+                $0.items = []
+                $0.deleteState.isPresented = false
+            }
             
             XCTAssertEqual(
                 self.mockPersistenceController.invokedDeleteAllCount,
@@ -288,14 +367,12 @@ final class ListTests: XCTestCase {
         ]
         
         let store = TestStore(
-            initialState: ListState(
-                items: items,
-                deleteState: DeleteState(isPresented: true)
-            ),
+            initialState: ListState(items: items, deleteState: DeleteState(isPresented: true)),
             reducer: listReducer,
             environment: .mock(
-                environment: ListEnvironment(persistence: { .mock(self.mockPersistenceController) }),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                environment: ListEnvironment(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -304,7 +381,10 @@ final class ListTests: XCTestCase {
         store.send(.deleteAction(.deleteStrikedTapped)) {
             $0.items = [items[0]]
             $0.deleteState.isPresented = false
-            store.receive(.sortItems)
+            store.receive(.sortItems) {
+                $0.items = [items[0]]
+                $0.deleteState.isPresented = false
+            }
             
             XCTAssertEqual(
                 self.mockPersistenceController.invokedDeleteAllCount,
