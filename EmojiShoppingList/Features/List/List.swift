@@ -13,16 +13,14 @@ struct ListState: Equatable {
 
 enum ListAction: Equatable {
     case onAppear
-    case deleteButtonTapped
+    case updateListName
     case sortItems
     case listItem(id: ListItem.ID, action: ListItemAction)
     case inputAction(InputAction)
     case deleteAction(DeleteAction)
 }
 
-struct ListEnvironment {
-    var persistence: () -> PersistenceController
-}
+struct ListEnvironment {}
 
 let listReducer = Reducer<
     ListState,
@@ -48,11 +46,22 @@ let listReducer = Reducer<
         switch action {
         case .onAppear:
             if state.items.isEmpty {
-                state.items = environment.persistence().items()
+                state.items = environment.persistenceController().items()
                 return Effect(value: .sortItems)
             } else {
                 return Effect(value: .sortItems)
             }
+            
+        case .updateListName:
+            let settings = environment.settingsPersistence()
+            if let listName = settings.setting(.listName) as? String, !listName.isEmpty {
+                state.listName = listName
+            } else {
+                let defaultListName = "Shopping List"
+                settings.saveSetting(defaultListName, .listName)
+                state.listName = defaultListName
+            }
+            return .none
             
         case .listItem(let id, let action):
             guard let item = state.items[id: id] else { return .none }
@@ -60,15 +69,15 @@ let listReducer = Reducer<
             
             switch action {
             case .incrementAmount, .decrementAmount:
-                environment.persistence().update(item)
+                environment.persistenceController().update(item)
                 return .none
                 
             case .toggleDone:
-                environment.persistence().update(item)
+                environment.persistenceController().update(item)
                 return Effect(value: .sortItems)
                     .debounce(
                         id: DebounceId(),
-                        for: .seconds(1),
+                        for: .seconds(0.8),
                         scheduler: environment.mainQueue()
                             .animation()
                             .eraseToAnyScheduler()
@@ -76,14 +85,10 @@ let listReducer = Reducer<
                 
             case .delete:
                 state.items.remove(item)
-                environment.persistence().delete(item.id)
+                environment.persistenceController().delete(item.id)
                 environment.feedbackGenerator().impact(.rigid)
                 return Effect(value: .sortItems)
             }
-            
-        case .deleteButtonTapped:
-            state.deleteState.isPresented.toggle()
-            return Effect(value: .sortItems)
             
         case .sortItems:
             state.items.sort(by: { lhs, rhs in
@@ -103,7 +108,7 @@ let listReducer = Reducer<
                 environment.feedbackGenerator().impact(.soft)
                 guard
                     title.isEmpty == false,
-                    let newItem = environment.persistence().add(title)
+                    let newItem = environment.persistenceController().add(title)
                 else { return .none }
                 state.items.append(newItem)
                 return Effect(value: .sortItems)
@@ -113,14 +118,14 @@ let listReducer = Reducer<
             switch deleteAction {
             case .deleteAllTapped:
                 state.items.removeAll()
-                environment.persistence().deleteAll(false)
+                environment.persistenceController().deleteAll(false)
                 environment.feedbackGenerator().notify(.error)
                 state.deleteState.isPresented = false
                 return Effect(value: .sortItems)
                 
             case .deleteStrikedTapped:
                 state.items.removeAll(where: { $0.isDone })
-                environment.persistence().deleteAll(true)
+                environment.persistenceController().deleteAll(true)
                 environment.feedbackGenerator().notify(.error)
                 state.deleteState.isPresented = false
                 return Effect(value: .sortItems)
@@ -180,6 +185,7 @@ struct ListView: View {
                     .navigationTitle(viewStore.listName)
                     .onAppear {
                         viewStore.send(.onAppear)
+                        viewStore.send(.updateListName)
                     }
                     .onChange(of: viewStore.deleteState.isPresented, perform: { isPresented in
                         if isPresented {
@@ -230,11 +236,7 @@ struct ListView_Previews: PreviewProvider {
                             items: previewItems
                         ),
                         reducer: listReducer,
-                        environment: .preview(
-                            environment: ListEnvironment(
-                                persistence: { .preview }
-                            )
-                        )
+                        environment: .preview(environment: ListEnvironment())
                     )
                 )
                 .preferredColorScheme(colorScheme)
