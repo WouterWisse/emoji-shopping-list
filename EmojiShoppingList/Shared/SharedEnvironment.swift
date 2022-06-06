@@ -5,6 +5,7 @@ struct SharedEnvironment<Environment> {
     var environment: Environment
     
     var mainQueue: () -> AnySchedulerOf<DispatchQueue>
+    var persistenceController: () -> PersistenceController
     var settingsPersistence: () -> SettingsPersistence
     var feedbackGenerator: () -> FeedbackGenerator
 }
@@ -16,6 +17,7 @@ extension SharedEnvironment {
         Self(
             environment: environment,
             mainQueue: { .main },
+            persistenceController: { .default },
             settingsPersistence: { .default },
             feedbackGenerator: { .default() }
         )
@@ -25,6 +27,7 @@ extension SharedEnvironment {
         Self(
             environment: environment,
             mainQueue: { .main },
+            persistenceController: { .preview },
             settingsPersistence: { .default },
             feedbackGenerator: { .default() }
         )

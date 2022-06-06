@@ -7,6 +7,7 @@ final class InputTests: XCTestCase {
     let scheduler = DispatchQueue.test
     var mockSettingsPersistence: MockSettingsPerstence!
     var mockFeedbackGenerator: MockFeedbackGenerator!
+    var mockPersistenceController: MockPersistenceController!
     
     // MARK: SetUp / TearDown
     
@@ -14,12 +15,14 @@ final class InputTests: XCTestCase {
         try super.setUpWithError()
         mockSettingsPersistence = MockSettingsPerstence()
         mockFeedbackGenerator = MockFeedbackGenerator()
+        mockPersistenceController = MockPersistenceController()
     }
     
     override func tearDownWithError() throws {
         try super.tearDownWithError()
         mockSettingsPersistence = nil
         mockFeedbackGenerator = nil
+        mockPersistenceController = nil
     }
     
     // MARK: Tests
@@ -32,7 +35,8 @@ final class InputTests: XCTestCase {
             reducer: inputReducer,
             environment: .mock(
                 environment: InputEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
@@ -61,7 +65,8 @@ final class InputTests: XCTestCase {
             reducer: inputReducer,
             environment: .mock(
                 environment: InputEnvironment(),
-                mainQueue: self.scheduler.eraseToAnyScheduler(),
+                mainQueue: scheduler.eraseToAnyScheduler(),
+                persistenceController: mockPersistenceController,
                 settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
