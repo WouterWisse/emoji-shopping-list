@@ -46,6 +46,7 @@ extension EmojiProvider {
             Emoji(emoji: "🧄", color: .brown, products: ["Garlic", "Knoflook"]),
             Emoji(emoji: "🧅", color: .brown, products: ["Onion", "Ui"]),
             Emoji(emoji: "🍄", color: .brown, products: ["Mushroom", "Paddestoel"]),
+            Emoji(emoji: "🥖", color: .brown, products: ["Baguette bread", "Stokbrood"]),
         ]
         
         /*
@@ -55,7 +56,7 @@ extension EmojiProvider {
          🌰 Chestnut
          🍞 Bread
          🥐 Croissant
-         🥖 Baguette Bread
+         
          🫓 Flatbread
          🥨 Pretzel
          🥯 Bagel
