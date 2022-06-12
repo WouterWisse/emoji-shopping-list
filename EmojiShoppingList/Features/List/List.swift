@@ -200,7 +200,7 @@ struct ListView: View {
 
 private struct DeleteViewID: Hashable {}
 
-struct EmptyStateView: View {
+private struct EmptyStateView: View {
     let height: CGFloat
     
     var body: some View {
