@@ -70,6 +70,7 @@ let listItemReducer = Reducer<
         return .none
     }
 }
+.debug()
 
 // MARK: - Views
 

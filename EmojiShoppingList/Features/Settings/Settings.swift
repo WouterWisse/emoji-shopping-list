@@ -40,6 +40,7 @@ let settingsReducer = Reducer<
     }
 }
 .binding()
+.debug()
 
 // MARK: - View
 

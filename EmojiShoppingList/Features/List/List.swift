@@ -138,7 +138,7 @@ let listReducer = Reducer<
         }
     }
 )
-//.debug()
+.debug()
 
 // MARK: - View
 

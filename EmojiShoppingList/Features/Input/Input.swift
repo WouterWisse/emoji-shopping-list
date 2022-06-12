@@ -45,7 +45,9 @@ let inputReducer = Reducer<
     case .binding:
         return .none
     }
-}.binding()
+}
+.binding()
+.debug()
 
 // MARK: - View
 
