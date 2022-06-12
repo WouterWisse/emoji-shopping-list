@@ -47,12 +47,14 @@ extension EmojiProvider {
             Emoji(emoji: "🧅", color: .brown, products: ["Onion", "Ui"]),
             Emoji(emoji: "🍄", color: .brown, products: ["Mushroom", "Paddestoel"]),
             Emoji(emoji: "🥖", color: .brown, products: ["Baguette bread", "Stokbrood"]),
+            Emoji(emoji: "🥜", color: .brown, products: ["Peanuts", "Pinda's"]),
+            Emoji(emoji: "🫘", color: .brown, products: ["Beans", "Bonen"]),
+            Emoji(emoji: "🧀", color: .yellow, products: ["Cheese", "Kaas"]),
         ]
         
         /*
          🥬 Leafy Green
-         🥜 Peanuts
-         🫘 Beans
+          Beans
          🌰 Chestnut
          🍞 Bread
          🥐 Croissant
@@ -62,7 +64,6 @@ extension EmojiProvider {
          🥯 Bagel
          🥞 Pancakes
          🧇 Waffle
-         🧀 Cheese Wedge
          🍖 Meat on Bone
          🍗 Poultry Leg
          🥩 Cut of Meat
