@@ -1,6 +1,6 @@
 <p align="center">
   <p align="center">
-    <img width="200" src="EmojiShoppingList/Resources/Assets.xcassets/Icon.imageset/icon.png" alt="NU.nl logo" style="border-radius:10%">
+    <img width="180" src="EmojiShoppingList/Resources/Assets.xcassets/Icon.imageset/icon.png" alt="NU.nl logo" style="border-radius:10%">
   </p>
   <p align="center">
   <strong>Emoji Shopping List</strong><BR>
