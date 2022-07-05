@@ -40,12 +40,7 @@ struct DeleteView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            HStack(spacing: 12) {
-                Text("🗑")
-                    .font(.title2)
-                    .frame(width: 50, height: 50, alignment: .center)
-                    .multilineTextAlignment(.center)
-                
+            HStack(spacing: 12) {               
                 Button {
                     withAnimation {
                         viewStore.send(.deleteAllTapped)
