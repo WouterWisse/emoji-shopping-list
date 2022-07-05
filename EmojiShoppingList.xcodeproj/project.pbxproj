@@ -18,6 +18,7 @@
 		6C260CFD284BC64000756E74 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CFC284BC64000756E74 /* AppTests.swift */; };
 		6C2F28EF2848192000E85F94 /* ListItem+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F28EE2848192000E85F94 /* ListItem+Preview.swift */; };
 		6C691A2D284EE44000F8353C /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C691A2C284EE44000F8353C /* EmojiProvider.swift */; };
+		6C6A96EA2874E77F00B09D80 /* Pacifico-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C6A96E92874E77F00B09D80 /* Pacifico-Regular.ttf */; };
 		6C913E7E2842DD6C00E34326 /* Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C913E7D2842DD6C00E34326 /* Delete.swift */; };
 		6CA6E3F8284015DD0069CDD9 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3F7284015DD0069CDD9 /* List.swift */; };
 		6CA6E400284152B90069CDD9 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3FF284152B90069CDD9 /* ListItem.swift */; };
@@ -68,6 +69,8 @@
 		6C260CFC284BC64000756E74 /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
 		6C2F28EE2848192000E85F94 /* ListItem+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListItem+Preview.swift"; sourceTree = "<group>"; };
 		6C691A2C284EE44000F8353C /* EmojiProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiProvider.swift; sourceTree = "<group>"; };
+		6C6A96E72874E75200B09D80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6C6A96E92874E77F00B09D80 /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pacifico-Regular.ttf"; sourceTree = "<group>"; };
 		6C913E7D2842DD6C00E34326 /* Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delete.swift; sourceTree = "<group>"; };
 		6CA6E3F7284015DD0069CDD9 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		6CA6E3FF284152B90069CDD9 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
@@ -159,6 +162,14 @@
 				6C260CFC284BC64000756E74 /* AppTests.swift */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		6C6A96E82874E77F00B09D80 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6C6A96E92874E77F00B09D80 /* Pacifico-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		6C913E7C2842DD5900E34326 /* Delete */ = {
@@ -282,6 +293,7 @@
 		6CFEF96C2834432F00254038 /* EmojiShoppingList */ = {
 			isa = PBXGroup;
 			children = (
+				6C6A96E72874E75200B09D80 /* Info.plist */,
 				6CA6E40F28428F530069CDD9 /* Extensions */,
 				6CD569682842A4250022DBE3 /* Reusable */,
 				6CF5CC6D2846A34300117790 /* Shared */,
@@ -303,6 +315,7 @@
 		6CFEF99C283443F400254038 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6C6A96E82874E77F00B09D80 /* Fonts */,
 				6CE6F1C52856A56900C1A40D /* Localization */,
 				6CFEF9712834433100254038 /* Assets.xcassets */,
 				6CFEF9742834433100254038 /* Preview Assets.xcassets */,
@@ -442,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CE6F1C82856A59600C1A40D /* Localizable.strings in Resources */,
+				6C6A96EA2874E77F00B09D80 /* Pacifico-Regular.ttf in Resources */,
 				6CFEF9752834433100254038 /* Preview Assets.xcassets in Resources */,
 				6CFEF9722834433100254038 /* Assets.xcassets in Resources */,
 			);
@@ -664,6 +678,7 @@
 				DEVELOPMENT_TEAM = Q6AEA497G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EmojiShoppingList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -697,6 +712,7 @@
 				DEVELOPMENT_TEAM = Q6AEA497G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EmojiShoppingList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
