@@ -59,11 +59,6 @@ struct InputView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: 12) {
-                Text("✏️")
-                    .font(.title2)
-                    .frame(width: 50, height: 50, alignment: .center)
-                    .multilineTextAlignment(.center)
-                
                 TextField(
                     "",
                     text: viewStore.binding(\.$inputText),
