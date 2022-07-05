@@ -1,5 +1,5 @@
 <p align="center">
-   <img width="200" src="Assets/icon-readme.png" alt="NU.nl logo" style="border-radius:10%">
+   <img width="200" src="Assets/icon-readme.png" alt="NU.nl logo">
 </p>
 <p align="center">
    <strong>Emoji Shopping List</strong><BR>
