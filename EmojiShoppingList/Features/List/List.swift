@@ -145,6 +145,17 @@ let listReducer = Reducer<
 struct ListView: View {
     let store: Store<ListState, ListAction>
     
+    init(store: Store<ListState, ListAction>) {
+        self.store = store
+        
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont(name: "Pacifico", size: 18)!
+        ]
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+            NSAttributedString.Key.font: UIFont(name: "Pacifico", size: 28)!
+        ]
+    }
+    
     var body: some View {
         WithViewStore(self.store) { viewStore in
             ScrollViewReader { scrollProxy in
