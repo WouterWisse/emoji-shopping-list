@@ -247,7 +247,7 @@ struct ListView: View {
                         }
                     }
                     .listStyle(.plain)
-                    .navigationTitle(viewStore.listName)
+                    .navigationTitle(viewStore.listName + "‎ ㅤ")
                     .navigationBarColor(
                         backgroundColor: .systemBackground,
                         textColor: .systemIndigo
