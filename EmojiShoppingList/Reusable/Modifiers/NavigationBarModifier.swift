@@ -18,7 +18,7 @@ struct NavigationBarModifier: ViewModifier {
         ]
         appearance.largeTitleTextAttributes = [
             .foregroundColor: textColor,
-            .font: UIFont(name: "Pacifico", size: 36)!
+            .font: UIFont(name: "Pacifico", size: 34)!
         ]
         
         let standardAppearance = appearance.copy()
