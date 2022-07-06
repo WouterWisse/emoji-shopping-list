@@ -59,10 +59,17 @@ struct InputView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: 12) {
+                
+                RoundEmojiView(
+                    emoji: "✏️",
+                    color: .clear,
+                    done: false
+                )
+                
                 TextField(
                     "",
                     text: viewStore.binding(\.$inputText),
-                    prompt: Text("Add new item")
+                    prompt: Text("Add product")
                 )
                 .font(.headline)
                 .focused($focusedField, equals: .input)

@@ -40,7 +40,10 @@ struct DeleteView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            HStack(spacing: 12) {               
+            HStack(spacing: 12) {
+                
+                RoundEmojiView(emoji: "🗑", color: .clear, done: false)
+                
                 Button {
                     withAnimation {
                         viewStore.send(.deleteAllTapped)
