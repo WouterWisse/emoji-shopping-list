@@ -104,7 +104,8 @@ struct InputView: View {
                 }
             }
             .synchronize(viewStore.binding(\.$focusedField), self.$focusedField)
-            .listRowSeparatorTint(.clear)
+            .listRowSeparatorTint(.blue)
+            .listRowSeparator(.hidden, edges: .top)
         }
     }
 }

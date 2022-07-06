@@ -79,7 +79,8 @@ struct DeleteView: View {
                 .tint(.gray)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .listRowSeparatorTint(.clear)
+            .listRowSeparatorTint(.red)
+            .listRowSeparator(.hidden, edges: .top)
         }
     }
 }
