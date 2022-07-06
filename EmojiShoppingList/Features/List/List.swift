@@ -181,22 +181,6 @@ struct ListView: View {
                             )
                         }
                     }
-                    .safeAreaInset(edge: .bottom, spacing: 0) {
-                        Button {
-                            // Do something
-                        } label: {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.blue)
-                                    .frame(width: 50, height: 50)
-                                
-                                Image(systemName: "plus")
-                                    .foregroundColor(.white)
-                            }
-                            .shadow(color: .blue.opacity(0.6), radius: 6, x: 4, y: 4)
-                            .padding()
-                        }
-                    }
                     .listStyle(.plain)
                     .navigationTitle(viewStore.listName + "‎ ㅤ")
                     .navigationBarColor(
