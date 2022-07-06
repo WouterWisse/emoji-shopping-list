@@ -78,6 +78,13 @@ struct SettingsView: View {
                             }
                         }
                         .padding(.vertical, 8)
+                        
+                        SettingsItemListView(
+                            emoji: "💎",
+                            color: .blue,
+                            title: "Theme",
+                            subtitle: "Change the primary color"
+                        )
                     }
                 
                     Section("Support") {
@@ -85,7 +92,7 @@ struct SettingsView: View {
                             emoji: "🤩",
                             color: .yellow,
                             title: "Rate on AppStore",
-                            reason: "Let me know what you think!"
+                            subtitle: "Let me know what you think!"
                         )
                     }
                     
@@ -107,26 +114,23 @@ struct SettingsItemListView: View {
     let emoji: String
     let color: Color
     let title: String
-    let reason: String
-    var locked: Bool = false
+    let subtitle: String
     
     var body: some View {
         HStack(spacing: 12) {
             RoundEmojiView(
-                emoji: locked ? "🔒" : emoji,
-                color: locked ? .gray : color,
+                emoji: emoji,
+                color: color,
                 done: false
             )
-            
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(locked ? .secondary : .primary)
-                Text(locked ? "This functionality is locked" : reason)
+                    .foregroundColor(.primary)
+                Text(subtitle)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-            
             Spacer()
         }
         .padding(.vertical, 8)
