@@ -152,21 +152,29 @@ struct NavigationBarModifier: ViewModifier {
     ) {
         self.backgroundColor = backgroundColor
         self.textColor = textColor
-        let coloredAppearance = UINavigationBarAppearance()
-        coloredAppearance.configureWithTransparentBackground()
-        coloredAppearance.backgroundColor = .clear
-        coloredAppearance.titleTextAttributes = [
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.titleTextAttributes = [
             .foregroundColor: textColor,
             .font: UIFont(name: "Pacifico", size: 20)!
         ]
-        coloredAppearance.largeTitleTextAttributes = [
+        appearance.largeTitleTextAttributes = [
             .foregroundColor: textColor,
             .font: UIFont(name: "Pacifico", size: 34)!
         ]
         
-        UINavigationBar.appearance().standardAppearance = coloredAppearance
-        UINavigationBar.appearance().compactAppearance = coloredAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
+        let standardAppearance = appearance.copy()
+        standardAppearance.configureWithOpaqueBackground()
+        standardAppearance.backgroundColor = .systemBackground
+        standardAppearance.shadowColor = textColor
+        UINavigationBar.appearance().standardAppearance = standardAppearance
+        
+        let compactAppearance = appearance.copy()
+        compactAppearance.configureWithTransparentBackground()
+        compactAppearance.backgroundColor = .clear
+        UINavigationBar.appearance().compactAppearance = compactAppearance
+        
+        UINavigationBar.appearance().scrollEdgeAppearance = compactAppearance
         UINavigationBar.appearance().tintColor = textColor
     }
     
@@ -186,8 +194,16 @@ struct NavigationBarModifier: ViewModifier {
 }
 
 extension View {
-    func navigationBarColor(_ backgroundColor: UIColor, textColor: UIColor) -> some View {
-        self.modifier(NavigationBarModifier(backgroundColor: backgroundColor, textColor: textColor))
+    func navigationBarColor(
+        backgroundColor: UIColor,
+        textColor: UIColor
+    ) -> some View {
+        self.modifier(
+            NavigationBarModifier(
+                backgroundColor: backgroundColor,
+                textColor: textColor
+            )
+        )
     }
 }
 
@@ -232,7 +248,10 @@ struct ListView: View {
                     }
                     .listStyle(.plain)
                     .navigationTitle(viewStore.listName)
-                    .navigationBarColor(UIColor.systemBackground, textColor: UIColor.systemMint)
+                    .navigationBarColor(
+                        backgroundColor: .systemBackground,
+                        textColor: .systemIndigo
+                    )
                     .onAppear {
                         viewStore.send(.onAppear)
                         viewStore.send(.updateListName)
