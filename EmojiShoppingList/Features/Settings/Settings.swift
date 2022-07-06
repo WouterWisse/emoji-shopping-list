@@ -51,7 +51,7 @@ struct SettingsView: View {
         WithViewStore(self.store) { viewStore in
             NavigationView {
                 List {
-                    Section {
+                    Section("Settings") {
                         HStack(spacing: 12) {
                             RoundEmojiView(
                                 emoji: "✏️",
@@ -78,61 +78,26 @@ struct SettingsView: View {
                             }
                         }
                         .padding(.vertical, 8)
-                        SettingsItemListView(
-                            emoji: "📱",
-                            color: .green,
-                            title: "Change app icon",
-                            reason: "Just for fun",
-                            locked: true
-                        )
                     }
-                    
-                    Section {
+                
+                    Section("Support") {
                         SettingsItemListView(
                             emoji: "🤩",
                             color: .yellow,
                             title: "Rate on AppStore",
                             reason: "Let me know what you think!"
                         )
-                        DonateListView(
-                            emoji: "🍩",
-                            color: .green,
-                            title: "Get me a snack",
-                            reason: "Gives me energy",
-                            price: "$0.99",
-                            action: {}
-                        )
-                        DonateListView(
-                            emoji: "☕️",
-                            color: .green,
-                            title: "Get me a coffee",
-                            reason: "Keeps me awake",
-                            price: "$2.99",
-                            action: {}
-                        )
-                        DonateListView(
-                            emoji: "🍺",
-                            color: .green,
-                            title: "Get me a beer",
-                            reason: "Boosts my creativity",
-                            price: "$4.99",
-                            action: {}
-                        )
-                    } header: {
-                    } footer: {
-                        VStack(spacing: 24) {
-                            Text("Any of the above purchases will unlock the functionality to change the app's icon and will fuel me to create new features and updates. ✌️")
-                            
-                            DeveloperView()
-                        }
                     }
+                    
+                    DeveloperView()
+                        .listRowBackground(Color.clear)
+                    
                 }
                 .onAppear {
                     viewStore.send(.onAppear)
                 }
                 .listStyle(.insetGrouped)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Emoji Shopping List")
+                .navigationTitle("Settings")
             }
         }
     }
