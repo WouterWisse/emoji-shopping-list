@@ -7,12 +7,15 @@ struct SettingsState: Equatable {
     var isPresented: Bool = false
     @BindableState var listNameInput: String = ""
     var colorTheme: Color = .primary
+    var colorThemeState = ColorThemeState()
 }
 
 enum SettingsAction: BindableAction, Equatable {
     case binding(BindingAction<SettingsState>)
     case submit
     case onAppear
+    case setColorTheme(isPresented: Bool)
+    case colorThemeAction(ColorThemeAction)
 }
 
 struct SettingsEnvironment {}
@@ -21,25 +24,39 @@ let settingsReducer = Reducer<
     SettingsState,
     SettingsAction,
     SharedEnvironment<SettingsEnvironment>
-> { state, action, environment in
-    switch action {
-    case .onAppear:
-        guard let name = environment.settingsPersistence().setting(.listName) as? String else {
-            state.listNameInput = "Shopping List"
+>.combine(
+    colorThemeReducer.pullback(
+        state: \.colorThemeState,
+        action: /SettingsAction.colorThemeAction,
+        environment: { _ in .live(environment: ColorThemeEnvironment()) }
+    ),
+    Reducer { state, action, environment in
+        switch action {
+        case .onAppear:
+            guard let name = environment.settingsPersistence().setting(.listName) as? String else {
+                state.listNameInput = "Shopping List"
+                return .none
+            }
+            
+            state.listNameInput = name
+            return .none
+            
+        case .submit:
+            environment.settingsPersistence().saveSetting(state.listNameInput, .listName)
+            return .none
+            
+        case .setColorTheme(let isPresented):
+            state.colorThemeState.isPresented.toggle()
+            return .none
+            
+        case .colorThemeAction(let action):
+            return .none
+            
+        case .binding:
             return .none
         }
-        
-        state.listNameInput = name
-        return .none
-        
-    case .submit:
-        environment.settingsPersistence().saveSetting(state.listNameInput, .listName)
-        return .none
-
-    case .binding:
-        return .none
     }
-}
+)
 .binding()
 .debug()
 
@@ -80,8 +97,8 @@ struct SettingsView: View {
                         }
                         .padding(.vertical, 8)
                         
-                        NavigationLink {
-                            Text("Color Theme!")
+                        Button {
+                            viewStore.send(.setColorTheme(isPresented: true))
                         } label: {
                             SettingsItemListView(
                                 emoji: "💎",
@@ -107,6 +124,17 @@ struct SettingsView: View {
                 }
                 .onAppear {
                     viewStore.send(.onAppear)
+                }
+                .sheet(isPresented: viewStore.binding(
+                    get: { $0.colorThemeState.isPresented },
+                    send:  SettingsAction.setColorTheme(isPresented:))
+                ) {
+                    ColorThemeView(
+                        store: self.store.scope(
+                            state: \.colorThemeState,
+                            action: SettingsAction.colorThemeAction
+                        )
+                    )
                 }
                 .listStyle(.insetGrouped)
                 .navigationTitle("Settings")

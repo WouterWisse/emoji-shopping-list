@@ -4,7 +4,8 @@ import ComposableArchitecture
 // MARK: - Logic
 
 struct ColorThemeState: Equatable {
-    
+    var colorThemes: [ColorTheme] = ColorTheme.allCases
+    var isPresented: Bool = false
 }
 
 enum ColorThemeAction: Equatable {
@@ -27,6 +28,7 @@ let colorThemeReducer = Reducer<
 
 // MARK: - View
 
+
 struct ColorThemeView: View {
     let store: Store<ColorThemeState, ColorThemeAction>
     
@@ -34,13 +36,16 @@ struct ColorThemeView: View {
         WithViewStore(self.store) { viewStore in
             NavigationView {
                 List {
-                    Text("Hoi")
+                    ForEach(viewStore.colorThemes, id: \.rawValue) { colorTheme in
+                        Text(colorTheme.description)
+                            .foregroundColor(colorTheme.color)
+                    }
                 }
                 .onAppear {
                     viewStore.send(.onAppear)
                 }
                 .listStyle(.insetGrouped)
-                .navigationTitle("Settings")
+                .navigationTitle("Color Theme")
             }
         }
     }
