@@ -8,3 +8,6 @@
 <p align="center">
    <img src="https://github.com/WouterWisse/emoji-shopping-list/actions/workflows/development.yml/badge.svg" alt="Build & Unit Tests">
 </p>
+<p align="center">
+   <img src="Assets/download-appstore.svg" alt="Download on AppStore"><BR>
+</p>
