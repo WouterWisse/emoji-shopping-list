@@ -120,11 +120,10 @@ struct ListItemView: View {
                     }
                 } label: {
                     if viewStore.isDone {
-                        Label("Remove", systemImage: "arrow.uturn.right.circle.fill")
+                        Image(systemName: "arrow.uturn.right.circle.fill")
                     } else {
-                        Label("Add", systemImage: "checkmark.circle.fill")
+                        Image(systemName: "checkmark.circle.fill")
                     }
-                    
                 }
                 .tint(viewStore.color)
             }
@@ -134,8 +133,9 @@ struct ListItemView: View {
                         viewStore.send(.delete)
                     }
                 } label: {
-                    Label("Delete", systemImage: "trash.fill")
+                    Image(systemName: "trash.fill")
                 }
+                .tint(Color.red)
             }
             .padding(.vertical, 8)
         }
