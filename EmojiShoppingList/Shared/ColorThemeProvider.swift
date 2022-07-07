@@ -67,7 +67,8 @@ extension ColorThemeProvider {
                 let theme = ColorTheme(rawValue: currentTheme)
             else {
                 let defaultTheme: ColorTheme = .blue
-                SettingsPersistence.default.saveSetting(8, .colorTheme)
+                let index = ColorTheme.allCases.firstIndex(of: defaultTheme)!
+                SettingsPersistence.default.saveSetting(index, .colorTheme)
                 return defaultTheme.color
             }
             
