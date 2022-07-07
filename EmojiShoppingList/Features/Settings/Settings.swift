@@ -115,7 +115,7 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsItemListView: View {
+private struct SettingsItemListView: View {
     let emoji: String
     let color: Color
     let title: String
@@ -142,48 +142,7 @@ struct SettingsItemListView: View {
     }
 }
 
-struct DonateListView: View {
-    let emoji: String
-    let color: Color
-    let title: String
-    let reason: String
-    let price: String
-    let action: () -> Void
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            RoundEmojiView(
-                emoji: emoji,
-                color: color,
-                done: false
-            )
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.headline)
-                    .foregroundColor(.primary)
-                Text(reason)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            
-            Spacer()
-            
-            Button {
-                action()
-            } label: {
-                Text(price)
-            }
-            .tint(color)
-            .buttonStyle(.bordered)
-            .controlSize(.small)
-            
-        }
-        .padding(.vertical, 8)
-    }
-}
-
-struct DeveloperView: View {
+private struct DeveloperView: View {
     var body: some View {
         VStack(spacing: 8) {
             Text("Developed with 💙")
