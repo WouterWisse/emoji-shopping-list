@@ -33,7 +33,6 @@ struct NavigationBarModifier: ViewModifier {
         UINavigationBar.appearance().compactAppearance = compactAppearance
         
         UINavigationBar.appearance().scrollEdgeAppearance = compactAppearance
-        UINavigationBar.appearance().tintColor = textColor
     }
     
     func body(content: Content) -> some View {
