@@ -110,6 +110,7 @@ struct EmojiShoppingListApp: App {
                             }
                         }
                     }
+                    .tint(Color.blue)
                 }
             }
         }
