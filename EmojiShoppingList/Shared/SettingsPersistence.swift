@@ -2,6 +2,7 @@ import Foundation
 
 enum SettingsKey: String {
     case listName = "settings.list.name"
+    case colorTheme = "settings.color.theme"
 }
 
 struct SettingsPersistence {
