@@ -8,6 +8,7 @@ struct SharedEnvironment<Environment> {
     var persistenceController: () -> PersistenceController
     var settingsPersistence: () -> SettingsPersistence
     var feedbackGenerator: () -> FeedbackGenerator
+    var colorThemeProvider: () -> ColorThemeProvider
 }
 
 // MARK: Environments
@@ -19,7 +20,8 @@ extension SharedEnvironment {
             mainQueue: { .main },
             persistenceController: { .default },
             settingsPersistence: { .default },
-            feedbackGenerator: { .default() }
+            feedbackGenerator: { .default() },
+            colorThemeProvider: { .default }
         )
     }
     
@@ -29,7 +31,8 @@ extension SharedEnvironment {
             mainQueue: { .main },
             persistenceController: { .preview },
             settingsPersistence: { .default },
-            feedbackGenerator: { .default() }
+            feedbackGenerator: { .default() },
+            colorThemeProvider: { .default }
         )
     }
 }
