@@ -37,20 +37,39 @@ enum ColorTheme: Int, CaseIterable {
     
     var description: String {
         switch self {
-        case .primary: return "Primary"
-        case .red: return "Red"
-        case .orange: return "Orange"
-        case .yellow: return "Yellow"
-        case .green: return "Green"
-        case .mint: return "Mint"
-        case .teal: return "Teal"
-        case .cyan: return "Cyan"
-        case .blue: return "Blue"
-        case .indigo: return "Indigo"
-        case .purple: return "Purple"
-        case .pink: return "Pink"
-        case .brown: return "Brown"
-        case .gray: return "Gray"
+        case .primary: return "Panda Black & White"
+        case .red: return "Tomato Red"
+        case .orange: return "Orange Orange"
+        case .yellow: return "Banana Yellow"
+        case .green: return "Apple Green"
+        case .mint: return "Liberty Mint"
+        case .teal: return "Ice Blue"
+        case .cyan: return "Ocean Blue"
+        case .blue: return "Blueberry Blue"
+        case .indigo: return "Eggplant Indigo"
+        case .purple: return "Sweet Potato Purple"
+        case .pink: return "Grape Pink"
+        case .brown: return "Chocolate Brown"
+        case .gray: return "Wolf Gray"
+        }
+    }
+    
+    var emoji: String {
+        switch self {
+        case .primary: return "🐼"
+        case .red: return "🍅"
+        case .orange: return "🍊"
+        case .yellow: return "🍌"
+        case .green: return "🍏"
+        case .mint: return "🗽"
+        case .teal: return "🧊"
+        case .cyan: return "🌊"
+        case .blue: return "🫐"
+        case .indigo: return "🍆"
+        case .purple: return "🍠"
+        case .pink: return "🍇"
+        case .brown: return "🍩"
+        case .gray: return "🐺"
         }
     }
 }
