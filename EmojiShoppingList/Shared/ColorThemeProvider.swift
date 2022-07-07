@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum ColorTheme: Int {
+enum ColorTheme: Int, CaseIterable {
     case primary
     case red
     case orange
@@ -56,7 +56,18 @@ enum ColorTheme: Int {
 }
 
 struct ColorThemeProvider {
-    func kijkMaarff() {
-        let color: Color = .brown
-    }
+    var color: () -> Color
+}
+
+extension ColorThemeProvider {
+    static let `default`: ColorThemeProvider = ColorThemeProvider(
+        color: {
+            guard
+                let currentTheme = SettingsPersistence.default.setting(.colorTheme) as? Int,
+                let theme = ColorTheme(rawValue: currentTheme)
+            else { return .cyan }
+            
+            return theme.color
+        }
+    )
 }
