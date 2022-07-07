@@ -36,9 +36,26 @@ struct ColorThemeView: View {
         WithViewStore(self.store) { viewStore in
             NavigationView {
                 List {
-                    ForEach(viewStore.colorThemes, id: \.rawValue) { colorTheme in
-                        Text(colorTheme.description)
-                            .foregroundColor(colorTheme.color)
+                    Section("Options") {
+                        ForEach(viewStore.colorThemes, id: \.rawValue) { colorTheme in
+                            HStack(spacing: 12) {
+                                RoundEmojiView(
+                                    emoji: colorTheme.emoji,
+                                    color: colorTheme.color,
+                                    done: false
+                                )
+                                
+                                Text(colorTheme.description)
+                                    .font(.headline)
+                                    .foregroundColor(colorTheme.color)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(colorTheme.color)
+                            }
+                            .padding(.vertical, 8)
+                        }
                     }
                 }
                 .onAppear {
