@@ -6,6 +6,7 @@ import ComposableArchitecture
 struct SettingsState: Equatable {
     var isPresented: Bool = false
     @BindableState var listNameInput: String = ""
+    var colorTheme: Color = .primary
 }
 
 enum SettingsAction: BindableAction, Equatable {
@@ -81,9 +82,9 @@ struct SettingsView: View {
                         
                         SettingsItemListView(
                             emoji: "💎",
-                            color: .blue,
-                            title: "Theme",
-                            subtitle: "Change the primary color"
+                            color: viewStore.colorTheme,
+                            title: "Color",
+                            subtitle: "Change the appearance of the app"
                         )
                     }
                 

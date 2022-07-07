@@ -4,11 +4,13 @@ import SwiftUI
 // MARK: - Logic
 
 struct AppState: Equatable {
+    var colorTheme: Color = .primary
     var listState = ListState()
     var settingsState = SettingsState()
 }
 
 enum AppAction: Equatable {
+    case onAppear
     case listAction(ListAction)
     case settingsAction(SettingsAction)
     case setSettings(isPresented: Bool)
@@ -31,6 +33,13 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
     ),
     Reducer { state, action, environment in
         switch action {
+        case .onAppear:
+            let colorTheme = environment.colorThemeProvider().color()
+            state.colorTheme = colorTheme
+            state.listState.colorTheme = colorTheme
+            state.settingsState.colorTheme = colorTheme
+            return .none
+            
         case .listAction(let listAction):
             return .none
             
@@ -79,6 +88,9 @@ struct EmojiShoppingListApp: App {
                             action: AppAction.listAction
                         )
                     )
+                    .onAppear {
+                        viewStore.send(.onAppear)
+                    }
                     .sheet(isPresented: viewStore.binding(
                         get: { $0.settingsState.isPresented },
                         send:  AppAction.setSettings(isPresented:))
@@ -110,7 +122,7 @@ struct EmojiShoppingListApp: App {
                             }
                         }
                     }
-                    .tint(Color.blue)
+                    .tint(viewStore.colorTheme)
                 }
             }
         }

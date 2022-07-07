@@ -9,6 +9,7 @@ struct ListState: Equatable {
     var inputState = InputState()
     var deleteState = DeleteState()
     var listName: String = ""
+    var colorTheme: Color = .primary
 }
 
 enum ListAction: Equatable {
@@ -45,6 +46,7 @@ let listReducer = Reducer<
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
+            state.inputState.colorTheme = environment.colorThemeProvider().color()
             if state.items.isEmpty {
                 state.items = environment.persistenceController().items()
                 return Effect(value: .sortItems)
@@ -185,7 +187,7 @@ struct ListView: View {
                     .navigationTitle(viewStore.listName + "‎ ㅤ")
                     .navigationBarColor(
                         backgroundColor: .systemBackground,
-                        textColor: .systemBlue
+                        textColor: UIColor(viewStore.colorTheme)
                     )
                     .onAppear {
                         viewStore.send(.onAppear)
