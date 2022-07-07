@@ -65,7 +65,11 @@ extension ColorThemeProvider {
             guard
                 let currentTheme = SettingsPersistence.default.setting(.colorTheme) as? Int,
                 let theme = ColorTheme(rawValue: currentTheme)
-            else { return .cyan }
+            else {
+                let defaultTheme: ColorTheme = .blue
+                SettingsPersistence.default.saveSetting(8, .colorTheme)
+                return defaultTheme.color
+            }
             
             return theme.color
         }
