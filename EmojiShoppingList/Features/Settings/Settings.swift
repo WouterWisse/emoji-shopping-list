@@ -80,12 +80,16 @@ struct SettingsView: View {
                         }
                         .padding(.vertical, 8)
                         
-                        SettingsItemListView(
-                            emoji: "💎",
-                            color: viewStore.colorTheme,
-                            title: "Color",
-                            subtitle: "Change the appearance of the app"
-                        )
+                        NavigationLink {
+                            Text("Color Theme!")
+                        } label: {
+                            SettingsItemListView(
+                                emoji: "💎",
+                                color: viewStore.colorTheme,
+                                title: "Color",
+                                subtitle: "Change the appearance of the app"
+                            )
+                        }
                     }
                 
                     Section("Support") {
