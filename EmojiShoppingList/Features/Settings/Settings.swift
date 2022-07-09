@@ -104,7 +104,7 @@ struct SettingsView: View {
                                 emoji: viewStore.colorTheme.emoji,
                                 color: viewStore.colorTheme.color,
                                 title: "Theme",
-                                subtitle: "Change the appearance of the app"
+                                subtitle: viewStore.colorTheme.description
                             )
                         }
                     }
