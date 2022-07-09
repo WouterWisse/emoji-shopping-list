@@ -61,8 +61,17 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
             switch settingsAction {
             case .binding, .onAppear, .setColorTheme: return .none
                 
-            case .colorThemeAction:
-                return Effect(value: .onAppear)
+            case .colorThemeAction(let action):
+                switch action {
+                case .didTapColorTheme(let colorTheme):
+                    state.colorTheme = colorTheme
+                    state.listState.colorTheme = colorTheme
+                    state.settingsState.colorTheme = colorTheme
+                    return .none
+                    
+                default:
+                    return .none
+                }
                 
             case .submit:
                 return Effect(value: .listAction(.updateListName))

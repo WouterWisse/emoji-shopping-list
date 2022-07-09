@@ -76,6 +76,7 @@ enum ColorTheme: Int, CaseIterable {
 
 struct ColorThemeProvider {
     var theme: () -> ColorTheme
+    var selectTheme: (_ colorTheme: ColorTheme) -> Void
 }
 
 extension ColorThemeProvider {
@@ -92,6 +93,9 @@ extension ColorThemeProvider {
             }
             
             return theme
+        }, selectTheme: { colorTheme in
+            let index = ColorTheme.allCases.firstIndex(of: colorTheme)!
+            SettingsPersistence.default.saveSetting(index, .colorTheme)
         }
     )
 }

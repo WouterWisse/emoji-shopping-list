@@ -11,6 +11,7 @@ struct ColorThemeState: Equatable {
 
 enum ColorThemeAction: Equatable {
     case onAppear
+    case didTapColorTheme(colorTheme: ColorTheme)
 }
 
 struct ColorThemeEnvironment {}
@@ -23,6 +24,11 @@ let colorThemeReducer = Reducer<
     switch action {
     case .onAppear:
         let colorTheme = environment.colorThemeProvider().theme()
+        state.selectedColorTheme = colorTheme
+        return .none
+        
+    case .didTapColorTheme(let colorTheme):
+        environment.colorThemeProvider().selectTheme(colorTheme)
         state.selectedColorTheme = colorTheme
         return .none
     }
@@ -41,25 +47,14 @@ struct ColorThemeView: View {
                 List {
                     Section("Options") {
                         ForEach(viewStore.colorThemes, id: \.rawValue) { colorTheme in
-                            HStack(spacing: 12) {
-                                RoundEmojiView(
-                                    emoji: colorTheme.emoji,
-                                    color: colorTheme.color,
-                                    done: false
+                            Button {
+                                viewStore.send(.didTapColorTheme(colorTheme: colorTheme))
+                            } label: {
+                                ColorThemeRowView(
+                                    colorTheme: colorTheme,
+                                    isSelected: colorTheme == viewStore.selectedColorTheme
                                 )
-                                
-                                Text(colorTheme.description)
-                                    .font(.headline)
-                                    .foregroundColor(colorTheme.color)
-                                
-                                Spacer()
-                                
-                                if colorTheme == viewStore.selectedColorTheme {
-                                    Image(systemName: "checkmark")
-                                        .foregroundColor(colorTheme.color)
-                                }
                             }
-                            .padding(.vertical, 8)
                         }
                     }
                 }
@@ -70,6 +65,33 @@ struct ColorThemeView: View {
                 .navigationTitle("Color Theme")
             }
         }
+    }
+}
+
+private struct ColorThemeRowView: View {
+    let colorTheme: ColorTheme
+    let isSelected: Bool
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            RoundEmojiView(
+                emoji: colorTheme.emoji,
+                color: colorTheme.color,
+                done: false
+            )
+            
+            Text(colorTheme.description)
+                .font(.headline)
+                .foregroundColor(colorTheme.color)
+            
+            Spacer()
+            
+            if isSelected {
+                Image(systemName: "checkmark")
+                    .foregroundColor(colorTheme.color)
+            }
+        }
+        .padding(.vertical, 8)
     }
 }
 
