@@ -6,7 +6,7 @@ import ComposableArchitecture
 struct SettingsState: Equatable {
     var isPresented: Bool = false
     @BindableState var listNameInput: String = ""
-    var colorTheme: Color = .primary
+    var colorTheme: ColorTheme = .primary
     var colorThemeState = ColorThemeState()
 }
 
@@ -101,9 +101,9 @@ struct SettingsView: View {
                             viewStore.send(.setColorTheme(isPresented: true))
                         } label: {
                             SettingsItemListView(
-                                emoji: "💎",
-                                color: viewStore.colorTheme,
-                                title: "Color",
+                                emoji: viewStore.colorTheme.emoji,
+                                color: viewStore.colorTheme.color,
+                                title: "Theme",
                                 subtitle: "Change the appearance of the app"
                             )
                         }

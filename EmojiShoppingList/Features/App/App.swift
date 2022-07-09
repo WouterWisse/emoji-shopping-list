@@ -4,7 +4,7 @@ import SwiftUI
 // MARK: - Logic
 
 struct AppState: Equatable {
-    var colorTheme: Color = .primary
+    var colorTheme: ColorTheme = .primary
     var listState = ListState()
     var settingsState = SettingsState()
 }
@@ -34,7 +34,7 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
-            let colorTheme = environment.colorThemeProvider().color()
+            let colorTheme = environment.colorThemeProvider().theme()
             state.colorTheme = colorTheme
             state.listState.colorTheme = colorTheme
             state.settingsState.colorTheme = colorTheme
@@ -126,7 +126,7 @@ struct EmojiShoppingListApp: App {
                             }
                         }
                     }
-                    .tint(viewStore.colorTheme)
+                    .tint(viewStore.colorTheme.color)
                 }
             }
         }
