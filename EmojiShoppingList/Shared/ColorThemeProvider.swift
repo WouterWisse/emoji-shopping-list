@@ -46,7 +46,7 @@ enum ColorTheme: Int, CaseIterable {
         case .teal: return "Ice Blue"
         case .cyan: return "Ocean Blue"
         case .blue: return "Blueberry Blue"
-        case .indigo: return "Eggplant Indigo"
+        case .indigo: return "Eggplant Purple"
         case .purple: return "Sweet Potato Purple"
         case .pink: return "Grape Pink"
         case .brown: return "Chocolate Brown"
@@ -75,12 +75,12 @@ enum ColorTheme: Int, CaseIterable {
 }
 
 struct ColorThemeProvider {
-    var color: () -> Color
+    var theme: () -> ColorTheme
 }
 
 extension ColorThemeProvider {
     static let `default`: ColorThemeProvider = ColorThemeProvider(
-        color: {
+        theme: {
             guard
                 let currentTheme = SettingsPersistence.default.setting(.colorTheme) as? Int,
                 let theme = ColorTheme(rawValue: currentTheme)
@@ -88,10 +88,10 @@ extension ColorThemeProvider {
                 let defaultTheme: ColorTheme = .blue
                 let index = ColorTheme.allCases.firstIndex(of: defaultTheme)!
                 SettingsPersistence.default.saveSetting(index, .colorTheme)
-                return defaultTheme.color
+                return defaultTheme
             }
             
-            return theme.color
+            return theme
         }
     )
 }
