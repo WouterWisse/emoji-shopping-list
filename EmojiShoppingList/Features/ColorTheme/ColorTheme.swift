@@ -5,6 +5,7 @@ import ComposableArchitecture
 
 struct ColorThemeState: Equatable {
     var colorThemes: [ColorTheme] = ColorTheme.allCases
+    var selectedColorTheme: ColorTheme = .primary
     var isPresented: Bool = false
 }
 
@@ -21,6 +22,8 @@ let colorThemeReducer = Reducer<
 > { state, action, environment in
     switch action {
     case .onAppear:
+        let colorTheme = environment.colorThemeProvider().theme()
+        state.selectedColorTheme = colorTheme
         return .none
     }
 }
@@ -51,8 +54,10 @@ struct ColorThemeView: View {
                                 
                                 Spacer()
                                 
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(colorTheme.color)
+                                if colorTheme == viewStore.selectedColorTheme {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(colorTheme.color)
+                                }
                             }
                             .padding(.vertical, 8)
                         }
