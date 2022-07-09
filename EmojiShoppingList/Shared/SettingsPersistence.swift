@@ -14,6 +14,7 @@ extension SettingsPersistence {
     static let `default` = SettingsPersistence(
         saveSetting: { value, key in
             UserDefaults.standard.set(value, forKey: key.rawValue)
+            UserDefaults.standard.synchronize()
         }, setting: { key in
             UserDefaults.standard.value(forKey: key.rawValue)
         }
