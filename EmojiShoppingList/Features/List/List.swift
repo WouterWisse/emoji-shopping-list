@@ -211,16 +211,8 @@ private struct EmptyStateView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            Text("🍏")
+            Text("")
                 .font(.largeTitle)
-            Text("'An apple a day keeps the 🩺 away'")
-                .font(.footnote)
-                .foregroundColor(.secondary)
-            
-//            Text("🥒")
-//                .font(.largeTitle)
-//            Text("'As cool as a cucumber.'")
-//                .font(.caption2)
         }
         .frame(
             maxWidth: .infinity,
