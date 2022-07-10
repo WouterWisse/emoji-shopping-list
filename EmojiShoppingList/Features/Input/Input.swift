@@ -97,7 +97,11 @@ struct InputView: View {
                             viewStore.send(.dismissKeyboard)
                         }
                     } label: {
-                        Image(systemName: viewStore.inputText.isEmpty ? "checkmark.circle.fill": "xmark.circle.fill")
+                        Image(
+                            systemName: viewStore.inputText.isEmpty
+                            ? "checkmark.circle.fill"
+                            : "xmark.circle.fill"
+                        )
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.regular)
