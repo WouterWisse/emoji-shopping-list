@@ -11,6 +11,7 @@ struct AppState: Equatable {
 
 enum AppAction: Equatable {
     case onAppear
+    case colorThemeDidChange(colorTheme: ColorTheme)
     case listAction(ListAction)
     case settingsAction(SettingsAction)
     case setSettings(isPresented: Bool)
@@ -35,6 +36,9 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
         switch action {
         case .onAppear:
             let colorTheme = environment.colorThemeProvider().theme()
+            return Effect(value: .colorThemeDidChange(colorTheme: colorTheme))
+            
+        case .colorThemeDidChange(let colorTheme):
             state.colorTheme = colorTheme
             state.listState.colorTheme = colorTheme
             state.settingsState.colorTheme = colorTheme
@@ -64,10 +68,7 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
             case .colorThemeAction(let action):
                 switch action {
                 case .didTapColorTheme(let colorTheme):
-                    state.colorTheme = colorTheme
-                    state.listState.colorTheme = colorTheme
-                    state.settingsState.colorTheme = colorTheme
-                    return .none
+                    return Effect(value: .colorThemeDidChange(colorTheme: colorTheme))
                     
                 default:
                     return .none
