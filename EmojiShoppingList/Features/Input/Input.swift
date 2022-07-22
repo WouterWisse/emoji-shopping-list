@@ -7,7 +7,6 @@ struct InputState: Equatable {
     @BindableState var inputText: String = ""
     @BindableState var focusedField: Field?
     var isFirstFieldFocus: Bool = true
-    var colorTheme: ColorTheme = .primary
     
     enum Field: String, Hashable {
         case input
@@ -109,7 +108,6 @@ struct InputView: View {
                 }
             }
             .synchronize(viewStore.binding(\.$focusedField), self.$focusedField)
-            .listRowSeparatorTint(viewStore.colorTheme.color)
             .listRowSeparator(.hidden, edges: .top)
         }
     }
