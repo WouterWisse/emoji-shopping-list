@@ -50,102 +50,95 @@ extension EmojiProvider {
             Emoji(emoji: "🥜", color: .brown, products: ["Peanuts", "Pinda's", "Pindas"]),
             Emoji(emoji: "🫘", color: .brown, products: ["Beans", "Bonen"]),
             Emoji(emoji: "🧀", color: .yellow, products: ["Cheese", "Kaas"]),
+            Emoji(emoji: "🥬", color: .yellow, products: ["Salad", "Leafy greens", "Sla"]),
+            Emoji(emoji: "🌰", color: .brown, products: ["Chestnut", "Kastanje"]),
+            Emoji(emoji: "🍞", color: .brown, products: ["Bread", "Brood"]),
+            Emoji(emoji: "🥐", color: .brown, products: ["Croissant"]),
+            Emoji(emoji: "🫓", color: .brown, products: ["Flatbread"]),
+            Emoji(emoji: "🥨", color: .brown, products: ["Pretzel"]),
+            Emoji(emoji: "🥯", color: .brown, products: ["Bagel"]),
+            Emoji(emoji: "🥞", color: .brown, products: ["Pancakes"]),
+            Emoji(emoji: "🧇", color: .brown, products: ["Waffle"]),
+            Emoji(emoji: "🍖", color: .brown, products: ["Meat"]),
+            Emoji(emoji: "🍗", color: .brown, products: ["Poultry"]),
+            Emoji(emoji: "🥩", color: .brown, products: ["Steak"]),
+            Emoji(emoji: "🥓", color: .brown, products: ["Bacon"]),
+            Emoji(emoji: "🍔", color: .brown, products: ["Hamburger"]),
+            Emoji(emoji: "🍟", color: .yellow, products: ["French Fries"]),
+            Emoji(emoji: "🍕", color: .red, products: ["Pizza"]),
+            Emoji(emoji: "🌭", color: .brown, products: ["Hot Dog"]),
+            Emoji(emoji: "🥪", color: .brown, products: ["Sandwich"]),
+            Emoji(emoji: "🌮", color: .yellow, products: ["Taco"]),
+            Emoji(emoji: "🌯", color: .brown, products: ["Burrito"]),
+            Emoji(emoji: "🧆", color: .brown, products: ["Falafel"]),
+            Emoji(emoji: "🥚", color: .gray, products: ["Egg"]),
+            Emoji(emoji: "🍿", color: .gray, products: ["Popcorn"]),
+            Emoji(emoji: "🧂", color: .gray, products: ["Salt"]),
+            Emoji(emoji: "🧈", color: .yellow, products: ["Butter"]),
+            Emoji(emoji: "🥫", color: .gray, products: ["Canned"]),
+            Emoji(emoji: "🥫", color: .red, products: ["Tomato Saus"]),
+            Emoji(emoji: "🍚", color: .gray, products: ["Rice"]),
+            Emoji(emoji: "🍠", color: .indigo, products: ["Sweet Potato"]),
+            Emoji(emoji: "🍣", color: .orange, products: ["Sushi"]),
+            Emoji(emoji: "🍤", color: .orange, products: ["Shrimp"]),
+            Emoji(emoji: "🥟", color: .brown, products: ["Dumpling"]),
+            Emoji(emoji: "🍩", color: .brown, products: ["Doughnut"]),
+            Emoji(emoji: "🍪", color: .brown, products: ["Cookie"]),
+            Emoji(emoji: "🦪", color: .gray, products: ["Oyster"]),
+            Emoji(emoji: "🦪", color: .gray, products: ["Mussle"]),
+            Emoji(emoji: "🧁", color: .brown, products: ["Cupcake"]),
+            Emoji(emoji: "🥧", color: .brown, products: ["Pie"]),
+            Emoji(emoji: "🍫", color: .brown, products: ["Chocolate"]),
+            Emoji(emoji: "🍬", color: .purple, products: ["Candy"]),
+            Emoji(emoji: "🍯", color: .brown, products: ["Honey"]),
+            Emoji(emoji: "☕", color: .brown, products: ["Coffee"]),
+            Emoji(emoji: "🫖", color: .brown, products: ["Tea"]),
+            Emoji(emoji: "🍷", color: .red, products: ["Red Wine"]),
+            Emoji(emoji: "🍷", color: .gray, products: ["White Wine"]),
+            Emoji(emoji: "🍺", color: .brown, products: ["Beer"]),
+            Emoji(emoji: "🧊", color: .blue, products: ["Ice"]),
+            Emoji(emoji: "🍨", color: .brown, products: ["Ice Cream"]),
+            Emoji(emoji: "🧃", color: .brown, products: ["Juice", "Juice Box"]),
+            Emoji(emoji: "🥃", color: .brown, products: ["Whiskey"]),
+            Emoji(emoji: "🍶", color: .gray, products: ["Sake"]),
         ]
         
         /*
-         🥬 Leafy Green
-          Beans
-         🌰 Chestnut
-         🍞 Bread
-         🥐 Croissant
-         
-         🫓 Flatbread
-         🥨 Pretzel
-         🥯 Bagel
-         🥞 Pancakes
-         🧇 Waffle
-         🍖 Meat on Bone
-         🍗 Poultry Leg
-         🥩 Cut of Meat
-         🥓 Bacon
-         🍔 Hamburger
-         🍟 French Fries
-         🍕 Pizza
-         🌭 Hot Dog
-         🥪 Sandwich
-         🌮 Taco
-         🌯 Burrito
          🫔 Tamale
          🥙 Stuffed Flatbread
-         🧆 Falafel
-         🥚 Egg
-         🍳 Cooking
-         🥘 Shallow Pan of Food
          🍲 Pot of Food
          🫕 Fondue
          🥣 Bowl with Spoon
          🥗 Green Salad
-         🍿 Popcorn
-         🧈 Butter
-         🧂 Salt
-         🥫 Canned Food
          🍱 Bento Box
          🍘 Rice Cracker
          🍙 Rice Ball
-         🍚 Cooked Rice
          🍛 Curry Rice
          🍜 Steaming Bowl
          🍝 Spaghetti
-         🍠 Roasted Sweet Potato
          🍢 Oden
-         🍣 Sushi
-         🍤 Fried Shrimp
          🍥 Fish Cake with Swirl
          🥮 Moon Cake
          🍡 Dango
-         🥟 Dumpling
          🥠 Fortune Cookie
          🥡 Takeout Box
-         🦪 Oyster
          🍦 Soft Ice Cream
          🍧 Shaved Ice
-         🍨 Ice Cream
-         🍩 Doughnut
-         🍪 Cookie
          🎂 Birthday Cake
          🍰 Shortcake
-         🧁 Cupcake
-         🥧 Pie
-         🍫 Chocolate Bar
-         🍬 Candy
          🍭 Lollipop
          🍮 Custard
-         🍯 Honey Pot
          🍼 Baby Bottle
          🥛 Glass of Milk
-         ☕ Hot Beverage
-         🫖 Teapot
          🍵 Teacup Without Handle
-         🍶 Sake
          🍾 Bottle with Popping Cork
-         🍷 Wine Glass
          🍸 Cocktail Glass
          🍹 Tropical Drink
-         🍺 Beer Mug
          🍻 Clinking Beer Mugs
          🥂 Clinking Glasses
          🥃 Tumbler Glass
-         🫗 Pouring Liquid
          🥤 Cup with Straw
          🧋 Bubble Tea
-         🧃 Beverage Box
-         🧉 Mate
-         🧊 Ice
-         🥢 Chopsticks
-         🍽️ Fork and Knife with Plate
-         🍴 Fork and Knife
-         🥄 Spoon
-         🫙 Jar
          */
         
         return EmojiProvider(
@@ -162,7 +155,7 @@ extension EmojiProvider {
                     let possibleMatch = emoji.filter { emoji in
                         return !emoji.products.filter { $0.lowercased().contains(string.lowercased()) }.isEmpty
                     }
-                    foundEmoji = directMatch.first
+                    foundEmoji = possibleMatch.first
                 }
                 
                 return foundEmoji ?? defaultEmoji
