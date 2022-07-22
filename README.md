@@ -1,5 +1,5 @@
 <p align="center">
-   <img width="200" src="Assets/icon-readme.png" alt="NU.nl logo">
+   <img width="200" src="Assets/icon-readme.png" alt="Emoji Shopping List - App Logo">
 </p>
 <p align="center">
    <strong>Emoji Shopping List</strong><BR>
