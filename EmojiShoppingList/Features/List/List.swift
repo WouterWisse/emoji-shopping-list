@@ -46,7 +46,6 @@ let listReducer = Reducer<
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
-            state.inputState.colorTheme = environment.colorThemeProvider().theme()
             if state.items.isEmpty {
                 state.items = environment.persistenceController().items()
                 return Effect(value: .sortItems)
@@ -159,6 +158,7 @@ struct ListView: View {
                                     action: ListAction.deleteAction
                                 )
                             )
+                            .listRowSeparatorTint(.red)
                             .id(DeleteViewID())
                         } else {
                             InputView(
@@ -167,6 +167,7 @@ struct ListView: View {
                                     action: ListAction.inputAction
                                 )
                             )
+                            .listRowSeparatorTint(viewStore.colorTheme.color)
                         }
                         
                         ForEachStore(
