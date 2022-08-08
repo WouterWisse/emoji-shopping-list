@@ -39,19 +39,11 @@
 		6CFEF9752834433100254038 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEF9742834433100254038 /* Preview Assets.xcassets */; };
 		6CFEF9772834433100254038 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF9762834433100254038 /* Persistence.swift */; };
 		6CFEF97A2834433100254038 /* EmojiShoppingList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF9782834433100254038 /* EmojiShoppingList.xcdatamodeld */; };
-		6CFEF98E2834433100254038 /* EmojiShoppingListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF98D2834433100254038 /* EmojiShoppingListUITests.swift */; };
 		6CFEF9A22835889500254038 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 6CFEF9A12835889500254038 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		6CFEF9802834433100254038 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6CFEF9622834432F00254038 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6CFEF9692834432F00254038;
-			remoteInfo = EmojiShoppingList;
-		};
-		6CFEF98A2834433100254038 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6CFEF9622834432F00254038 /* Project object */;
 			proxyType = 1;
@@ -96,8 +88,6 @@
 		6CFEF9762834433100254038 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		6CFEF9792834433100254038 /* EmojiShoppingList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmojiShoppingList.xcdatamodel; sourceTree = "<group>"; };
 		6CFEF97F2834433100254038 /* EmojiShoppingListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmojiShoppingListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6CFEF9892834433100254038 /* EmojiShoppingListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmojiShoppingListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6CFEF98D2834433100254038 /* EmojiShoppingListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiShoppingListUITests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,13 +100,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6CFEF97C2834433100254038 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6CFEF9862834433100254038 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -299,7 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				6CFEF96C2834432F00254038 /* EmojiShoppingList */,
-				6CFEF98C2834433100254038 /* EmojiShoppingListUITests */,
 				6CFEF96B2834432F00254038 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -309,7 +291,6 @@
 			children = (
 				6CFEF96A2834432F00254038 /* Shopping List.app */,
 				6CFEF97F2834433100254038 /* EmojiShoppingListTests.xctest */,
-				6CFEF9892834433100254038 /* EmojiShoppingListUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -326,14 +307,6 @@
 				6CFEF99C283443F400254038 /* Resources */,
 			);
 			path = EmojiShoppingList;
-			sourceTree = "<group>";
-		};
-		6CFEF98C2834433100254038 /* EmojiShoppingListUITests */ = {
-			isa = PBXGroup;
-			children = (
-				6CFEF98D2834433100254038 /* EmojiShoppingListUITests.swift */,
-			);
-			path = EmojiShoppingListUITests;
 			sourceTree = "<group>";
 		};
 		6CFEF99C283443F400254038 /* Resources */ = {
@@ -410,24 +383,6 @@
 			productReference = 6CFEF97F2834433100254038 /* EmojiShoppingListTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6CFEF9882834433100254038 /* EmojiShoppingListUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6CFEF9992834433100254038 /* Build configuration list for PBXNativeTarget "EmojiShoppingListUITests" */;
-			buildPhases = (
-				6CFEF9852834433100254038 /* Sources */,
-				6CFEF9862834433100254038 /* Frameworks */,
-				6CFEF9872834433100254038 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6CFEF98B2834433100254038 /* PBXTargetDependency */,
-			);
-			name = EmojiShoppingListUITests;
-			productName = EmojiShoppingListUITests;
-			productReference = 6CFEF9892834433100254038 /* EmojiShoppingListUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -442,10 +397,6 @@
 						CreatedOnToolsVersion = 13.3;
 					};
 					6CFEF97E2834433100254038 = {
-						CreatedOnToolsVersion = 13.3;
-						TestTargetID = 6CFEF9692834432F00254038;
-					};
-					6CFEF9882834433100254038 = {
 						CreatedOnToolsVersion = 13.3;
 						TestTargetID = 6CFEF9692834432F00254038;
 					};
@@ -469,7 +420,6 @@
 			targets = (
 				6CFEF9692834432F00254038 /* EmojiShoppingList */,
 				6CFEF97E2834433100254038 /* EmojiShoppingListTests */,
-				6CFEF9882834433100254038 /* EmojiShoppingListUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -487,13 +437,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6CFEF97D2834433100254038 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6CFEF9872834433100254038 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -545,14 +488,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6CFEF9852834433100254038 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6CFEF98E2834433100254038 /* EmojiShoppingListUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -560,11 +495,6 @@
 			isa = PBXTargetDependency;
 			target = 6CFEF9692834432F00254038 /* EmojiShoppingList */;
 			targetProxy = 6CFEF9802834433100254038 /* PBXContainerItemProxy */;
-		};
-		6CFEF98B2834433100254038 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6CFEF9692834432F00254038 /* EmojiShoppingList */;
-			targetProxy = 6CFEF98A2834433100254038 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -804,42 +734,6 @@
 			};
 			name = Release;
 		};
-		6CFEF99A2834433100254038 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = Q6AEA497G4;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wouterwisse.EmojiShoppingListUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = EmojiShoppingList;
-			};
-			name = Debug;
-		};
-		6CFEF99B2834433100254038 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = Q6AEA497G4;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wouterwisse.EmojiShoppingListUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = EmojiShoppingList;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -866,15 +760,6 @@
 			buildConfigurations = (
 				6CFEF9972834433100254038 /* Debug */,
 				6CFEF9982834433100254038 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6CFEF9992834433100254038 /* Build configuration list for PBXNativeTarget "EmojiShoppingListUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6CFEF99A2834433100254038 /* Debug */,
-				6CFEF99B2834433100254038 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
