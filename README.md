@@ -7,5 +7,7 @@
 </p>
 <p align="center">
    <img src="Assets/download-appstore.svg" alt="Download on AppStore"> 
-   <img width="144" src="Assets/bmc-button.png" alt="Buy me a Coffee">
+   <a href="https://www.buymeacoffee.com/wouterwisse" target="_blank">
+      <img width="144" src="Assets/bmc-button.png" alt="Buy me a Coffee">
+   </a>
 </p>
