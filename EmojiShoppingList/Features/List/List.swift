@@ -149,57 +149,53 @@ struct ListView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             ScrollViewReader { scrollProxy in
-                GeometryReader { geometryProxy in
-                    List {
-                        if viewStore.deleteState.isPresented {
-                            DeleteView(
-                                store: self.store.scope(
-                                    state: \.deleteState,
-                                    action: ListAction.deleteAction
-                                )
+                List {
+                    if viewStore.deleteState.isPresented {
+                        DeleteView(
+                            store: self.store.scope(
+                                state: \.deleteState,
+                                action: ListAction.deleteAction
                             )
-                            .listRowSeparator(.hidden)
-                            .id(DeleteViewID())
-                        } else {
-                            InputView(
-                                store: self.store.scope(
-                                    state: \.inputState,
-                                    action: ListAction.inputAction
-                                )
-                            )
-                            .listRowSeparator(.hidden)
-                        }
-                        
-                        ForEachStore(
-                            self.store.scope(
-                                state: \.items,
-                                action: ListAction.listItem(id:action:)
-                            ),
-                            content: ListItemView.init(store:)
                         )
-                        
-                        if viewStore.items.isEmpty {
-                            EmptyStateView(
-                                height: geometryProxy.size.height - geometryProxy.safeAreaInsets.top
+                        .listRowSeparator(.hidden)
+                        .id(DeleteViewID())
+                    } else {
+                        InputView(
+                            store: self.store.scope(
+                                state: \.inputState,
+                                action: ListAction.inputAction
                             )
-                        }
+                        )
+                        .listRowSeparator(.hidden)
                     }
-                    .listStyle(.plain)
-                    .navigationTitle(viewStore.listName + "‎ ㅤ")
-                    .navigationBarColor(
-                        backgroundColor: .systemBackground,
-                        textColor: UIColor(viewStore.colorTheme.color)
+                    
+                    ForEachStore(
+                        self.store.scope(
+                            state: \.items,
+                            action: ListAction.listItem(id:action:)
+                        ),
+                        content: ListItemView.init(store:)
                     )
-                    .onAppear {
-                        viewStore.send(.onAppear)
-                        viewStore.send(.updateListName)
+                    
+                    if viewStore.items.isEmpty {
+                        EmptyStateView()
                     }
-                    .onChange(of: viewStore.deleteState.isPresented, perform: { isPresented in
-                        if isPresented {
-                            withAnimation { scrollProxy.scrollTo(DeleteViewID(), anchor: .top) }
-                        }
-                    })
                 }
+                .listStyle(.plain)
+                .navigationTitle(viewStore.listName + "‎ ㅤ")
+                .navigationBarColor(
+                    backgroundColor: .systemBackground,
+                    textColor: UIColor(viewStore.colorTheme.color)
+                )
+                .onAppear {
+                    viewStore.send(.onAppear)
+                    viewStore.send(.updateListName)
+                }
+                .onChange(of: viewStore.deleteState.isPresented, perform: { isPresented in
+                    if isPresented {
+                        withAnimation { scrollProxy.scrollTo(DeleteViewID(), anchor: .top) }
+                    }
+                })
             }
         }
     }
@@ -208,20 +204,33 @@ struct ListView: View {
 private struct DeleteViewID: Hashable {}
 
 private struct EmptyStateView: View {
-    let height: CGFloat
+    private let emoji = ["🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍑", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄", "🥜", "🫘", "🌰", "🍞", "🥐", "🥖", "🫓", "🥨", "🥯", "🥞", "🧇", "🧀", "🍖", "🍗", "🥩", "🥓", "🍟", "🍕", "🥚", "🍿", "🥫", "🍠", "🍣", "🍤", "🥮", "🥟", "🥠", "🦪", "🍩", "🍪", "🎂", "🍰", "🧁", "🥧", "🍫", "🍬", "🍭"]
+    
+    private var randomEmptyText: String {
+        let firstUniqueEmoji = emoji.randomElement()!
+        var secondUniqueEmoji = emoji.randomElement()!
+        var thirdUniqueEmoji = emoji.randomElement()!
+        
+        while secondUniqueEmoji == firstUniqueEmoji {
+            secondUniqueEmoji = emoji.randomElement()!
+        }
+        while thirdUniqueEmoji == firstUniqueEmoji || thirdUniqueEmoji == secondUniqueEmoji {
+            thirdUniqueEmoji = emoji.randomElement()!
+        }
+        
+        return "\(firstUniqueEmoji) \(secondUniqueEmoji) \(thirdUniqueEmoji)"
+    }
     
     var body: some View {
-        VStack(spacing: 8) {
-            Text("🥦 🥔 🥒")
-                .font(.largeTitle)
-        }
-        .frame(
-            maxWidth: .infinity,
-            minHeight: height,
-            maxHeight: .infinity,
-            alignment: .center
-        )
-        .listRowSeparator(.hidden)
+        Text(randomEmptyText)
+            .font(.largeTitle)
+            .frame(
+                maxWidth: .infinity,
+                minHeight: 340,
+                maxHeight: .infinity,
+                alignment: .center
+            )
+            .listRowSeparator(.hidden)
     }
 }
 
