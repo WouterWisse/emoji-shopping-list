@@ -158,7 +158,7 @@ struct ListView: View {
                                     action: ListAction.deleteAction
                                 )
                             )
-                            .listRowSeparatorTint(.clear)
+                            .listRowSeparator(.hidden)
                             .id(DeleteViewID())
                         } else {
                             InputView(
@@ -167,7 +167,7 @@ struct ListView: View {
                                     action: ListAction.inputAction
                                 )
                             )
-                            .listRowSeparatorTint(.clear)
+                            .listRowSeparator(.hidden)
                         }
                         
                         ForEachStore(
@@ -214,7 +214,6 @@ private struct EmptyStateView: View {
         VStack(spacing: 8) {
             Text("🥦 🥔 🥒")
                 .font(.largeTitle)
-            
         }
         .frame(
             maxWidth: .infinity,
