@@ -203,37 +203,6 @@ struct ListView: View {
 
 private struct DeleteViewID: Hashable {}
 
-private struct EmptyStateView: View {
-    private let emoji = ["🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍑", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄", "🥜", "🫘", "🌰", "🍞", "🥐", "🥖", "🫓", "🥨", "🥯", "🥞", "🧇", "🧀", "🍖", "🍗", "🥩", "🥓", "🍟", "🍕", "🥚", "🍿", "🥫", "🍠", "🍣", "🍤", "🥮", "🥟", "🥠", "🦪", "🍩", "🍪", "🎂", "🍰", "🧁", "🥧", "🍫", "🍬", "🍭"]
-    
-    private var randomEmptyText: String {
-        let firstUniqueEmoji = emoji.randomElement()!
-        var secondUniqueEmoji = emoji.randomElement()!
-        var thirdUniqueEmoji = emoji.randomElement()!
-        
-        while secondUniqueEmoji == firstUniqueEmoji {
-            secondUniqueEmoji = emoji.randomElement()!
-        }
-        while thirdUniqueEmoji == firstUniqueEmoji || thirdUniqueEmoji == secondUniqueEmoji {
-            thirdUniqueEmoji = emoji.randomElement()!
-        }
-        
-        return "\(firstUniqueEmoji) \(secondUniqueEmoji) \(thirdUniqueEmoji)"
-    }
-    
-    var body: some View {
-        Text(randomEmptyText)
-            .font(.largeTitle)
-            .frame(
-                maxWidth: .infinity,
-                minHeight: 340,
-                maxHeight: .infinity,
-                alignment: .center
-            )
-            .listRowSeparator(.hidden)
-    }
-}
-
 // MARK: - Preview
 
 struct ListView_Previews: PreviewProvider {
