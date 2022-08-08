@@ -117,6 +117,8 @@ struct EmojiShoppingListApp: App {
                         )
                     }
                     .toolbar {
+                        /*
+                        Disable settings for now.
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button {
                                 withAnimation { viewStore.send(.settingsButtonTapped) }
@@ -124,6 +126,7 @@ struct EmojiShoppingListApp: App {
                                 Image(systemName: "gearshape")
                             }
                         }
+                         */
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
                                 withAnimation { viewStore.send(.deleteButtonTapped) }
