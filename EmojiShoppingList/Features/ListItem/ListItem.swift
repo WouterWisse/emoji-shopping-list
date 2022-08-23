@@ -1,6 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 import CoreData
+import Pow
 
 // MARK: Logic
 
@@ -84,15 +85,25 @@ struct ListItemView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: 12) {
-                RoundEmojiView(
-                    emoji: viewStore.emoji,
-                    color: viewStore.color,
-                    done: viewStore.isDone
-                )
+                if viewStore.isDone {
+                    RoundEmojiView(
+                        emoji: viewStore.emoji,
+                        color: viewStore.color,
+                        done: viewStore.isDone
+                    )
+                    .transition(.movingParts.pop(.init(viewStore.color.opacity(0.25))))
+                } else {
+                    RoundEmojiView(
+                        emoji: viewStore.emoji,
+                        color: viewStore.color,
+                        done: viewStore.isDone
+                    )
+                    .transition(.identity)
+                }
                 
-                Text(viewStore.state.title)
+                Text(viewStore.title)
                     .font(.headline)
-                    .strikethrough(viewStore.state.isDone)
+                    .strikethrough(viewStore.isDone)
                 
                 Spacer()
                 
@@ -151,11 +162,11 @@ struct ListItemView: View {
 
 extension ListItem {
     var color: Color {
-        if let image = emoji.textToImage(),
-           let color = image.getColors(quality: .lowest) {
-            return Color(color.background)
-        }
-        return .gray
+//        if let image = emoji.textToImage(),
+//           let color = image.getColors(quality: .low) {
+//            return Color(color.background)
+//        }
+        return .green
     }
 }
 
