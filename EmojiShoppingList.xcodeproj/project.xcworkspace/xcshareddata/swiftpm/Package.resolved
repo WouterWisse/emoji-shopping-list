@@ -55,6 +55,15 @@
       }
     },
     {
+      "identity" : "text-to-emoji",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WouterWisse/text-to-emoji",
+      "state" : {
+        "branch" : "main",
+        "revision" : "05059a2994a74bcc59a1f9edcec371d8d9aa8221"
+      }
+    },
+    {
       "identity" : "xctest-dynamic-overlay",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
