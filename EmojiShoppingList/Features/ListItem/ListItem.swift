@@ -1,13 +1,13 @@
 import SwiftUI
 import ComposableArchitecture
 import CoreData
-import TextToEmoji
 
 // MARK: Logic
 
 struct ListItem: Equatable, Identifiable {
     let id: NSManagedObjectID
     let title: String
+    let emoji: String
     var isDone: Bool
     var amount: Int16
     let createdAt: Date
@@ -15,6 +15,7 @@ struct ListItem: Equatable, Identifiable {
     init(item: Item) {
         self.id = item.objectID
         self.title = item.title!
+        self.emoji = item.emoji ?? "🤷‍♂️"
         self.isDone = item.done
         self.amount = item.amount
         self.createdAt = item.createdAt!
@@ -23,12 +24,14 @@ struct ListItem: Equatable, Identifiable {
     init(
         id: NSManagedObjectID,
         title: String,
+        emoji: String,
         isDone: Bool,
         amount: Int16,
         createdAt: Date
     ) {
         self.id = id
         self.title = title
+        self.emoji = emoji
         self.isDone = isDone
         self.amount = amount
         self.createdAt = createdAt
@@ -82,7 +85,7 @@ struct ListItemView: View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: 12) {
                 RoundEmojiView(
-                    emoji: viewStore.emojiString,
+                    emoji: viewStore.emoji,
                     color: viewStore.color,
                     done: viewStore.isDone
                 )
@@ -148,18 +151,11 @@ struct ListItemView: View {
 
 extension ListItem {
     var color: Color {
-//        if let image = self.emojiString.textToImage(),
-//           let color = image.getColors(quality: .lowest) {
-//            return Color(color.background)
-//        }
+        if let image = emoji.textToImage(),
+           let color = image.getColors(quality: .lowest) {
+            return Color(color.background)
+        }
         return .gray
-    }
-    
-    // TODO: Save to coredata so you don't have to fetch it every time 🤓
-    var emojiString: String {
-        let tte = TextToEmoji()
-        let emoji = tte.emoji(for: self.title, preferredCategory: .foodAndDrink)
-        return emoji ?? "🤷🏼‍♂️"
     }
 }
 
