@@ -1,5 +1,6 @@
 import CoreData
 import ComposableArchitecture
+import TextToEmoji
 
 struct PersistenceController {
     var items: () -> IdentifiedArrayOf<ListItem>
@@ -20,6 +21,7 @@ extension PersistenceController {
             }
         }
         
+        let textToEmoji = TextToEmoji()
         let viewContext = container.viewContext
         
         let save: () -> Void = {
@@ -52,7 +54,7 @@ extension PersistenceController {
                 guard var item = viewContext.object(with: listItem.id) as? Item else {
                     return print("🍎 Item for \(listItem.id) to update not found")
                 }
-                
+                item.emoji = textToEmoji.emoji(for: listItem.title, preferredCategory: .foodAndDrink)
                 item.done = listItem.isDone
                 item.amount = listItem.amount
                 save()
@@ -68,6 +70,7 @@ extension PersistenceController {
                 }
                 
                 newItem.title = title
+                newItem.emoji = textToEmoji.emoji(for: title, preferredCategory: .foodAndDrink)
                 newItem.createdAt = Date()
                 newItem.done = false
                 save()
