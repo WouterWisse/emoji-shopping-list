@@ -78,7 +78,7 @@ let listReducer = Reducer<
                 return Effect(value: .sortItems)
                     .debounce(
                         id: DebounceId(),
-                        for: .seconds(0.8),
+                        for: .seconds(1.2),
                         scheduler: environment.mainQueue()
                             .animation()
                             .eraseToAnyScheduler()
