@@ -14,6 +14,13 @@ struct RoundEmojiView: View {
             .frame(width: size, height: size, alignment: .center)
             .background(color.opacity(done ? 0 : 0.25))
             .cornerRadius(size / 2)
+            .overlay(
+                Circle()
+                    .strokeBorder(
+                        color.opacity(done ? 0 : 0.25),
+                        lineWidth: 2
+                    )
+            )
     }
 }
 
