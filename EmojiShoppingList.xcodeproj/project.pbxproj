@@ -11,6 +11,7 @@
 		6C02812228B7F9BA00AA2666 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02812128B7F9BA00AA2666 /* UIImage+Color.swift */; };
 		6C02812428B7FA6900AA2666 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02812328B7FA6900AA2666 /* String+Hex.swift */; };
 		6C02812628B7FA9300AA2666 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02812528B7FA9300AA2666 /* UIColor+Hex.swift */; };
+		6C02812828B7FBA400AA2666 /* UIColor+Adjust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02812728B7FBA400AA2666 /* UIColor+Adjust.swift */; };
 		6C260CEB284AC1C900756E74 /* InputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEA284AC1C900756E74 /* InputTests.swift */; };
 		6C260CED284AC46500756E74 /* SharedEnvironment+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEC284AC46500756E74 /* SharedEnvironment+Mock.swift */; };
 		6C260CEF284AC50200756E74 /* FeedbackGenerator+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEE284AC50200756E74 /* FeedbackGenerator+Mock.swift */; };
@@ -58,6 +59,7 @@
 		6C02812128B7F9BA00AA2666 /* UIImage+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		6C02812328B7FA6900AA2666 /* String+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
 		6C02812528B7FA9300AA2666 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		6C02812728B7FBA400AA2666 /* UIColor+Adjust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Adjust.swift"; sourceTree = "<group>"; };
 		6C260CEA284AC1C900756E74 /* InputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTests.swift; sourceTree = "<group>"; };
 		6C260CEC284AC46500756E74 /* SharedEnvironment+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedEnvironment+Mock.swift"; sourceTree = "<group>"; };
 		6C260CEE284AC50200756E74 /* FeedbackGenerator+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedbackGenerator+Mock.swift"; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				6C02812128B7F9BA00AA2666 /* UIImage+Color.swift */,
 				6C02812328B7FA6900AA2666 /* String+Hex.swift */,
 				6C02812528B7FA9300AA2666 /* UIColor+Hex.swift */,
+				6C02812728B7FBA400AA2666 /* UIColor+Adjust.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				6C02812228B7F9BA00AA2666 /* UIImage+Color.swift in Sources */,
 				6CFEF97A2834433100254038 /* EmojiShoppingList.xcdatamodeld in Sources */,
 				6CFEF96E2834432F00254038 /* App.swift in Sources */,
+				6C02812828B7FBA400AA2666 /* UIColor+Adjust.swift in Sources */,
 				6C02812628B7FA9300AA2666 /* UIColor+Hex.swift in Sources */,
 				6C02812428B7FA6900AA2666 /* String+Hex.swift in Sources */,
 				6CF5CC6B28469A0B00117790 /* SharedEnvironment.swift in Sources */,
