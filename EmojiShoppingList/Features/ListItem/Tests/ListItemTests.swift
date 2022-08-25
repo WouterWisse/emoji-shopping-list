@@ -7,7 +7,6 @@ import CoreData
 final class ListItemTests: XCTestCase {
     
     let scheduler = DispatchQueue.test
-    var mockSettingsPersistence: MockSettingsPerstence!
     var mockFeedbackGenerator: MockFeedbackGenerator!
     var mockPersistenceController: MockPersistenceController!
     
@@ -15,14 +14,12 @@ final class ListItemTests: XCTestCase {
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        mockSettingsPersistence = MockSettingsPerstence()
         mockFeedbackGenerator = MockFeedbackGenerator()
         mockPersistenceController = MockPersistenceController()
     }
     
     override func tearDownWithError() throws {
         try super.tearDownWithError()
-        mockSettingsPersistence = nil
         mockFeedbackGenerator = nil
         mockPersistenceController = nil
     }
@@ -34,6 +31,8 @@ final class ListItemTests: XCTestCase {
             initialState: ListItem(
                 id: NSManagedObjectID(),
                 title: "Broccoli",
+                emoji: "",
+                color: .green,
                 isDone: false,
                 amount: 1,
                 createdAt: Date()
@@ -43,7 +42,6 @@ final class ListItemTests: XCTestCase {
                 environment: ListItemEnvironment(),
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
@@ -60,6 +58,8 @@ final class ListItemTests: XCTestCase {
             initialState: ListItem(
                 id: NSManagedObjectID(),
                 title: "Broccoli",
+                emoji: "",
+                color: .green,
                 isDone: false,
                 amount: 2,
                 createdAt: Date()
@@ -69,7 +69,6 @@ final class ListItemTests: XCTestCase {
                 environment: ListItemEnvironment(),
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
@@ -86,6 +85,8 @@ final class ListItemTests: XCTestCase {
             initialState: ListItem(
                 id: NSManagedObjectID(),
                 title: "Broccoli",
+                emoji: "",
+                color: .green,
                 isDone: false,
                 amount: 1,
                 createdAt: Date()
@@ -95,7 +96,6 @@ final class ListItemTests: XCTestCase {
                 environment: ListItemEnvironment(),
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )

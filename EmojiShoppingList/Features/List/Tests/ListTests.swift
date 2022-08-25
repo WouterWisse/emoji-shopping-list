@@ -7,7 +7,6 @@ import CoreData
 final class ListTests: XCTestCase {
     
     let scheduler = DispatchQueue.test
-    var mockSettingsPersistence: MockSettingsPerstence!
     var mockFeedbackGenerator: MockFeedbackGenerator!
     var mockPersistenceController: MockPersistenceController!
     
@@ -15,14 +14,12 @@ final class ListTests: XCTestCase {
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        mockSettingsPersistence = MockSettingsPerstence()
         mockFeedbackGenerator = MockFeedbackGenerator()
         mockPersistenceController = MockPersistenceController()
     }
     
     override func tearDownWithError() throws {
         try super.tearDownWithError()
-        mockSettingsPersistence = nil
         mockFeedbackGenerator = nil
         mockPersistenceController = nil
     }
@@ -33,6 +30,8 @@ final class ListTests: XCTestCase {
         let item = ListItem(
             id: NSManagedObjectID(),
             title: "Broccoli",
+            emoji: "🥦",
+            color: .green,
             isDone: false,
             amount: 1,
             createdAt: Date()
@@ -46,7 +45,6 @@ final class ListTests: XCTestCase {
                 environment: ListEnvironment(),
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
@@ -60,85 +58,13 @@ final class ListTests: XCTestCase {
         }
     }
     
-    func test_updateListName_shouldGetListNameFromSettings() {
-        mockSettingsPersistence.stubbedSettingResult = "Pizza Night"
-
-        let store = TestStore(
-            initialState: ListState(),
-            reducer: listReducer,
-            environment: .mock(
-                environment: ListEnvironment(),
-                mainQueue: scheduler.eraseToAnyScheduler(),
-                persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
-                feedbackGenerator: mockFeedbackGenerator
-            )
-        )
-        
-        store.send(.updateListName) {
-            $0.listName = "Pizza Night"
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSettingCount, 1)
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSettingParameters?.key, .listName)
-        }
-    }
-    
-    func test_updateListName_withNoSavedListName_shouldCreateNewDefaultListName() {
-        mockSettingsPersistence.stubbedSettingResult = nil
-        
-        let store = TestStore(
-            initialState: ListState(),
-            reducer: listReducer,
-            environment: .mock(
-                environment: ListEnvironment(),
-                mainQueue: scheduler.eraseToAnyScheduler(),
-                persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
-                feedbackGenerator: mockFeedbackGenerator
-            )
-        )
-        
-        store.send(.updateListName) {
-            $0.listName = "Shopping List"
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingCount, 1)
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingParameters?.key, .listName)
-            XCTAssertEqual(
-                self.mockSettingsPersistence.invokedSaveSettingParameters?.value as? String,
-                "Shopping List"
-            )
-        }
-    }
-    
-    func test_updateListName_withEmptySavedListName_shouldCreateNewDefaultListName() {
-        mockSettingsPersistence.stubbedSettingResult = ""
-
-        let store = TestStore(
-            initialState: ListState(),
-            reducer: listReducer,
-            environment: .mock(
-                environment: ListEnvironment(),
-                mainQueue: scheduler.eraseToAnyScheduler(),
-                persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
-                feedbackGenerator: mockFeedbackGenerator
-            )
-        )
-        
-        store.send(.updateListName) {
-            $0.listName = "Shopping List"
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingCount, 1)
-            XCTAssertEqual(self.mockSettingsPersistence.invokedSaveSettingParameters?.key, .listName)
-            XCTAssertEqual(
-                self.mockSettingsPersistence.invokedSaveSettingParameters?.value as? String,
-                "Shopping List"
-            )
-        }
-    }
-    
     func test_sortItems() {
         let items: IdentifiedArrayOf<ListItem> = [
             ListItem(
                 id: NSManagedObjectID(),
                 title: "Broccoli",
+                emoji: "",
+                color: .green,
                 isDone: false,
                 amount: 1,
                 createdAt: Date.distantPast
@@ -146,6 +72,8 @@ final class ListTests: XCTestCase {
             ListItem(
                 id: NSManagedObjectID(),
                 title: "Avocado",
+                emoji: "",
+                color: .green,
                 isDone: false,
                 amount: 1,
                 createdAt: Date()
@@ -153,6 +81,8 @@ final class ListTests: XCTestCase {
             ListItem(
                 id: NSManagedObjectID(),
                 title: "Spinach",
+                emoji: "",
+                color: .green,
                 isDone: true,
                 amount: 1,
                 createdAt: Date.distantPast
@@ -160,6 +90,8 @@ final class ListTests: XCTestCase {
             ListItem(
                 id: NSManagedObjectID(),
                 title: "Lemon",
+                emoji: "",
+                color: .green,
                 isDone: true,
                 amount: 1,
                 createdAt: Date()
@@ -173,7 +105,6 @@ final class ListTests: XCTestCase {
                 environment: ListEnvironment(),
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
@@ -190,6 +121,8 @@ final class ListTests: XCTestCase {
             ListItem(
                 id: NSManagedObjectID(),
                 title: "Broccoli",
+                emoji: "",
+                color: .green,
                 isDone: false,
                 amount: 1,
                 createdAt: Date.distantPast
@@ -197,6 +130,8 @@ final class ListTests: XCTestCase {
             ListItem(
                 id: NSManagedObjectID(),
                 title: "Avocado",
+                emoji: "",
+                color: .green,
                 isDone: false,
                 amount: 1,
                 createdAt: Date()
@@ -210,7 +145,6 @@ final class ListTests: XCTestCase {
                 environment: ListEnvironment(),
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
@@ -247,6 +181,8 @@ final class ListTests: XCTestCase {
         let item = ListItem(
             id: NSManagedObjectID(),
             title: "Avocado",
+            emoji: "",
+            color: .green,
             isDone: false,
             amount: 1,
             createdAt: Date.distantPast
@@ -260,7 +196,6 @@ final class ListTests: XCTestCase {
                 environment: ListEnvironment(),
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
@@ -296,6 +231,8 @@ final class ListTests: XCTestCase {
             ListItem(
                 id: NSManagedObjectID(),
                 title: "Broccoli",
+                emoji: "",
+                color: .green,
                 isDone: false,
                 amount: 1,
                 createdAt: Date.distantPast
@@ -303,6 +240,8 @@ final class ListTests: XCTestCase {
             ListItem(
                 id: NSManagedObjectID(),
                 title: "Avocado",
+                emoji: "",
+                color: .green,
                 isDone: false,
                 amount: 1,
                 createdAt: Date()
@@ -316,7 +255,6 @@ final class ListTests: XCTestCase {
                 environment: ListEnvironment(),
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
@@ -353,6 +291,8 @@ final class ListTests: XCTestCase {
             ListItem(
                 id: NSManagedObjectID(),
                 title: "Broccoli",
+                emoji: "",
+                color: .green,
                 isDone: false,
                 amount: 1,
                 createdAt: Date.distantPast
@@ -360,6 +300,8 @@ final class ListTests: XCTestCase {
             ListItem(
                 id: NSManagedObjectID(),
                 title: "Avocado",
+                emoji: "",
+                color: .green,
                 isDone: true,
                 amount: 1,
                 createdAt: Date()
@@ -373,7 +315,6 @@ final class ListTests: XCTestCase {
                 environment: ListEnvironment(),
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 persistenceController: mockPersistenceController,
-                settingsPersistence: mockSettingsPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
