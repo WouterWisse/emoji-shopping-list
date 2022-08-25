@@ -91,7 +91,7 @@ struct ListItemView: View {
                         color: viewStore.color,
                         done: viewStore.isDone
                     )
-                    .transition(.movingParts.pop(.init(viewStore.color.opacity(0.5))))
+                    .transition(.movingParts.pop(.init(viewStore.color)))
                 } else {
                     RoundEmojiView(
                         emoji: viewStore.emoji,
@@ -109,6 +109,10 @@ struct ListItemView: View {
                 
                 if !viewStore.isDone {
                     ZStack {
+                        Capsule()
+                            .fill(viewStore.color.opacity(0.1))
+                            .frame(width: 100, height: 40)
+                        
                         Capsule()
                             .strokeBorder(viewStore.color.opacity(0.25), lineWidth: 2)
                             .frame(width: 100, height: 40)
@@ -175,7 +179,8 @@ struct ListItemView: View {
 extension ListItem {
     var color: Color {
         if let image = emoji.toImage(), let color = image.averageColor {
-            return Color(color)
+            let adjustedColor = color.adjust(hue: 0, saturation: 0.2, brightness: 0.7, alpha: 1)
+            return Color(adjustedColor)
         }
         return .green
     }

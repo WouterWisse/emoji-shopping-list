@@ -12,7 +12,7 @@ struct RoundEmojiView: View {
             .font(.title2)
             .multilineTextAlignment(.center)
             .frame(width: size, height: size, alignment: .center)
-            .background(color.opacity(done ? 0 : 0.25))
+            .background(color.opacity(done ? 0 : 0.1))
             .cornerRadius(size / 2)
             .overlay(
                 Circle()
