@@ -56,15 +56,6 @@ extension PersistenceController {
                 guard var item = viewContext.object(with: listItem.id) as? Item else {
                     return print("🍎 Item for \(listItem.id) to update not found")
                 }
-                
-                let emoji = textToEmoji.emoji(for: listItem.title, preferredCategory: .foodAndDrink)
-                
-                item.emoji = emoji
-                let color = emoji?
-                    .toImage()?
-                    .averageColor?
-                    .adjust(hue: 0, saturation: 0.2, brightness: 0.7, alpha: 1)
-                item.color = color
                 item.done = listItem.isDone
                 item.amount = listItem.amount
                 save()
