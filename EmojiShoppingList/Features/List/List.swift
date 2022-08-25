@@ -9,12 +9,10 @@ struct ListState: Equatable {
     var inputState = InputState()
     var deleteState = DeleteState()
     var listName: String = ""
-    var colorTheme: ColorTheme = .primary
 }
 
 enum ListAction: Equatable {
     case onAppear
-    case updateListName
     case sortItems
     case listItem(id: ListItem.ID, action: ListItemAction)
     case inputAction(InputAction)
@@ -52,17 +50,6 @@ let listReducer = Reducer<
             } else {
                 return Effect(value: .sortItems)
             }
-            
-        case .updateListName:
-            let settings = environment.settingsPersistence()
-            if let listName = settings.setting(.listName) as? String, !listName.isEmpty {
-                state.listName = listName
-            } else {
-                let defaultListName = "Shopping List"
-                settings.saveSetting(defaultListName, .listName)
-                state.listName = defaultListName
-            }
-            return .none
             
         case .listItem(let id, let action):
             guard let item = state.items[id: id] else { return .none }
@@ -185,11 +172,10 @@ struct ListView: View {
                 .navigationTitle(viewStore.listName + "‎ ㅤ")
                 .navigationBarColor(
                     backgroundColor: .systemBackground,
-                    textColor: UIColor(viewStore.colorTheme.color)
+                    textColor: .systemBlue
                 )
                 .onAppear {
                     viewStore.send(.onAppear)
-                    viewStore.send(.updateListName)
                 }
                 .onChange(of: viewStore.deleteState.isPresented, perform: { isPresented in
                     if isPresented {

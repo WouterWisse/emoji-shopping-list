@@ -6,9 +6,7 @@ struct SharedEnvironment<Environment> {
     
     var mainQueue: () -> AnySchedulerOf<DispatchQueue>
     var persistenceController: () -> PersistenceController
-    var settingsPersistence: () -> SettingsPersistence
     var feedbackGenerator: () -> FeedbackGenerator
-    var colorThemeProvider: () -> ColorThemeProvider
 }
 
 // MARK: Environments
@@ -19,9 +17,7 @@ extension SharedEnvironment {
             environment: environment,
             mainQueue: { .main },
             persistenceController: { .default },
-            settingsPersistence: { .default },
-            feedbackGenerator: { .default() },
-            colorThemeProvider: { .default }
+            feedbackGenerator: { .default() }
         )
     }
     
@@ -30,9 +26,7 @@ extension SharedEnvironment {
             environment: environment,
             mainQueue: { .main },
             persistenceController: { .preview },
-            settingsPersistence: { .default },
-            feedbackGenerator: { .default() },
-            colorThemeProvider: { .default }
+            feedbackGenerator: { .default() }
         )
     }
 }
