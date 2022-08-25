@@ -16,3 +16,6 @@
       <img src="https://img.shields.io/badge/contact%20-@wouterwisse-blue.svg">
    </a>
 </p>
+
+## Summary
+First go at creating a `SwiftUI` application using the `Composable Architecture`.
