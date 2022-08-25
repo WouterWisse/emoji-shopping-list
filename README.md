@@ -18,7 +18,7 @@
 </p>
 
 ## Summary
-First go at creating a `SwiftUI` application using the `Composable Architecture`. Will be a free download on the App Store.
+First go at creating a `SwiftUI` application using the `Composable Architecture`. The full application will be a free download on the App Store and the code will be open source.
 
 ## Localization
 | Languages    | Supported   |
