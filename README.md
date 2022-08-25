@@ -19,3 +19,22 @@
 
 ## Summary
 First go at creating a `SwiftUI` application using the `Composable Architecture`. Will be a free download on the App Store.
+
+## Localization
+| Languages    | Supported   |
+|--------------|-------------|
+| 🇬🇧 English   | ✅          |
+| 🇳🇱 Dutch     | Coming soon |
+| 🇩🇪 Deutsch   | Coming soon |
+| 🇪🇸 Español   | Coming soon |
+| 🇫🇷 Français  | Coming soon |
+| 🇮🇹 Italiano  | Coming soon |
+| 🇵🇹 Português | Coming soon |
+
+## Contribution
+Feel free to contribute to this project via a `pull-request`.
+
+## Keep me caffeinated
+   <a href="https://www.buymeacoffee.com/wouterwisse" target="_blank">
+      <img width="220" src=".github/assets/bmc-button.png" alt="Buy me a Coffee">
+   </a>
