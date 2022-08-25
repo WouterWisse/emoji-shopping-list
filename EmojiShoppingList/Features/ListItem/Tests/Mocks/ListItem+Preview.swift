@@ -24,7 +24,7 @@ extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
             title: "Apple",
             emoji: "🍎",
             isDone: false,
-            amount: 1,
+            amount: 99,
             createdAt: Date()
         ),
         ListItem(
