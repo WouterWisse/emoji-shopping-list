@@ -18,7 +18,7 @@
 </p>
 
 ## Summary
-First go at creating a `SwiftUI` application using the `Composable Architecture`. The full application will be a free download on the App Store and the code will be open source.
+First go at creating a `SwiftUI` application using the `Composable Architecture`. The full application will be a free download on the App Store and the code will be open source. Text-to-Emoji conversion powered by my open source `Swift Package` [text-to-😎](https://github.com/WouterWisse/text-to-emoji).
 
 ## Localization
 | Languages    | Supported   |
