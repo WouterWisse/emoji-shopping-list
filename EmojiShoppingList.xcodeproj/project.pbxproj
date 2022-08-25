@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C02812028B7F99E00AA2666 /* String+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02811F28B7F99E00AA2666 /* String+Image.swift */; };
+		6C02812228B7F9BA00AA2666 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02812128B7F9BA00AA2666 /* UIImage+Color.swift */; };
 		6C260CEB284AC1C900756E74 /* InputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEA284AC1C900756E74 /* InputTests.swift */; };
 		6C260CED284AC46500756E74 /* SharedEnvironment+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEC284AC46500756E74 /* SharedEnvironment+Mock.swift */; };
 		6C260CEF284AC50200756E74 /* FeedbackGenerator+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEE284AC50200756E74 /* FeedbackGenerator+Mock.swift */; };
@@ -28,7 +30,6 @@
 		6CCBE2A128B578FF00C25667 /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = 6CCBE2A028B578FF00C25667 /* Pow */; };
 		6CD4576928A1A31900EB9E7B /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4576828A1A31900EB9E7B /* EmptyStateView.swift */; };
 		6CD7AB8228A6FD63007CDBAE /* TextToEmoji in Frameworks */ = {isa = PBXBuildFile; productRef = 6CD7AB8128A6FD63007CDBAE /* TextToEmoji */; };
-		6CD7AB8428A73DC7007CDBAE /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD7AB8328A73DC7007CDBAE /* TestExtensions.swift */; };
 		6CE6F1C82856A59600C1A40D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6CE6F1CA2856A59600C1A40D /* Localizable.strings */; };
 		6CF5CC6B28469A0B00117790 /* SharedEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5CC6A28469A0B00117790 /* SharedEnvironment.swift */; };
 		6CF5CC6F2846A35700117790 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5CC6E2846A35700117790 /* FeedbackGenerator.swift */; };
@@ -51,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6C02811F28B7F99E00AA2666 /* String+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Image.swift"; sourceTree = "<group>"; };
+		6C02812128B7F9BA00AA2666 /* UIImage+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		6C260CEA284AC1C900756E74 /* InputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTests.swift; sourceTree = "<group>"; };
 		6C260CEC284AC46500756E74 /* SharedEnvironment+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedEnvironment+Mock.swift"; sourceTree = "<group>"; };
 		6C260CEE284AC50200756E74 /* FeedbackGenerator+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedbackGenerator+Mock.swift"; sourceTree = "<group>"; };
@@ -71,7 +74,6 @@
 		6CA6E41028428F6B0069CDD9 /* View+Synchronize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Synchronize.swift"; sourceTree = "<group>"; };
 		6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundEmojiView.swift; sourceTree = "<group>"; };
 		6CD4576828A1A31900EB9E7B /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
-		6CD7AB8328A73DC7007CDBAE /* TestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExtensions.swift; sourceTree = "<group>"; };
 		6CE6F1C92856A59600C1A40D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6CF5CC6A28469A0B00117790 /* SharedEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnvironment.swift; sourceTree = "<group>"; };
 		6CF5CC6E2846A35700117790 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
@@ -222,7 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				6CA6E41028428F6B0069CDD9 /* View+Synchronize.swift */,
-				6CD7AB8328A73DC7007CDBAE /* TestExtensions.swift */,
+				6C02811F28B7F99E00AA2666 /* String+Image.swift */,
+				6C02812128B7F9BA00AA2666 /* UIImage+Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -439,13 +442,14 @@
 				6CA6E40E2841B5610069CDD9 /* Input.swift in Sources */,
 				6CA6E400284152B90069CDD9 /* ListItem.swift in Sources */,
 				6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */,
+				6C02812028B7F99E00AA2666 /* String+Image.swift in Sources */,
 				6CF5CC6F2846A35700117790 /* FeedbackGenerator.swift in Sources */,
+				6C02812228B7F9BA00AA2666 /* UIImage+Color.swift in Sources */,
 				6CFEF97A2834433100254038 /* EmojiShoppingList.xcdatamodeld in Sources */,
 				6CFEF96E2834432F00254038 /* App.swift in Sources */,
 				6CF5CC6B28469A0B00117790 /* SharedEnvironment.swift in Sources */,
 				6C913E7E2842DD6C00E34326 /* Delete.swift in Sources */,
 				6CA6E41128428F6B0069CDD9 /* View+Synchronize.swift in Sources */,
-				6CD7AB8428A73DC7007CDBAE /* TestExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
