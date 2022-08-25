@@ -1,10 +1,15 @@
-<p align="center">
-   <img width="180" src="Assets/icon-readme.png" alt="Emoji Shopping List - App Logo">
-</p>
-<p align="center">
-   <strong>Emoji Shopping List</strong><BR>
-   Make grocery shopping a tiny bit less boring.
-</p>
+<div align="center">
+   <img width="600" src="https://github.com/WouterWisse/emoji-shopping-list/blob/develop/.github/assets/logo-light@2x.png?raw=true#gh-light-mode-only" alt="Text To Emoji - Logo">
+   <img width="600" src="https://github.com/WouterWisse/emoji-shopping-list/blob/develop/.github/assets/logo-dark@2x.png?raw=true#gh-dark-mode-only" alt="Text To Emoji - Logo">
+</div>
+
+<div align="center">
+   <img height="20" src="https://github.com/WouterWisse/emoji-shopping-list/blob/develop/.github/assets/github-ios-app-logo-light@2x.png?raw=true#gh-light-mode-only" alt="Text To Emoji - Logo">
+   <img height="20" src="https://github.com/WouterWisse/emoji-shopping-list/blob/develop/.github/assets/github-ios-app-logo-dark@2x.png?raw=true#gh-dark-mode-only" alt="Text To Emoji - Logo">
+</div>
+
+<br />
+
 <p align="center">
    <img src="https://github.com/WouterWisse/text-to-emoji/actions/workflows/main.yml/badge.svg">
    <a href="https://www.twitter.com/wouterwisse" target="_blank">
