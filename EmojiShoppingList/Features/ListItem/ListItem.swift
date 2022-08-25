@@ -174,8 +174,7 @@ struct ListItemView: View {
 
 extension ListItem {
     var color: Color {
-        if let image = emoji.textToImage(),
-           let color = image.averageColor {
+        if let image = emoji.toImage(), let color = image.averageColor {
             return Color(color)
         }
         return .green
