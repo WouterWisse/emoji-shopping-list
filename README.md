@@ -4,8 +4,8 @@
 </div>
 
 <div align="center">
-   <img height="20" src=".github/assets/github-ios-app-logo-light@2x.png?raw=true#gh-light-mode-only" alt="Text To Emoji - Logo">
-   <img height="20" src=".github/assets/github-ios-app-logo-dark@2x.png?raw=true#gh-dark-mode-only" alt="Text To Emoji - Logo">
+   <img height="24" src=".github/assets/github-ios-app-logo-light@2x.png?raw=true#gh-light-mode-only" alt="Text To Emoji - Logo">
+   <img height="24" src=".github/assets/github-ios-app-logo-dark@2x.png?raw=true#gh-dark-mode-only" alt="Text To Emoji - Logo">
 </div>
 
 <br />
@@ -15,7 +15,4 @@
    <a href="https://www.twitter.com/wouterwisse" target="_blank">
       <img src="https://img.shields.io/badge/contact%20-@wouterwisse-blue.svg">
    </a>
-</p>
-<p align="center">
-   <img src=".github/assets/download-appstore.svg" alt="Download on AppStore"> 
 </p>
