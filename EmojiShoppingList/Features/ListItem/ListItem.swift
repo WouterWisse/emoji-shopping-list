@@ -91,7 +91,7 @@ struct ListItemView: View {
                         color: viewStore.color,
                         done: viewStore.isDone
                     )
-                    .transition(.movingParts.pop(.init(viewStore.color.opacity(0.25))))
+                    .transition(.movingParts.pop(.init(viewStore.color.opacity(0.5))))
                 } else {
                     RoundEmojiView(
                         emoji: viewStore.emoji,
@@ -108,22 +108,34 @@ struct ListItemView: View {
                 Spacer()
                 
                 if !viewStore.isDone {
-                    HStack(spacing: 4) {
-                        RoundStepperButtonView(
-                            title: "-",
-                            action: { viewStore.send(.decrementAmount) }
-                        )
-                        .tint(viewStore.color)
+                    ZStack {
+                        Capsule()
+                            .strokeBorder(viewStore.color.opacity(0.25), lineWidth: 2)
+                            .frame(width: 100, height: 40)
                         
-                        Text("\(viewStore.amount)")
-                            .font(.headline)
-                            .foregroundColor(viewStore.color)
-                            .frame(width: 30, height: 20, alignment: .center)
-                        
-                        RoundStepperButtonView(
-                            title: "+",
-                            action: { viewStore.send(.incrementAmount) }
-                        )
+                        HStack(spacing: 0) {
+                            Button(action: {
+                                viewStore.send(.decrementAmount)
+                            }, label: {
+                                Image(systemName: "minus")
+                            })
+                            .buttonStyle(.borderless)
+                            .frame(width: 30, height: 30, alignment: .center)
+
+                            Text("\(viewStore.amount)")
+                                .foregroundColor(viewStore.color)
+                                .frame(width: 24, height: 20, alignment: .center)
+                            
+                            Button(action: {
+                                viewStore.send(.incrementAmount)
+                            }, label: {
+                                Image(systemName: "plus")
+                            })
+                            .buttonStyle(.borderless)
+                            .frame(width: 30, height: 30, alignment: .center)
+                            
+                        }
+                        .font(.system(size: 15, weight: .bold, design: .rounded))
                         .tint(viewStore.color)
                     }
                 }
@@ -162,10 +174,10 @@ struct ListItemView: View {
 
 extension ListItem {
     var color: Color {
-//        if let image = emoji.textToImage(),
-//           let color = image.getColors(quality: .low) {
-//            return Color(color.background)
-//        }
+        if let image = emoji.textToImage(),
+           let color = image.averageColor {
+            return Color(color)
+        }
         return .green
     }
 }
