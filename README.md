@@ -1,11 +1,11 @@
 <div align="center">
-   <img width="600" src="https://github.com/WouterWisse/emoji-shopping-list/blob/develop/.github/assets/logo-light@2x.png?raw=true#gh-light-mode-only" alt="Text To Emoji - Logo">
-   <img width="600" src="https://github.com/WouterWisse/emoji-shopping-list/blob/develop/.github/assets/logo-dark@2x.png?raw=true#gh-dark-mode-only" alt="Text To Emoji - Logo">
+   <img width="600" src=".github/assets/logo-light@2x.png?raw=true#gh-light-mode-only" alt="Text To Emoji - Logo">
+   <img width="600" src=".github/assets/logo-dark@2x.png?raw=true#gh-dark-mode-only" alt="Text To Emoji - Logo">
 </div>
 
 <div align="center">
-   <img height="20" src="https://github.com/WouterWisse/emoji-shopping-list/blob/develop/.github/assets/github-ios-app-logo-light@2x.png?raw=true#gh-light-mode-only" alt="Text To Emoji - Logo">
-   <img height="20" src="https://github.com/WouterWisse/emoji-shopping-list/blob/develop/.github/assets/github-ios-app-logo-dark@2x.png?raw=true#gh-dark-mode-only" alt="Text To Emoji - Logo">
+   <img height="20" src=".github/assets/github-ios-app-logo-light@2x.png?raw=true#gh-light-mode-only" alt="Text To Emoji - Logo">
+   <img height="20" src=".github/assets/github-ios-app-logo-dark@2x.png?raw=true#gh-dark-mode-only" alt="Text To Emoji - Logo">
 </div>
 
 <br />
@@ -17,5 +17,5 @@
    </a>
 </p>
 <p align="center">
-   <img src="Assets/download-appstore.svg" alt="Download on AppStore"> 
+   <img src=".github/assets/download-appstore.svg" alt="Download on AppStore"> 
 </p>
