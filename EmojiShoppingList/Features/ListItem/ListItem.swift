@@ -9,6 +9,7 @@ struct ListItem: Equatable, Identifiable {
     let id: NSManagedObjectID
     let title: String
     let emoji: String
+    let color: Color
     var isDone: Bool
     var amount: Int16
     let createdAt: Date
@@ -17,6 +18,7 @@ struct ListItem: Equatable, Identifiable {
         self.id = item.objectID
         self.title = item.title!
         self.emoji = item.emoji ?? "🤷‍♂️"
+        self.color = Color(item.color as? UIColor ?? .gray)
         self.isDone = item.done
         self.amount = item.amount
         self.createdAt = item.createdAt!
@@ -26,6 +28,7 @@ struct ListItem: Equatable, Identifiable {
         id: NSManagedObjectID,
         title: String,
         emoji: String,
+        color: Color,
         isDone: Bool,
         amount: Int16,
         createdAt: Date
@@ -33,6 +36,7 @@ struct ListItem: Equatable, Identifiable {
         self.id = id
         self.title = title
         self.emoji = emoji
+        self.color = color
         self.isDone = isDone
         self.amount = amount
         self.createdAt = createdAt
@@ -170,19 +174,6 @@ struct ListItemView: View {
             }
             .padding(.vertical, 8)
         }
-    }
-}
-
-// TODO: Add animation where color and emoji pop in
-// Even better, because then we can do the async color check.
-
-extension ListItem {
-    var color: Color {
-        if let image = emoji.toImage(), let color = image.averageColor {
-            let adjustedColor = color.adjust(hue: 0, saturation: 0.2, brightness: 0.7, alpha: 1)
-            return Color(adjustedColor)
-        }
-        return .green
     }
 }
 

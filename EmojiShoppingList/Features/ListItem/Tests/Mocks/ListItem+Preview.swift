@@ -7,6 +7,7 @@ extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
             id: NSManagedObjectID(),
             title: "Avocado",
             emoji: "🥑",
+            color: .green,
             isDone: false,
             amount: 1,
             createdAt: Date()
@@ -15,6 +16,7 @@ extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
             id: NSManagedObjectID(),
             title: "Eggplant",
             emoji: "🍆",
+            color: .indigo,
             isDone: true,
             amount: 2,
             createdAt: Date()
@@ -23,6 +25,7 @@ extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
             id: NSManagedObjectID(),
             title: "Apple",
             emoji: "🍎",
+            color: .red,
             isDone: false,
             amount: 99,
             createdAt: Date()
@@ -31,6 +34,7 @@ extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
             id: NSManagedObjectID(),
             title: "Beans",
             emoji: "🫘",
+            color: .brown,
             isDone: false,
             amount: 1,
             createdAt: Date()
