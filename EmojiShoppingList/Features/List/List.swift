@@ -8,7 +8,6 @@ struct ListState: Equatable {
     var items: IdentifiedArrayOf<ListItem> = []
     var inputState = InputState()
     var deleteState = DeleteState()
-    var listName: String = ""
 }
 
 enum ListAction: Equatable {
@@ -169,10 +168,10 @@ struct ListView: View {
                     }
                 }
                 .listStyle(.plain)
-                .navigationTitle(viewStore.listName + "‎ ㅤ")
+                .navigationTitle("Shopping List")
                 .navigationBarColor(
                     backgroundColor: .systemBackground,
-                    textColor: .systemBlue
+                    textColor: .label
                 )
                 .onAppear {
                     viewStore.send(.onAppear)
