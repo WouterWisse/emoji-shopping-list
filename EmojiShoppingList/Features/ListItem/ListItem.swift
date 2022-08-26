@@ -63,6 +63,7 @@ let listItemReducer = Reducer<
     case .expandStepper(let expand):
         state.isStepperExpanded = expand
         if !expand { return .none }
+        environment.feedbackGenerator().impact(.soft)
         return Effect(value: .expandStepper(expand: false))
             .debounce(
                 id: state.id,
