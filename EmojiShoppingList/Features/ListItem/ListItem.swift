@@ -75,7 +75,11 @@ let listItemReducer = Reducer<
         
     case .toggleDone:
         state.isDone.toggle()
-        environment.feedbackGenerator().impact(.rigid)
+        if state.isDone {
+            environment.feedbackGenerator().notify(.success)
+        } else {
+            environment.feedbackGenerator().impact(.rigid)            
+        }
         return .none
     }
 }
