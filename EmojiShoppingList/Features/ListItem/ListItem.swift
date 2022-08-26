@@ -152,39 +152,41 @@ struct ListItemView: View {
                         Capsule()
                             .strokeBorder(viewStore.color.opacity(0.25), lineWidth: 2)
                             .frame(width: viewStore.isStepperExpanded ? 100 : 40, height: 40)
-                        
-                        HStack(spacing: 0) {
-                            if viewStore.isStepperExpanded {
-                                Button(action: {
-                                    viewStore.send(.decrementAmount)
-                                }, label: {
-                                    Image(systemName: "minus")
-                                })
-                                .buttonStyle(.borderless)
-                                .frame(width: 30, height: 30, alignment: .center)
-                            }
-                            
-                            Text("\(viewStore.amount)")
+                            .overlay(
+                                HStack(spacing: 0) {
+                                    if viewStore.isStepperExpanded {
+                                        Button(action: {
+                                            viewStore.send(.decrementAmount)
+                                        }, label: {
+                                            Image(systemName: "minus")
+                                        })
+                                        .buttonStyle(.borderless)
+                                        .frame(width: 30, height: 30, alignment: .center)
+                                    }
+                                    
+                                    Text("\(viewStore.amount)")
+                                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                                        .foregroundColor(viewStore.color)
+                                        .frame(width: 24, height: 20, alignment: .center)
+                                    
+                                    if viewStore.isStepperExpanded {
+                                        Button(action: {
+                                            viewStore.send(.incrementAmount)
+                                        }, label: {
+                                            Image(systemName: "plus")
+                                        })
+                                        .buttonStyle(.borderless)
+                                        .frame(width: 30, height: 30, alignment: .center)
+                                    }
+                                }
                                 .font(.system(size: 15, weight: .bold, design: .rounded))
-                                .foregroundColor(viewStore.color)
-                                .frame(width: 24, height: 20, alignment: .center)
-                            
-                            if viewStore.isStepperExpanded {
-                                Button(action: {
-                                    viewStore.send(.incrementAmount)
-                                }, label: {
-                                    Image(systemName: "plus")
-                                })
-                                .buttonStyle(.borderless)
-                                .frame(width: 30, height: 30, alignment: .center)
-                            }
-                        }
-                        .font(.system(size: 15, weight: .bold, design: .rounded))
-                        .tint(viewStore.color)
+                                .tint(viewStore.color)
+                                .clipped()
+                            )
                     }
                     .onTapGesture {
                         if viewStore.isStepperExpanded == false {
-                            withAnimation(Animation.easeInOut.speed(2)) {
+                            withAnimation(Animation.easeInOut) {
                                 viewStore.send(.expandStepper(expand: true))
                             }
                         }
