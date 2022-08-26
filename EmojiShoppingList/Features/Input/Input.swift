@@ -71,7 +71,7 @@ struct InputView: View {
                     text: viewStore.binding(\.$inputText),
                     prompt: Text("Add product")
                 )
-                .font(.headline)
+                .font(.system(size: 17, weight: .semibold, design: .rounded))
                 .focused($focusedField, equals: .input)
                 .submitLabel(.done)
                 .onSubmit {
