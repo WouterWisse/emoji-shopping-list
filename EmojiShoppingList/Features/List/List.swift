@@ -55,8 +55,13 @@ let listReducer = Reducer<
             struct DebounceId: Hashable {}
             
             switch action {
+            case .expandStepper(let expand):
+                if expand == false {
+                    environment.persistenceController().update(item)
+                }
+                return .none
+                
             case .incrementAmount, .decrementAmount:
-                environment.persistenceController().update(item)
                 return .none
                 
             case .toggleDone:
