@@ -13,6 +13,7 @@ struct ListItem: Equatable, Identifiable {
     var isDone: Bool
     var amount: Int16
     let createdAt: Date
+    var isStepperExpanded: Bool = false
     
     init(item: Item) {
         self.id = item.objectID
@@ -44,6 +45,7 @@ struct ListItem: Equatable, Identifiable {
 }
 
 enum ListItemAction: Equatable {
+    case expandStepper(expand: Bool)
     case incrementAmount
     case decrementAmount
     case delete
@@ -58,17 +60,43 @@ let listItemReducer = Reducer<
     SharedEnvironment<ListItemEnvironment>
 > { state, action, environment in
     switch action {
+    case .expandStepper(let expand):
+        state.isStepperExpanded = expand
+        if !expand { return .none }
+        return Effect(value: .expandStepper(expand: false))
+            .debounce(
+                id: state.id,
+                for: .seconds(3.0),
+                scheduler: environment.mainQueue()
+                    .animation()
+                    .eraseToAnyScheduler()
+            )
+        
     case .incrementAmount:
         environment.feedbackGenerator().impact(.soft)
         state.amount += 1
-        return .none
+        return Effect(value: .expandStepper(expand: false))
+            .debounce(
+                id: state.id,
+                for: .seconds(1.5),
+                scheduler: environment.mainQueue()
+                    .animation()
+                    .eraseToAnyScheduler()
+            )
         
     case .decrementAmount:
         environment.feedbackGenerator().impact(.soft)
         if state.amount > 1 {
             state.amount -= 1
         }
-        return .none
+        return Effect(value: .expandStepper(expand: false))
+            .debounce(
+                id: state.id,
+                for: .seconds(1.5),
+                scheduler: environment.mainQueue()
+                    .animation()
+                    .eraseToAnyScheduler()
+            )
         
     case .delete:
         return .none
@@ -78,7 +106,7 @@ let listItemReducer = Reducer<
         if state.isDone {
             environment.feedbackGenerator().notify(.success)
         } else {
-            environment.feedbackGenerator().impact(.rigid)            
+            environment.feedbackGenerator().impact(.rigid)
         }
         return .none
     }
@@ -119,37 +147,47 @@ struct ListItemView: View {
                     ZStack {
                         Capsule()
                             .fill(viewStore.color.opacity(0.1))
-                            .frame(width: 100, height: 40)
+                            .frame(width: viewStore.isStepperExpanded ? 100 : 40, height: 40)
                         
                         Capsule()
                             .strokeBorder(viewStore.color.opacity(0.25), lineWidth: 2)
-                            .frame(width: 100, height: 40)
+                            .frame(width: viewStore.isStepperExpanded ? 100 : 40, height: 40)
                         
                         HStack(spacing: 0) {
-                            Button(action: {
-                                viewStore.send(.decrementAmount)
-                            }, label: {
-                                Image(systemName: "minus")
-                            })
-                            .buttonStyle(.borderless)
-                            .frame(width: 30, height: 30, alignment: .center)
-
+                            if viewStore.isStepperExpanded {
+                                Button(action: {
+                                    viewStore.send(.decrementAmount)
+                                }, label: {
+                                    Image(systemName: "minus")
+                                })
+                                .buttonStyle(.borderless)
+                                .frame(width: 30, height: 30, alignment: .center)
+                            }
+                            
                             Text("\(viewStore.amount)")
                                 .font(.system(size: 15, weight: .bold, design: .rounded))
                                 .foregroundColor(viewStore.color)
                                 .frame(width: 24, height: 20, alignment: .center)
                             
-                            Button(action: {
-                                viewStore.send(.incrementAmount)
-                            }, label: {
-                                Image(systemName: "plus")
-                            })
-                            .buttonStyle(.borderless)
-                            .frame(width: 30, height: 30, alignment: .center)
-                            
+                            if viewStore.isStepperExpanded {
+                                Button(action: {
+                                    viewStore.send(.incrementAmount)
+                                }, label: {
+                                    Image(systemName: "plus")
+                                })
+                                .buttonStyle(.borderless)
+                                .frame(width: 30, height: 30, alignment: .center)
+                            }
                         }
                         .font(.system(size: 15, weight: .bold, design: .rounded))
                         .tint(viewStore.color)
+                    }
+                    .onTapGesture {
+                        if viewStore.isStepperExpanded == false {
+                            withAnimation(Animation.easeInOut.speed(2)) {
+                                viewStore.send(.expandStepper(expand: true))
+                            }
+                        }
                     }
                 }
             }
