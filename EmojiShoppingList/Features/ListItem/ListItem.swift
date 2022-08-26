@@ -110,7 +110,7 @@ struct ListItemView: View {
                 }
                 
                 Text(viewStore.title)
-                    .font(.headline)
+                    .font(.system(size: 17, weight: .semibold, design: .rounded))
                     .strikethrough(viewStore.isDone)
                 
                 Spacer()
@@ -135,6 +135,7 @@ struct ListItemView: View {
                             .frame(width: 30, height: 30, alignment: .center)
 
                             Text("\(viewStore.amount)")
+                                .font(.system(size: 15, weight: .bold, design: .rounded))
                                 .foregroundColor(viewStore.color)
                                 .frame(width: 24, height: 20, alignment: .center)
                             
