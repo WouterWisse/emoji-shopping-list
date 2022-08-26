@@ -50,6 +50,7 @@ struct DeleteView: View {
                     }
                 } label: {
                     Text("All")
+                        .font(.system(size: 17, weight: .semibold, design: .rounded))
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
@@ -62,6 +63,7 @@ struct DeleteView: View {
                 } label: {
                     Text("Striked")
                         .strikethrough(true, color: .red.opacity(0.5))
+                        .font(.system(size: 17, weight: .semibold, design: .rounded))
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
@@ -73,6 +75,7 @@ struct DeleteView: View {
                     }
                 } label: {
                     Text("Cancel")
+                        .font(.system(size: 17, weight: .semibold, design: .rounded))
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
