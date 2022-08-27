@@ -9,7 +9,6 @@ struct AppState: Equatable {
 
 enum AppAction: Equatable {
     case listAction(ListAction)
-    case deleteButtonTapped
 }
 
 struct AppEnvironment {}
@@ -24,15 +23,10 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
         switch action {
         case .listAction(let listAction):
             return .none
-            
-        case .deleteButtonTapped:
-            environment.feedbackGenerator().impact(.soft)
-            state.listState.deleteState.isPresented.toggle()
-            return .none
         }
     }
 )
-.debug()
+    .debug()
 
 // MARK: - View
 
@@ -47,28 +41,12 @@ struct EmojiShoppingListApp: App {
     var body: some Scene {
         WithViewStore(self.store) { viewStore in
             WindowGroup {
-                NavigationView {
-                    ListView(
-                        store: self.store.scope(
-                            state: \.listState,
-                            action: AppAction.listAction
-                        )
+                ListView(
+                    store: self.store.scope(
+                        state: \.listState,
+                        action: AppAction.listAction
                     )
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                withAnimation { viewStore.send(.deleteButtonTapped) }
-                            } label: {
-                                Image(
-                                    systemName: viewStore.listState.deleteState.isPresented
-                                    ? "trash.slash"
-                                    : "trash"
-                                )
-                            }
-                        }
-                    }
-                    .tint(.primary)
-                }
+                )
             }
         }
     }
