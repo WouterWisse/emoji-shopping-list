@@ -141,79 +141,6 @@ struct ListView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             ZStack(alignment: .top) {
-                GeometryReader { proxy in
-                    VStack(alignment: .center) {
-                        Spacer()
-                            .frame(height: 100)
-                        
-                        VStack(spacing: 12) {
-                            Text("👨🏼‍💻")
-                                .multilineTextAlignment(.center)
-                                .frame(width: 100, height: 100, alignment: .center)
-                                .background(.blue.opacity(0.1))
-                                .cornerRadius(50)
-                                .overlay(
-                                    Circle()
-                                        .strokeBorder(
-                                            .blue.opacity(0.25),
-                                            lineWidth: 4
-                                        )
-                                )
-                                .font(.system(size: 54))
-                            Text("Developed by 🇳🇱 Wouter Wisse in 🗽")
-                                .font(.system(size: 12, weight: .semibold, design: .rounded))
-                                .foregroundColor(.secondary)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        Spacer()
-                        
-                        VStack(spacing: 12) {
-                            Text("👻")
-                                .multilineTextAlignment(.center)
-                                .frame(width: 100, height: 100, alignment: .center)
-                                .background(.gray.opacity(0.1))
-                                .cornerRadius(50)
-                                .overlay(
-                                    Circle()
-                                        .strokeBorder(
-                                            .gray.opacity(0.25),
-                                            lineWidth: 4
-                                        )
-                                )
-                                .font(.system(size: 54))
-                            Text("Shouldn't you be shoppin'?")
-                                .font(.system(size: 12, weight: .semibold, design: .rounded))
-                                .foregroundColor(.secondary)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        Spacer()
-                        
-                        Text("🫣")
-                            .multilineTextAlignment(.center)
-                            .frame(width: 100, height: 100, alignment: .center)
-                            .background(.yellow.opacity(0.1))
-                            .cornerRadius(50)
-                            .overlay(
-                                Circle()
-                                    .strokeBorder(
-                                        .yellow.opacity(0.25),
-                                        lineWidth: 4
-                                    )
-                            )
-                            .font(.system(size: 54))
-                        Text("Version: 1.0")
-                            .font(.system(size: 12, weight: .semibold, design: .rounded))
-                            .foregroundColor(.secondary)
-                        
-                        Spacer()
-                            .frame(height: 100)
-                    }
-                    .frame(height: proxy.size.height)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                }
-                
                 ScrollViewReader { scrollProxy in
                     List {
                         LinearGradient(
@@ -247,7 +174,7 @@ struct ListView: View {
                         )
                         
                         if viewStore.items.isEmpty {
-                            EmptyStateView()
+                            EmptyStateView(height: 400)
                         }
                         
                         if !viewStore.items.isEmpty {
@@ -300,6 +227,83 @@ private struct EdgeFadeView: View {
             .frame(height: 60, alignment: .center)
         }
         .edgesIgnoringSafeArea(.all)
+    }
+}
+
+private struct InfoView: View {
+    var body: some View {
+        GeometryReader { proxy in
+            VStack(alignment: .center) {
+                Spacer()
+                    .frame(height: 100)
+                
+                VStack(spacing: 12) {
+                    Text("👨🏼‍💻")
+                        .multilineTextAlignment(.center)
+                        .frame(width: 100, height: 100, alignment: .center)
+                        .background(.blue.opacity(0.1))
+                        .cornerRadius(50)
+                        .overlay(
+                            Circle()
+                                .strokeBorder(
+                                    .blue.opacity(0.25),
+                                    lineWidth: 4
+                                )
+                        )
+                        .font(.system(size: 54))
+                    Text("Developed by 🇳🇱 Wouter Wisse in 🗽")
+                        .font(.system(size: 12, weight: .semibold, design: .rounded))
+                        .foregroundColor(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+                
+                Spacer()
+                
+                VStack(spacing: 12) {
+                    Text("👻")
+                        .multilineTextAlignment(.center)
+                        .frame(width: 100, height: 100, alignment: .center)
+                        .background(.gray.opacity(0.1))
+                        .cornerRadius(50)
+                        .overlay(
+                            Circle()
+                                .strokeBorder(
+                                    .gray.opacity(0.25),
+                                    lineWidth: 4
+                                )
+                        )
+                        .font(.system(size: 54))
+                    Text("Shouldn't you be shoppin'?")
+                        .font(.system(size: 12, weight: .semibold, design: .rounded))
+                        .foregroundColor(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+                
+                Spacer()
+                
+                Text("🫣")
+                    .multilineTextAlignment(.center)
+                    .frame(width: 100, height: 100, alignment: .center)
+                    .background(.yellow.opacity(0.1))
+                    .cornerRadius(50)
+                    .overlay(
+                        Circle()
+                            .strokeBorder(
+                                .yellow.opacity(0.25),
+                                lineWidth: 4
+                            )
+                    )
+                    .font(.system(size: 54))
+                Text("Version: 1.0")
+                    .font(.system(size: 12, weight: .semibold, design: .rounded))
+                    .foregroundColor(.secondary)
+                
+                Spacer()
+                    .frame(height: 100)
+            }
+            .frame(height: proxy.size.height)
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
     }
 }
 
