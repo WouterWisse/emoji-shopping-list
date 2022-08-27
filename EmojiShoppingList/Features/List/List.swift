@@ -6,6 +6,7 @@ import SwiftUI
 
 struct ListState: Equatable {
     var items: IdentifiedArrayOf<ListItem> = []
+    var navigationTitle: String = "Shopping List"
     var inputState = InputState()
     var deleteState = DeleteState()
 }
@@ -89,6 +90,11 @@ let listReducer = Reducer<
                 }
                 return lhs.createdAt > rhs.createdAt
             })
+            if let emoji = state.items.first?.emoji {
+                state.navigationTitle = "\(emoji) Shopping List"
+            } else {
+                state.navigationTitle = "Shopping List"
+            }
             return .none
             
         case .inputAction(let inputAction):
@@ -121,11 +127,6 @@ let listReducer = Reducer<
                 environment.feedbackGenerator().notify(.error)
                 state.deleteState.isPresented = false
                 return Effect(value: .sortItems)
-                
-            case .cancelTapped:
-                environment.feedbackGenerator().impact(.soft)
-                state.deleteState.isPresented = false
-                return Effect(value: .sortItems)
             }
         }
     }
@@ -136,62 +137,173 @@ let listReducer = Reducer<
 
 struct ListView: View {
     let store: Store<ListState, ListAction>
-    
+
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            ScrollViewReader { scrollProxy in
-                List {
-                    if viewStore.deleteState.isPresented {
-                        DeleteView(
-                            store: self.store.scope(
-                                state: \.deleteState,
-                                action: ListAction.deleteAction
+            ZStack(alignment: .top) {
+                GeometryReader { proxy in
+                    VStack(alignment: .center) {
+                        Spacer()
+                            .frame(height: 100)
+                        
+                        VStack(spacing: 12) {
+                            Text("👨🏼‍💻")
+                                .multilineTextAlignment(.center)
+                                .frame(width: 100, height: 100, alignment: .center)
+                                .background(.blue.opacity(0.1))
+                                .cornerRadius(50)
+                                .overlay(
+                                    Circle()
+                                        .strokeBorder(
+                                            .blue.opacity(0.25),
+                                            lineWidth: 4
+                                        )
+                                )
+                                .font(.system(size: 54))
+                            Text("Developed by 🇳🇱 Wouter Wisse in 🗽")
+                                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                                .foregroundColor(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        
+                        Spacer()
+                        
+                        VStack(spacing: 12) {
+                            Text("👻")
+                                .multilineTextAlignment(.center)
+                                .frame(width: 100, height: 100, alignment: .center)
+                                .background(.gray.opacity(0.1))
+                                .cornerRadius(50)
+                                .overlay(
+                                    Circle()
+                                        .strokeBorder(
+                                            .gray.opacity(0.25),
+                                            lineWidth: 4
+                                        )
+                                )
+                                .font(.system(size: 54))
+                            Text("Shouldn't you be shoppin'?")
+                                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                                .foregroundColor(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        
+                        Spacer()
+                        
+                        Text("🫣")
+                            .multilineTextAlignment(.center)
+                            .frame(width: 100, height: 100, alignment: .center)
+                            .background(.yellow.opacity(0.1))
+                            .cornerRadius(50)
+                            .overlay(
+                                Circle()
+                                    .strokeBorder(
+                                        .yellow.opacity(0.25),
+                                        lineWidth: 4
+                                    )
                             )
+                            .font(.system(size: 54))
+                        Text("Version: 1.0")
+                            .font(.system(size: 12, weight: .semibold, design: .rounded))
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                            .frame(height: 100)
+                    }
+                    .frame(height: proxy.size.height)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                }
+                
+                ScrollViewReader { scrollProxy in
+                    List {
+                        LinearGradient(
+                            colors: [.blue, .green, .yellow],
+                            startPoint: .leading,
+                            endPoint: .trailing
                         )
+                        .mask(
+                            Text(viewStore.navigationTitle)
+                                .font(.system(size: 32, weight: .black, design: .rounded))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        )
+                        .id(TitleViewID())
+                        .frame(height: 40)
+                        .padding(.top, 16)
                         .listRowSeparator(.hidden)
-                        .id(DeleteViewID())
-                    } else {
+                        
                         InputView(
-                            store: self.store.scope(
+                            store: store.scope(
                                 state: \.inputState,
                                 action: ListAction.inputAction
                             )
                         )
-                        .listRowSeparator(.hidden)
+                        
+                        ForEachStore(
+                            store.scope(
+                                state: \.items,
+                                action: ListAction.listItem(id:action:)
+                            ),
+                            content: ListItemView.init(store:)
+                        )
+                        
+                        if viewStore.items.isEmpty {
+                            EmptyStateView()
+                        }
+                        
+                        if !viewStore.items.isEmpty {
+                            DeleteView(
+                                store: store.scope(
+                                    state: \.deleteState,
+                                    action: ListAction.deleteAction
+                                )
+                            )
+                        }
                     }
-                    
-                    ForEachStore(
-                        self.store.scope(
-                            state: \.items,
-                            action: ListAction.listItem(id:action:)
-                        ),
-                        content: ListItemView.init(store:)
-                    )
-                    
-                    if viewStore.items.isEmpty {
-                        EmptyStateView()
+                    .listStyle(.plain)
+                    .onAppear {
+                        viewStore.send(.onAppear)
                     }
+                    .onChange(of: viewStore.deleteState.isPresented, perform: { isPresented in
+                        if isPresented {
+                            withAnimation { scrollProxy.scrollTo(TitleViewID(), anchor: .top) }
+                        }
+                    })
                 }
-                .listStyle(.plain)
-                .navigationTitle("Shopping List")
-                .navigationBarColor(
-                    backgroundColor: .systemBackground,
-                    textColor: .label
-                )
-                .onAppear {
-                    viewStore.send(.onAppear)
-                }
-                .onChange(of: viewStore.deleteState.isPresented, perform: { isPresented in
-                    if isPresented {
-                        withAnimation { scrollProxy.scrollTo(DeleteViewID(), anchor: .top) }
-                    }
-                })
+                EdgeFadeView()
             }
         }
     }
 }
 
-private struct DeleteViewID: Hashable {}
+private struct EdgeFadeView: View {
+    private var color: Color {
+        let systemBackgroundColor = UIColor.systemBackground
+        return Color(systemBackgroundColor)
+    }
+    
+    var body: some View {
+        VStack {
+            LinearGradient(
+                colors: [color, color.opacity(0.0)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(height: 80, alignment: .center)
+            
+            Spacer()
+            
+            LinearGradient(
+                colors: [color.opacity(0.0), color],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(height: 60, alignment: .center)
+        }
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
+private struct TitleViewID: Hashable {}
 
 // MARK: - Preview
 
