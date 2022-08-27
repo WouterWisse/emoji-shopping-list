@@ -10,7 +10,6 @@ struct DeleteState: Equatable {
 enum DeleteAction: Equatable {
     case deleteAllTapped
     case deleteStrikedTapped
-    case cancelTapped
 }
 
 struct DeleteEnvironment {}
@@ -26,9 +25,6 @@ let deleteReducer = Reducer<
         
     case .deleteStrikedTapped:
         return .none
-        
-    case .cancelTapped:
-        return .none
     }
 }
 .debug()
@@ -41,48 +37,39 @@ struct DeleteView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: 12) {
-                
-                RoundEmojiView(emoji: "🗑", color: .clear, done: false)
-                
-                Button {
-                    withAnimation {
-                        viewStore.send(.deleteAllTapped)
+                    Button {
+                        withAnimation {
+                            viewStore.send(.deleteAllTapped)
+                        }
+                    } label: {
+                        HStack {
+                            Image(systemName: "trash")
+                            Text("All")
+                                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                        }
                     }
-                } label: {
-                    Text("All")
-                        .font(.system(size: 17, weight: .semibold, design: .rounded))
-                }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.small)
-                .tint(.red)
-                
-                Button {
-                    withAnimation {
-                        viewStore.send(.deleteStrikedTapped)
+                    .buttonStyle(.borderedProminent)
+                    
+                    Button {
+                        withAnimation {
+                            viewStore.send(.deleteStrikedTapped)
+                        }
+                    } label: {
+                        HStack {
+                            Image(systemName: "trash")
+                            Text("Striked")
+                                .strikethrough(true, color: .red.opacity(0.5))
+                                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                        }
                     }
-                } label: {
-                    Text("Striked")
-                        .strikethrough(true, color: .red.opacity(0.5))
-                        .font(.system(size: 17, weight: .semibold, design: .rounded))
-                }
-                .buttonStyle(.bordered)
-                .controlSize(.small)
-                .tint(.red)
-                
-                Button {
-                    withAnimation {
-                        viewStore.send(.cancelTapped)
-                    }
-                } label: {
-                    Text("Cancel")
-                        .font(.system(size: 17, weight: .semibold, design: .rounded))
-                }
-                .buttonStyle(.bordered)
-                .controlSize(.small)
-                .tint(.gray)
+                    .buttonStyle(.bordered)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .listRowSeparator(.hidden, edges: .top)
+            .tint(.red)
+            .controlSize(.regular)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding()
+            .listRowSeparator(.visible, edges: .top)
+            .listRowSeparator(.hidden, edges: .bottom)
         }
     }
 }
