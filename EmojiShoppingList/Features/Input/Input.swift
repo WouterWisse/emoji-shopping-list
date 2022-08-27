@@ -60,11 +60,10 @@ struct InputView: View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: 12) {
                 
-                RoundEmojiView(
-                    emoji: "✏️",
-                    color: .clear,
-                    done: false
-                )
+                Text("✏️")
+                    .font(.title2)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 50, height: 50, alignment: .center)
                 
                 TextField(
                     "",
@@ -96,11 +95,12 @@ struct InputView: View {
                             viewStore.send(.dismissKeyboard)
                         }
                     } label: {
-                        Image(
-                            systemName: viewStore.inputText.isEmpty
-                            ? "checkmark.circle.fill"
-                            : "xmark.circle.fill"
+                        Text(
+                            viewStore.inputText.isEmpty
+                            ? "Done"
+                            : "Clear"
                         )
+                        .font(.system(size: 17, weight: .semibold, design: .rounded))
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.regular)
