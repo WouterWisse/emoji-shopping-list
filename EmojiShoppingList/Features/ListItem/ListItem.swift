@@ -123,18 +123,10 @@ struct ListItemView: View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: 12) {
                 if viewStore.isDone {
-                    RoundEmojiView(
-                        emoji: viewStore.emoji,
-                        color: viewStore.color,
-                        done: viewStore.isDone
-                    )
+                    RoundEmojiView(item: viewStore.state)
                     .transition(.movingParts.pop(.init(viewStore.color)))
                 } else {
-                    RoundEmojiView(
-                        emoji: viewStore.emoji,
-                        color: viewStore.color,
-                        done: viewStore.isDone
-                    )
+                    RoundEmojiView(item: viewStore.state)
                     .transition(.identity)
                 }
                 
@@ -196,23 +188,15 @@ struct ListItemView: View {
             }
             .swipeActions(edge: .leading) {
                 Button {
-                    withAnimation {
-                        viewStore.send(.toggleDone)
-                    }
+                    withAnimation { viewStore.send(.toggleDone) }
                 } label: {
-                    if viewStore.isDone {
-                        Image(systemName: "arrow.uturn.right.circle.fill")
-                    } else {
-                        Image(systemName: "checkmark.circle.fill")
-                    }
+                    Image(systemName: viewStore.isDone ? "arrow.uturn.right.circle.fill" : "checkmark.circle.fill")
                 }
                 .tint(viewStore.color)
             }
             .swipeActions(edge: .trailing) {
                 Button(role: .destructive) {
-                    withAnimation {
-                        viewStore.send(.delete)
-                    }
+                    withAnimation { viewStore.send(.delete) }
                 } label: {
                     Image(systemName: "trash.fill")
                 }
