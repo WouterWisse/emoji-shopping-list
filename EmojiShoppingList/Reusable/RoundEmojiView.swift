@@ -1,23 +1,22 @@
 import SwiftUI
+import ComposableArchitecture
 
 struct RoundEmojiView: View {
-    let emoji: String
-    let color: Color
-    let done: Bool
+    let item: ListItem
     
     private let size: CGFloat = 50
     
     var body: some View {
-        Text(emoji)
+        Text(item.emoji)
             .font(.title2)
             .multilineTextAlignment(.center)
             .frame(width: size, height: size, alignment: .center)
-            .background(color.opacity(done ? 0 : 0.1))
+            .background(item.color.opacity(item.isDone ? 0 : 0.1))
             .cornerRadius(size / 2)
             .overlay(
                 Circle()
                     .strokeBorder(
-                        color.opacity(done ? 0 : 0.25),
+                        item.color.opacity(item.isDone ? 0 : 0.25),
                         lineWidth: 2
                     )
             )
@@ -30,17 +29,7 @@ struct RoundEmojiView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(colorSchemes, id: \.self) { colorScheme in
             Group {
-                RoundEmojiView(emoji: "🥑", color: .green, done: false)
-                    .preferredColorScheme(colorScheme)
-                    .previewLayout(.sizeThatFits)
-                    .padding()
-                
-                RoundEmojiView(emoji: "🫐", color: .blue, done: true)
-                    .preferredColorScheme(colorScheme)
-                    .previewLayout(.sizeThatFits)
-                    .padding()
-                
-                RoundEmojiView(emoji: "🍓", color: .red, done: false)
+                RoundEmojiView(item: ListItem.mock)
                     .preferredColorScheme(colorScheme)
                     .previewLayout(.sizeThatFits)
                     .padding()
