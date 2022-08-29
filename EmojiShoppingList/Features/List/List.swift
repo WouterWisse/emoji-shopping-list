@@ -144,13 +144,13 @@ struct ListView: View {
                 ScrollViewReader { scrollProxy in
                     List {
                         LinearGradient(
-                            colors: [.blue, .green, .yellow],
+                            colors: Color.headerColors,
                             startPoint: .leading,
                             endPoint: .trailing
                         )
                         .mask(
                             Text(viewStore.navigationTitle)
-                                .font(.system(size: 32, weight: .black, design: .rounded))
+                                .font(.header)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         )
                         .id(TitleViewID())
@@ -174,7 +174,7 @@ struct ListView: View {
                         )
                         
                         if viewStore.items.isEmpty {
-                            EmptyStateView(height: 400)
+                            EmptyStateView(height: 400) // TODO: Use proxy height
                         }
                         
                         if !viewStore.items.isEmpty {
