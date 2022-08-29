@@ -148,6 +148,15 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		6C332FDC28BD61440004ECF9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */,
+				6CD4576828A1A31900EB9E7B /* EmptyStateView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		6C6A96E82874E77F00B09D80 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,15 +229,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		6CD569682842A4250022DBE3 /* Reusable */ = {
-			isa = PBXGroup;
-			children = (
-				6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */,
-				6CD4576828A1A31900EB9E7B /* EmptyStateView.swift */,
-			);
-			path = Reusable;
-			sourceTree = "<group>";
-		};
 		6CE6F1C52856A56900C1A40D /* Localization */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +240,7 @@
 		6CF5CC6D2846A34300117790 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				6C332FDC28BD61440004ECF9 /* Views */,
 				6C260CF2284AC81100756E74 /* Mock */,
 				6CF5CC6A28469A0B00117790 /* SharedEnvironment.swift */,
 				6CF5CC6E2846A35700117790 /* FeedbackGenerator.swift */,
@@ -270,7 +271,6 @@
 			children = (
 				6C6A96E72874E75200B09D80 /* Info.plist */,
 				6CA6E40F28428F530069CDD9 /* Extensions */,
-				6CD569682842A4250022DBE3 /* Reusable */,
 				6CF5CC6D2846A34300117790 /* Shared */,
 				6CFEF99F2834442A00254038 /* Features */,
 				6CFEF99D283443FC00254038 /* DataModel */,
