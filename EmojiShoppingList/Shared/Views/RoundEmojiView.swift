@@ -4,19 +4,21 @@ import ComposableArchitecture
 struct RoundEmojiView: View {
     let item: ListItem
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     private let size: CGFloat = 50
     
     var body: some View {
         Text(item.emoji)
-            .font(.title2)
+            .font(.empoji)
             .multilineTextAlignment(.center)
             .frame(width: size, height: size, alignment: .center)
-            .background(item.color.opacity(item.isDone ? 0 : 0.1))
+            .background(item.isDone ? .clear : item.color.emojiBackgroundOpacity(for: colorScheme))
             .cornerRadius(size / 2)
             .overlay(
                 Circle()
                     .strokeBorder(
-                        item.color.opacity(item.isDone ? 0 : 0.25),
+                        item.isDone ? .clear : item.color.emojiBorderOpacity(for: colorScheme),
                         lineWidth: 2
                     )
             )
