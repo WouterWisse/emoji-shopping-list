@@ -119,6 +119,8 @@ let listItemReducer = Reducer<
 struct ListItemView: View {
     let store: Store<ListItem, ListItemAction>
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: 12) {
@@ -131,7 +133,7 @@ struct ListItemView: View {
                 }
                 
                 Text(viewStore.title)
-                    .font(.system(size: 17, weight: .semibold, design: .rounded))
+                    .font(.listItem)
                     .strikethrough(viewStore.isDone)
                 
                 Spacer()
@@ -139,7 +141,7 @@ struct ListItemView: View {
                 if !viewStore.isDone {
                     ZStack {
                         Capsule()
-                            .fill(viewStore.color.opacity(0.1))
+                            .fill(viewStore.color.stepperBackgroundOpacity(for: colorScheme))
                             .frame(width: viewStore.isStepperExpanded ? 100 : 40, height: 40)
                         
                         Capsule()
@@ -158,7 +160,6 @@ struct ListItemView: View {
                                     }
                                     
                                     Text("\(viewStore.amount)")
-                                        .font(.system(size: 15, weight: .bold, design: .rounded))
                                         .foregroundColor(viewStore.color)
                                         .frame(width: 24, height: 20, alignment: .center)
                                     
@@ -172,7 +173,7 @@ struct ListItemView: View {
                                         .frame(width: 30, height: 30, alignment: .center)
                                     }
                                 }
-                                .font(.system(size: 15, weight: .bold, design: .rounded))
+                                .font(.stepper)
                                 .tint(viewStore.color)
                                 .clipped()
                             )
@@ -200,7 +201,7 @@ struct ListItemView: View {
                 } label: {
                     Image(systemName: "trash.fill")
                 }
-                .tint(Color.red)
+                .tint(.swipeDelete)
             }
             .padding(.vertical, 8)
         }
