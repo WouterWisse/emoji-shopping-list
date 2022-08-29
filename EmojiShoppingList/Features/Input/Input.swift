@@ -59,7 +59,6 @@ struct InputView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: 12) {
-                
                 Text("✏️")
                     .font(.title2)
                     .multilineTextAlignment(.center)
@@ -70,7 +69,7 @@ struct InputView: View {
                     text: viewStore.binding(\.$inputText),
                     prompt: Text("Add product")
                 )
-                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                .font(.default)
                 .focused($focusedField, equals: .input)
                 .submitLabel(.done)
                 .onSubmit {
@@ -100,7 +99,7 @@ struct InputView: View {
                             ? "Done"
                             : "Clear"
                         )
-                        .font(.system(size: 17, weight: .semibold, design: .rounded))
+                        .font(.default)
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.regular)
