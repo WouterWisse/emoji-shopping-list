@@ -62,7 +62,7 @@
 		6C260CF8284AD14200756E74 /* Persistence+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Persistence+Mock.swift"; sourceTree = "<group>"; };
 		6C260CFC284BC64000756E74 /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
 		6C2F28EE2848192000E85F94 /* ListItem+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListItem+Preview.swift"; sourceTree = "<group>"; };
-		6C6A96E72874E75200B09D80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6C6A96E72874E75200B09D80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C6A96E92874E77F00B09D80 /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pacifico-Regular.ttf"; sourceTree = "<group>"; };
 		6C913E7D2842DD6C00E34326 /* Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delete.swift; sourceTree = "<group>"; };
 		6CA6E3F7284015DD0069CDD9 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
@@ -172,6 +172,14 @@
 				6C260CEE284AC50200756E74 /* FeedbackGenerator+Mock.swift */,
 			);
 			path = FeedbackGenerator;
+			sourceTree = "<group>";
+		};
+		6C332FE628BD61FA0004ECF9 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				6C6A96E72874E75200B09D80 /* Info.plist */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 		6C6A96E82874E77F00B09D80 /* Fonts */ = {
@@ -285,7 +293,7 @@
 		6CFEF96C2834432F00254038 /* EmojiShoppingList */ = {
 			isa = PBXGroup;
 			children = (
-				6C6A96E72874E75200B09D80 /* Info.plist */,
+				6C332FE628BD61FA0004ECF9 /* Application */,
 				6CA6E40F28428F530069CDD9 /* Extensions */,
 				6CF5CC6D2846A34300117790 /* Shared */,
 				6CFEF99F2834442A00254038 /* Features */,
@@ -620,7 +628,7 @@
 				DEVELOPMENT_TEAM = Q6AEA497G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = EmojiShoppingList/Info.plist;
+				INFOPLIST_FILE = EmojiShoppingList/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -654,7 +662,7 @@
 				DEVELOPMENT_TEAM = Q6AEA497G4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = EmojiShoppingList/Info.plist;
+				INFOPLIST_FILE = EmojiShoppingList/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
