@@ -45,7 +45,7 @@ struct DeleteView: View {
                         HStack {
                             Image(systemName: "trash")
                             Text("All")
-                                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                                .font(.default)
                         }
                     }
                     .buttonStyle(.borderedProminent)
@@ -59,7 +59,7 @@ struct DeleteView: View {
                             Image(systemName: "trash")
                             Text("Striked")
                                 .strikethrough(true, color: .red.opacity(0.5))
-                                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                                .font(.default)
                         }
                     }
                     .buttonStyle(.bordered)
