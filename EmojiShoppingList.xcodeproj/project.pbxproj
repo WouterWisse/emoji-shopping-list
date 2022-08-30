@@ -55,6 +55,7 @@
 		6C02811F28B7F99E00AA2666 /* String+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Image.swift"; sourceTree = "<group>"; };
 		6C02812128B7F9BA00AA2666 /* UIImage+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		6C02812728B7FBA400AA2666 /* UIColor+Adjust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Adjust.swift"; sourceTree = "<group>"; };
+		6C0AACE928BEC7BA0025C4A0 /* ColorCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCalibrationView.swift; sourceTree = "<group>"; };
 		6C260CEA284AC1C900756E74 /* InputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTests.swift; sourceTree = "<group>"; };
 		6C260CEC284AC46500756E74 /* SharedEnvironment+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedEnvironment+Mock.swift"; sourceTree = "<group>"; };
 		6C260CEE284AC50200756E74 /* FeedbackGenerator+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedbackGenerator+Mock.swift"; sourceTree = "<group>"; };
@@ -107,6 +108,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C0AACE828BEC6BF0025C4A0 /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				6C0AACE928BEC7BA0025C4A0 /* ColorCalibrationView.swift */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
 		6C260CE9284AC1B400756E74 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +318,7 @@
 		6CFEF99C283443F400254038 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6C0AACE828BEC6BF0025C4A0 /* Preview */,
 				6C6A96E82874E77F00B09D80 /* Fonts */,
 				6CE6F1C52856A56900C1A40D /* Localization */,
 				6CFEF9712834433100254038 /* Assets.xcassets */,
