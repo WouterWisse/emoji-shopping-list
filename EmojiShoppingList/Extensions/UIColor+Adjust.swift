@@ -5,7 +5,7 @@ extension UIColor {
         hue: CGFloat = 0,
         saturation: CGFloat = 0,
         brightness: CGFloat = 0,
-        alpha: CGFloat = 0
+        alpha: CGFloat = 1
     ) -> UIColor {
         var currentHue: CGFloat = 0.0
         var currentSaturation: CGFloat = 0.0

@@ -77,7 +77,7 @@ extension PersistenceController {
                 let color = emoji?
                     .toImage()?
                     .averageColor?
-                    .adjust(hue: 0, saturation: 0.1, brightness: 0.6, alpha: 1)
+                    .adjust(brightness: 0.55)
                 newItem.color = color
                 
                 newItem.createdAt = Date()
