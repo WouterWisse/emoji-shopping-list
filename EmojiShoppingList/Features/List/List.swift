@@ -137,66 +137,68 @@ let listReducer = Reducer<
 
 struct ListView: View {
     let store: Store<ListState, ListAction>
-
+    
     var body: some View {
         WithViewStore(self.store) { viewStore in
             ZStack(alignment: .top) {
-                ScrollViewReader { scrollProxy in
-                    List {
-                        LinearGradient(
-                            colors: Color.headerColors,
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                        .mask(
-                            Text(viewStore.navigationTitle)
-                                .font(.header)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        )
-                        .id(TitleViewID())
-                        .frame(height: 40)
-                        .padding(.top, 16)
-                        .listRowSeparator(.hidden)
-                        
-                        InputView(
-                            store: store.scope(
-                                state: \.inputState,
-                                action: ListAction.inputAction
+                GeometryReader { geometryReader in
+                    ScrollViewReader { scrollProxy in
+                        List {
+                            LinearGradient(
+                                colors: Color.headerColors,
+                                startPoint: .leading,
+                                endPoint: .trailing
                             )
-                        )
-                        
-                        ForEachStore(
-                            store.scope(
-                                state: \.items,
-                                action: ListAction.listItem(id:action:)
-                            ),
-                            content: ListItemView.init(store:)
-                        )
-                        
-                        if viewStore.items.isEmpty {
-                            EmptyStateView(height: 400) // TODO: Use proxy height
-                        }
-                        
-                        if !viewStore.items.isEmpty {
-                            DeleteView(
+                            .mask(
+                                Text(viewStore.navigationTitle)
+                                    .font(.header)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            )
+                            .id(TitleViewID())
+                            .frame(height: 40)
+                            .padding(.top, 16)
+                            .listRowSeparator(.hidden)
+                            
+                            InputView(
                                 store: store.scope(
-                                    state: \.deleteState,
-                                    action: ListAction.deleteAction
+                                    state: \.inputState,
+                                    action: ListAction.inputAction
                                 )
                             )
+                            
+                            ForEachStore(
+                                store.scope(
+                                    state: \.items,
+                                    action: ListAction.listItem(id:action:)
+                                ),
+                                content: ListItemView.init(store:)
+                            )
+                            
+                            if viewStore.items.isEmpty {
+                                EmptyStateView(height: geometryReader.size.height - 140)
+                            }
+                            
+                            if !viewStore.items.isEmpty {
+                                DeleteView(
+                                    store: store.scope(
+                                        state: \.deleteState,
+                                        action: ListAction.deleteAction
+                                    )
+                                )
+                            }
                         }
-                    }
-                    .listStyle(.plain)
-                    .onAppear {
-                        viewStore.send(.onAppear)
-                    }
-                    .onChange(of: viewStore.deleteState.isPresented, perform: { isPresented in
-                        if isPresented {
-                            withAnimation { scrollProxy.scrollTo(TitleViewID(), anchor: .top) }
+                        .listStyle(.plain)
+                        .onAppear {
+                            viewStore.send(.onAppear)
                         }
-                    })
+                        .onChange(of: viewStore.deleteState.isPresented, perform: { isPresented in
+                            if isPresented {
+                                withAnimation { scrollProxy.scrollTo(TitleViewID(), anchor: .top) }
+                            }
+                        })
+                    }
+                    EdgeFadeView()
                 }
-                EdgeFadeView()
             }
         }
     }
