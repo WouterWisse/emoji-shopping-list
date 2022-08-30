@@ -9,6 +9,14 @@ struct ListState: Equatable {
     var navigationTitle: String = "Shopping List"
     var inputState = InputState()
     var deleteState = DeleteState()
+    
+    var shouldShowEmptyState: Bool {
+        items.isEmpty
+    }
+    
+    var shouldShowDelete: Bool {
+        !shouldShowEmptyState
+    }
 }
 
 enum ListAction: Equatable {
@@ -174,11 +182,11 @@ struct ListView: View {
                                 content: ListItemView.init(store:)
                             )
                             
-                            if viewStore.items.isEmpty {
+                            if viewStore.shouldShowEmptyState {
                                 EmptyStateView(height: geometryReader.size.height - 140)
                             }
                             
-                            if !viewStore.items.isEmpty {
+                            if viewStore.shouldShowDelete {
                                 DeleteView(
                                     store: store.scope(
                                         state: \.deleteState,
