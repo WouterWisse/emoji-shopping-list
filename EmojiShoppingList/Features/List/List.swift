@@ -204,34 +204,6 @@ struct ListView: View {
     }
 }
 
-private struct EdgeFadeView: View {
-    private var color: Color {
-        let systemBackgroundColor = UIColor.systemBackground
-        return Color(systemBackgroundColor)
-    }
-    
-    var body: some View {
-        VStack {
-            LinearGradient(
-                colors: [color, color.opacity(0.0)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .frame(height: 80, alignment: .center)
-            
-            Spacer()
-            
-            LinearGradient(
-                colors: [color.opacity(0.0), color],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .frame(height: 60, alignment: .center)
-        }
-        .edgesIgnoringSafeArea(.all)
-    }
-}
-
 private struct InfoView: View {
     var body: some View {
         GeometryReader { proxy in
