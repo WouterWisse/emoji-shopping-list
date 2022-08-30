@@ -10,10 +10,10 @@ extension Font {
 }
 
 extension Color {
-    func stepperBackgroundOpacity(for colorScheme: ColorScheme) -> Color {
-        opacity(colorScheme == .light ? 0.1 : 0.2)
-    }
+    // Header
+    static let headerColors: [Color] = [.blue, .green, .yellow]
     
+    // RoundEmojiView
     func emojiBackgroundOpacity(for colorScheme: ColorScheme) -> Color {
         opacity(colorScheme == .light ? 0.1 : 0.2)
     }
@@ -21,7 +21,10 @@ extension Color {
         opacity(colorScheme == .light ? 0.25 : 0.25)
     }
     
-    static let swipeDelete: Color = .red
+    // Stepper View
+    func stepperBackgroundOpacity(for colorScheme: ColorScheme) -> Color {
+        opacity(colorScheme == .light ? 0.1 : 0.2)
+    }
     
-    static let headerColors: [Color] = [.blue, .green, .yellow]
+    static let swipeDelete: Color = .red
 }
