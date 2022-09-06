@@ -123,7 +123,7 @@ struct ListItemView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            HStack(spacing: 12) {
+            HStack {
                 if viewStore.isDone {
                     RoundEmojiView(item: viewStore.state)
                     .transition(.movingParts.pop(.init(viewStore.color)))
