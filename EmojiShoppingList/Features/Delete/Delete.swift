@@ -36,7 +36,7 @@ struct DeleteView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            HStack(spacing: 12) {
+            HStack {
                     Button {
                         withAnimation {
                             viewStore.send(.deleteAllTapped)
@@ -66,10 +66,6 @@ struct DeleteView: View {
             }
             .tint(.red)
             .controlSize(.regular)
-            .frame(maxWidth: .infinity, alignment: .center)
-            .padding()
-            .listRowSeparator(.visible, edges: .top)
-            .listRowSeparator(.hidden, edges: .bottom)
         }
     }
 }
