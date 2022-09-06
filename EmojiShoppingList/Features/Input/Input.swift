@@ -58,7 +58,7 @@ struct InputView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            HStack(spacing: 12) {
+            HStack {
                 Text("✏️")
                     .font(.title2)
                     .multilineTextAlignment(.center)
