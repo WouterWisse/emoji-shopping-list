@@ -204,6 +204,7 @@ struct ListItemView: View {
                 .tint(.swipeDelete)
             }
             .padding(.vertical, 8)
+            .listRowSeparator(.visible, edges: .bottom)
         }
     }
 }
