@@ -127,7 +127,7 @@ struct ListItemView: View {
             HStack {
                 if viewStore.isDone {
                     RoundEmojiView(item: viewStore.state)
-                    .transition(.movingParts.pop(.init(viewStore.color)))
+                        .transition(.movingParts.pop(viewStore.color))
                 } else {
                     RoundEmojiView(item: viewStore.state)
                     .transition(.identity)
@@ -146,7 +146,7 @@ struct ListItemView: View {
                             .frame(width: viewStore.isStepperExpanded ? 100 : 40, height: 40)
                         
                         Capsule()
-                            .strokeBorder(viewStore.color.opacity(0.25), lineWidth: 2)
+                            .strokeBorder(viewStore.color.stepperBackgroundOpacity(for: colorScheme), lineWidth: 2)
                             .frame(width: viewStore.isStepperExpanded ? 100 : 40, height: 40)
                             .overlay(
                                 HStack(spacing: 0) {
@@ -181,16 +181,14 @@ struct ListItemView: View {
                     }
                     .onTapGesture {
                         if viewStore.isStepperExpanded == false {
-                            withAnimation(Animation.easeInOut) {
-                                viewStore.send(.expandStepper(expand: true))
-                            }
+                            viewStore.send(.expandStepper(expand: true), animation: .easeInOut)
                         }
                     }
                 }
             }
             .swipeActions(edge: .leading) {
                 Button {
-                    withAnimation { viewStore.send(.toggleDone) }
+                    viewStore.send(.toggleDone, animation: .default)
                 } label: {
                     Image(systemName: viewStore.isDone ? "arrow.uturn.right.circle.fill" : "checkmark.circle.fill")
                 }
@@ -198,7 +196,7 @@ struct ListItemView: View {
             }
             .swipeActions(edge: .trailing) {
                 Button(role: .destructive) {
-                    withAnimation { viewStore.send(.delete) }
+                    viewStore.send(.delete, animation: .default)
                 } label: {
                     Image(systemName: "trash.fill")
                 }

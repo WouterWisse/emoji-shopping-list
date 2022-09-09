@@ -74,9 +74,7 @@ struct InputView: View {
                 .focused($focusedField, equals: .input)
                 .submitLabel(.done)
                 .onSubmit {
-                    withAnimation {
-                        viewStore.send(.submit(viewStore.inputText))
-                    }
+                    viewStore.send(.submit(viewStore.inputText), animation: .default)
                 }
                 .onChange(of: focusedField) { _ in
                     if viewStore.state.inputText.isEmpty && !viewStore.isFirstFieldFocus {
@@ -91,16 +89,21 @@ struct InputView: View {
                 
                 if viewStore.focusedField != nil {
                     Button {
-                        withAnimation {
-                            viewStore.send(.dismissKeyboard)
-                        }
+                        viewStore.send(.dismissKeyboard, animation: .default)
                     } label: {
-                        Text(
-                            viewStore.inputText.isEmpty
-                            ? "Done"
-                            : "Clear"
-                        )
-                        .font(.default)
+                        HStack {
+                            Image(systemName:
+                                    viewStore.inputText.isEmpty
+                                  ? "checkmark.circle.fill"
+                                  : "xmark.circle.fill"
+                            )
+                            Text(
+                                viewStore.inputText.isEmpty
+                                ? "Done"
+                                : "Clear"
+                            )
+                            .font(.default)
+                        }
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.regular)

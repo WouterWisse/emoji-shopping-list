@@ -39,9 +39,7 @@ struct DeleteView: View {
         WithViewStore(self.store) { viewStore in
             HStack {
                     Button {
-                        withAnimation {
-                            viewStore.send(.deleteAllTapped)
-                        }
+                        viewStore.send(.deleteAllTapped, animation: .default)
                     } label: {
                         HStack {
                             Image(systemName: "trash")
@@ -52,9 +50,7 @@ struct DeleteView: View {
                     .buttonStyle(.borderedProminent)
                     
                     Button {
-                        withAnimation {
-                            viewStore.send(.deleteStrikedTapped)
-                        }
+                        viewStore.send(.deleteStrikedTapped, animation: .default)
                     } label: {
                         HStack {
                             Image(systemName: "trash")
