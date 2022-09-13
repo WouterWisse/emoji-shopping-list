@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/combine-schedulers",
       "state" : {
-        "revision" : "9e42b4b0453da417a44daa17174103e7d1c5be07",
-        "version" : "0.7.3"
+        "revision" : "aa3e575929f2bcc5bad012bd2575eae716cbcdf7",
+        "version" : "0.8.0"
       }
     },
     {
@@ -15,7 +15,7 @@
       "location" : "https://github.com/movingparts-io/Pow",
       "state" : {
         "branch" : "main",
-        "revision" : "04d247d210e75afe3caf5d588d0acfac2579c9a9"
+        "revision" : "5e09c815b3bd1bfdf67e5f887a425cf830801192"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-case-paths",
       "state" : {
-        "revision" : "a09839348486db8866f85a727b8550be1d671c50",
-        "version" : "0.9.1"
+        "revision" : "7346701ea29da0a85d4403cf3d7a589a58ae3dee",
+        "version" : "0.9.2"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-composable-architecture",
       "state" : {
-        "revision" : "a518935116b2bada7234f47073159b433d432af1",
-        "version" : "0.39.1"
+        "revision" : "9ea8c763061287052a68d5e6723fed45e898b7d9",
+        "version" : "0.40.2"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-custom-dump",
       "state" : {
-        "revision" : "21ec1d717c07cea5a026979cb0471dd95c7087e7",
-        "version" : "0.5.0"
+        "revision" : "b7500c3ce75ea600132d4959f65a9b54c1976c63",
+        "version" : "0.5.1"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-identified-collections",
       "state" : {
-        "revision" : "2d6b7ffcc67afd9077fac5e5a29bcd6d39b71076",
-        "version" : "0.4.0"
+        "revision" : "bfb0d43e75a15b6dfac770bf33479e8393884a36",
+        "version" : "0.4.1"
       }
     },
     {
