@@ -39,8 +39,8 @@ struct EmojiShoppingListApp: App {
     )
     
     var body: some Scene {
-        WithViewStore(self.store) { viewStore in
-            WindowGroup {
+        WindowGroup {
+            WithViewStore(self.store) { viewStore in
                 ListView(
                     store: self.store.scope(
                         state: \.listState,
