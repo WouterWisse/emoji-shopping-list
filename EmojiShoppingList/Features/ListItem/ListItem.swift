@@ -2,7 +2,6 @@ import Foundation
 import SwiftUI
 import ComposableArchitecture
 import CoreData
-import Pow
 
 // MARK: Logic
 
@@ -125,12 +124,11 @@ struct ListItemView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack {
+                #warning("TODO: Add animation")
                 if viewStore.isDone {
                     RoundEmojiView(item: viewStore.state)
-                        .transition(.movingParts.pop(viewStore.color))
                 } else {
                     RoundEmojiView(item: viewStore.state)
-                    .transition(.identity)
                 }
                 
                 Text(viewStore.title)
@@ -202,8 +200,7 @@ struct ListItemView: View {
                 }
                 .tint(.swipeDelete)
             }
-            .padding(.vertical, 8)
-            .listRowSeparator(.visible, edges: .bottom)
+            .padding(.vertical, 4)
         }
     }
 }

@@ -10,15 +10,6 @@
       }
     },
     {
-      "identity" : "pow",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/movingparts-io/Pow",
-      "state" : {
-        "branch" : "main",
-        "revision" : "5e09c815b3bd1bfdf67e5f887a425cf830801192"
-      }
-    },
-    {
       "identity" : "swift-case-paths",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-case-paths",
