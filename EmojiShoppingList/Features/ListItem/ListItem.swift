@@ -124,7 +124,7 @@ struct ListItemView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack {
-                #warning("TODO: Add animation")
+#warning("TODO: Add animation")
                 if viewStore.isDone {
                     RoundEmojiView(item: viewStore.state)
                 } else {
@@ -172,9 +172,9 @@ struct ListItemView: View {
                                         .frame(width: 30, height: 30, alignment: .center)
                                     }
                                 }
-                                .font(.stepper)
-                                .tint(viewStore.color)
-                                .clipped()
+                                    .font(.stepper)
+                                    .tint(viewStore.color)
+                                    .clipped()
                             )
                     }
                     .onTapGesture {
@@ -200,7 +200,11 @@ struct ListItemView: View {
                 }
                 .tint(.swipeDelete)
             }
-            .padding(.vertical, 4)
+            .frame(height: 60)
+            .alignmentGuide(.listRowSeparatorLeading) {
+                $0[.leading]
+            }
+            .listRowSeparatorTint(.gray)
         }
     }
 }

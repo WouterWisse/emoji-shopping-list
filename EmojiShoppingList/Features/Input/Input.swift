@@ -110,7 +110,9 @@ struct InputView: View {
                     .tint(viewStore.inputText.isEmpty ? .green : .red)
                 }
             }
-            .listRowSeparator(.visible)
+            .alignmentGuide(.listRowSeparatorLeading) {
+                $0[.leading]
+            }
             .synchronize(viewStore.binding(\.$focusedField), self.$focusedField)
         }
     }
