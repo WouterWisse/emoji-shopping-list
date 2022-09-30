@@ -60,10 +60,16 @@ struct InputView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack {
-                Text("✏️")
-                    .font(.title2)
-                    .multilineTextAlignment(.center)
-                    .frame(width: 50, height: 50, alignment: .center)
+                LinearGradient(
+                    colors: Color.headerColors,
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+                .mask(
+                    Image(systemName: "text.badge.plus")
+                        .imageScale(.large)
+                )
+                .frame(width: 50, height: 50, alignment: .center)
                 
                 TextField(
                     "",
