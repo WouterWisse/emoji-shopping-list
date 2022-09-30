@@ -183,7 +183,11 @@ struct ListView: View {
                             )
                             
                             if viewStore.shouldShowEmptyState {
-                                EmptyStateView(height: geometryReader.size.height - 140)
+                                EmptyStateView()
+                                .frame(
+                                    maxWidth: .infinity,
+                                    minHeight: max(200, geometryReader.size.height - (geometryReader.safeAreaInsets.top + geometryReader.safeAreaInsets.bottom + 90)),
+                                    alignment: .center)
                             }
                             
                             if viewStore.shouldShowDelete {

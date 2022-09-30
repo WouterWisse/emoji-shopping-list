@@ -124,12 +124,7 @@ struct ListItemView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack {
-#warning("TODO: Add animation")
-                if viewStore.isDone {
-                    RoundEmojiView(item: viewStore.state)
-                } else {
-                    RoundEmojiView(item: viewStore.state)
-                }
+                RoundEmojiView(item: viewStore.state)
                 
                 Text(viewStore.title)
                     .font(.listItem)
