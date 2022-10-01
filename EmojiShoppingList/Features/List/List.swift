@@ -150,22 +150,16 @@ let listReducer = Reducer<
             
         case .deleteAction(let deleteAction):
             switch deleteAction {
-            case .deleteAllTapped:
+            case .deleteTapped(let type):
                 environment.feedbackGenerator().notify(.error)
-                state.items.removeAll()
                 state.deleteState.isPresented = false
-                return .task {
-                    try await environment.persistence().deleteAll(false)
-                    return .sortItems
+                if type == .striked {
+                    state.items.removeAll(where: { $0.isDone })
+                } else {
+                    state.items.removeAll()
                 }
-                .animation()
-                
-            case .deleteStrikedTapped:
-                environment.feedbackGenerator().notify(.error)
-                state.items.removeAll(where: { $0.isDone })
-                state.deleteState.isPresented = false
                 return .task {
-                    try await environment.persistence().deleteAll(true)
+                    try await environment.persistence().deleteAll(type == .all)
                     return .sortItems
                 }
                 .animation()

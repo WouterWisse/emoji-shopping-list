@@ -9,8 +9,10 @@ struct DeleteState: Equatable {
 }
 
 enum DeleteAction: Equatable {
-    case deleteAllTapped
-    case deleteStrikedTapped
+    enum DeleteActionType {
+        case all, striked
+    }
+    case deleteTapped(type: DeleteActionType)
 }
 
 struct DeleteEnvironment {}
@@ -21,10 +23,7 @@ let deleteReducer = Reducer<
     SharedEnvironment<DeleteEnvironment>
 > { state, action, environment in
     switch action {
-    case .deleteAllTapped:
-        return .none
-        
-    case .deleteStrikedTapped:
+    case .deleteTapped(let type):
         return .none
     }
 }
@@ -39,7 +38,7 @@ struct DeleteView: View {
         WithViewStore(self.store) { viewStore in
             HStack {
                     Button {
-                        viewStore.send(.deleteAllTapped, animation: .default)
+                        viewStore.send(.deleteTapped(type: .all), animation: .default)
                     } label: {
                         HStack {
                             Image(systemName: "trash")
@@ -50,7 +49,7 @@ struct DeleteView: View {
                     .buttonStyle(.borderedProminent)
                     
                     Button {
-                        viewStore.send(.deleteStrikedTapped, animation: .default)
+                        viewStore.send(.deleteTapped(type: .striked), animation: .default)
                     } label: {
                         HStack {
                             Image(systemName: "trash")
