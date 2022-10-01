@@ -1,15 +1,12 @@
 import CoreData
-import UIKit
-
 import ComposableArchitecture
-import TextToEmoji
 
 struct PersistenceController {
-    var items: () -> IdentifiedArrayOf<ListItem>
-    var update: (_ listItem: ListItem) -> Void
-    var add: (_ title: String) -> ListItem?
-    var delete: (_ objectID: NSManagedObjectID) -> Void
-    var deleteAll: (_ isDone: Bool) -> Void
+    var items: () async throws -> IdentifiedArrayOf<ListItem>
+    var update: (_ listItem: ListItem) async throws -> Void
+    var add: (_ title: String) async throws -> Void
+    var delete: (_ objectID: NSManagedObjectID) async throws -> Void
+    var deleteAll: (_ isDone: Bool) async throws -> Void
 }
 
 extension PersistenceController {
@@ -23,89 +20,62 @@ extension PersistenceController {
             }
         }
         
-        let textToEmoji = TextToEmoji()
-        let viewContext = container.viewContext
-        
-        let save: () -> Void = {
-            do {
-                try viewContext.save()
-                print("🍏 Context successfully saved")
-            } catch {
-                print("🍎 Saving context failed with error: \(error)")
-            }
-        }
+        let emojiProvider: EmojiProvider = .default
+        let viewContext = NSManagedObjectContext(.privateQueue)
         
         return .init(
             items: {
-                let request = NSFetchRequest<Item>(entityName: "Item")
-                let sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
-                request.sortDescriptors = sortDescriptors
-                
-                do {
-                    let items = try viewContext.fetch(request) as [Item]
-                    print("🍏 Items successfully fetched")
-                    var listItems: IdentifiedArrayOf<ListItem> = []
-                    items.forEach { listItems.append(ListItem(item: $0)) }
-                    return listItems
-                } catch {
-                    print("🍎 Failed to fetch items")
-                    return []
+                let items = try await viewContext.perform {
+                    let request = Item.fetchRequest()
+                    request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
+                    request.resultType = .dictionaryResultType
+                    return try request.execute()
                 }
+                
+                var listItems: IdentifiedArrayOf<ListItem> = []
+                items.forEach { listItems.append(ListItem(item: $0)) }
+                return listItems
             },
             update: { listItem in
-                guard var item = viewContext.object(with: listItem.id) as? Item else {
-                    return print("🍎 Item for \(listItem.id) to update not found")
+                try await viewContext.perform {
+                    let item = try viewContext.existingObject(with: listItem.id) as! Item
+                    item.done = listItem.isDone
+                    item.amount = listItem.amount
+                    try viewContext.save()
                 }
-                item.done = listItem.isDone
-                item.amount = listItem.amount
-                save()
             },
             add: { title in
-                print("🍏 Add item with title: \(title)")
-                guard let newItem = NSEntityDescription.insertNewObject(
-                    forEntityName: "Item",
-                    into: viewContext
-                ) as? Item else {
-                    print("🍎 Creating new item failed")
-                    return nil
+                let emoji = try await emojiProvider.emoji(title)
+                
+                try await viewContext.perform {
+                    let item = Item.init(context: viewContext)
+                    item.title = title
+                    item.emoji = emoji.emoji
+                    item.color = emoji.color
+                    
+                    item.createdAt = Date()
+                    item.done = false
+                    
+                    try viewContext.save()
                 }
-                
-                let emoji = textToEmoji.emoji(for: title, preferredCategory: .foodAndDrink)
-                
-                newItem.title = title
-                newItem.emoji = emoji
-                let color = emoji?
-                    .toImage()?
-                    .averageColor?
-                    .adjust(brightness: 0.55)
-                newItem.color = color
-                
-                newItem.createdAt = Date()
-                newItem.done = false
-                save()
-                
-                return ListItem(item: newItem)
             },
             delete: { objectID in
-                guard let item = viewContext.object(with: objectID) as? Item else {
-                    return print("🍎 Item for \(objectID) to delete not found")
+                try await viewContext.perform {
+                    let item = try viewContext.existingObject(with: objectID)
+                    viewContext.delete(item)
+                    try viewContext.save()
                 }
-                viewContext.delete(item)
-                save()
             },
             deleteAll: { isDone in
-                let request = NSFetchRequest<Item>(entityName: "Item")
-                if isDone {
-                    request.predicate = NSPredicate(format: "done == YES")
-                }
-                
-                do {
-                    let items = try viewContext.fetch(request) as [Item]
+                try await viewContext.perform {
+                    let request = Item.fetchRequest()
+                    if isDone {
+                        request.predicate = NSPredicate(format: "done == YES")
+                    }
+                    request.resultType = .managedObjectResultType
+                    let items = try request.execute()
                     items.forEach(viewContext.delete)
-                    save()
-                    print("🍏 \(items.count) items successfully deleted")
-                } catch {
-                    print("🍎 Failed to delete items")
+                    try viewContext.save()
                 }
             }
         )
