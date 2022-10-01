@@ -81,7 +81,7 @@ let listReducer = Reducer<
         case .addItem(.failure(let failure)):
             print("🍎 Add item failed with error: \(failure)")
             return .none
-
+            
         case .listItem(let id, let action):
             guard let item = state.items[id: id] else { return .none }
             enum ListItemCompletionID {}
@@ -152,7 +152,6 @@ let listReducer = Reducer<
             switch deleteAction {
             case .deleteTapped(let type):
                 environment.feedbackGenerator().notify(.error)
-                state.deleteState.isPresented = false
                 if type == .striked {
                     state.items.removeAll(where: { $0.isDone })
                 } else {
@@ -178,73 +177,63 @@ struct ListView: View {
         WithViewStore(self.store) { viewStore in
             ZStack(alignment: .top) {
                 GeometryReader { geometryReader in
-                    ScrollViewReader { scrollProxy in
-                        List {
-                            LinearGradient(
-                                colors: Color.headerColors,
-                                startPoint: .leading,
-                                endPoint: .trailing
+                    List {
+                        LinearGradient(
+                            colors: Color.headerColors,
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                        .mask(
+                            Text(viewStore.navigationTitle)
+                                .font(.header)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        )
+                        .frame(height: 40)
+                        .padding(.top, 16)
+                        .listRowSeparator(.hidden)
+                        
+                        InputView(
+                            store: store.scope(
+                                state: \.inputState,
+                                action: ListAction.inputAction
                             )
-                            .mask(
-                                Text(viewStore.navigationTitle)
-                                    .font(.header)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            )
-                            .id(TitleViewID())
-                            .frame(height: 40)
-                            .padding(.top, 16)
-                            .listRowSeparator(.hidden)
-                            
-                            InputView(
-                                store: store.scope(
-                                    state: \.inputState,
-                                    action: ListAction.inputAction
-                                )
-                            )
-                            
-                            ForEachStore(
-                                store.scope(
-                                    state: \.items,
-                                    action: ListAction.listItem(id:action:)
-                                ),
-                                content: ListItemView.init(store:)
-                            )
-                            
-                            if viewStore.shouldShowEmptyState {
-                                EmptyStateView()
+                        )
+                        
+                        ForEachStore(
+                            store.scope(
+                                state: \.items,
+                                action: ListAction.listItem(id:action:)
+                            ),
+                            content: ListItemView.init(store:)
+                        )
+                        
+                        if viewStore.shouldShowEmptyState {
+                            EmptyStateView()
                                 .frame(
                                     maxWidth: .infinity,
                                     minHeight: max(200, geometryReader.size.height - (geometryReader.safeAreaInsets.top + geometryReader.safeAreaInsets.bottom + 90)),
                                     alignment: .center)
-                            }
-                            
-                            if viewStore.shouldShowDelete {
-                                DeleteView(
-                                    store: store.scope(
-                                        state: \.deleteState,
-                                        action: ListAction.deleteAction
-                                    )
+                        }
+                        
+                        if viewStore.shouldShowDelete {
+                            DeleteView(
+                                store: store.scope(
+                                    state: \.deleteState,
+                                    action: ListAction.deleteAction
                                 )
-                            }
+                            )
                         }
-                        .listStyle(.plain)
-                        .onAppear {
-                            viewStore.send(.onAppear)
-                        }
-                        .onChange(of: viewStore.deleteState.isPresented, perform: { isPresented in
-                            if isPresented {
-                                withAnimation { scrollProxy.scrollTo(TitleViewID(), anchor: .top) }
-                            }
-                        })
                     }
-                    EdgeFadeView()
+                    .listStyle(.plain)
+                    .onAppear {
+                        viewStore.send(.onAppear)
+                    }
                 }
+                EdgeFadeView()
             }
         }
     }
 }
-
-private struct TitleViewID: Hashable {}
 
 // MARK: - Preview
 
