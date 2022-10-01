@@ -13,12 +13,18 @@ struct EmojiProvider {
 extension EmojiProvider {
     static let `default`: EmojiProvider = {
         let textToEmoji = TextToEmoji()
+        let fallbackEmoji = "🤷"
+        let fallbackEmojiColor = fallbackEmoji.toImage()?.averageColor?.adjust(brightness: 0.55) ?? .gray
         
         return EmojiProvider(
             emoji: { title in
-                let emoji = try await textToEmoji.emoji(for: title, preferredCategory: .foodAndDrink) ?? "🤷🏼‍♂️"
-                let color = emoji.toImage()?.averageColor?.adjust(brightness: 0.55) ?? .gray
-                return Emoji(emoji: emoji, color: color)
+                do {
+                    let emoji = try await textToEmoji.emoji(for: title, preferredCategory: .foodAndDrink) ?? fallbackEmoji
+                    let color = emoji.toImage()?.averageColor?.adjust(brightness: 0.55) ?? fallbackEmojiColor
+                    return Emoji(emoji: emoji, color: color)
+                } catch {
+                    return Emoji(emoji: fallbackEmoji, color: fallbackEmojiColor)
+                }
             }
         )
     }()
