@@ -22,6 +22,7 @@
 		6C332FE828BD623B0004ECF9 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C332FE728BD623B0004ECF9 /* Appearance.swift */; };
 		6C6A96EA2874E77F00B09D80 /* Pacifico-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C6A96E92874E77F00B09D80 /* Pacifico-Regular.ttf */; };
 		6C758E7B28E8BB8900399993 /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C758E7A28E8BB8900399993 /* EmojiProvider.swift */; };
+		6C7E46AF28E8F7160050F295 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7E46AE28E8F7160050F295 /* TitleView.swift */; };
 		6C913E7E2842DD6C00E34326 /* Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C913E7D2842DD6C00E34326 /* Delete.swift */; };
 		6CA6E3F8284015DD0069CDD9 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3F7284015DD0069CDD9 /* List.swift */; };
 		6CA6E400284152B90069CDD9 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3FF284152B90069CDD9 /* ListItem.swift */; };
@@ -70,6 +71,7 @@
 		6C6A96E72874E75200B09D80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C6A96E92874E77F00B09D80 /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pacifico-Regular.ttf"; sourceTree = "<group>"; };
 		6C758E7A28E8BB8900399993 /* EmojiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiProvider.swift; sourceTree = "<group>"; };
+		6C7E46AE28E8F7160050F295 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		6C913E7D2842DD6C00E34326 /* Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delete.swift; sourceTree = "<group>"; };
 		6CA6E3F7284015DD0069CDD9 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		6CA6E3FF284152B90069CDD9 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */,
 				6CD4576828A1A31900EB9E7B /* EmptyStateView.swift */,
 				6C0AACEB28BECFF40025C4A0 /* EdgeFadeView.swift */,
+				6C7E46AE28E8F7160050F295 /* TitleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				6CFEF96E2834432F00254038 /* App.swift in Sources */,
 				6C02812828B7FBA400AA2666 /* UIColor+Adjust.swift in Sources */,
 				6CF5CC6B28469A0B00117790 /* SharedEnvironment.swift in Sources */,
+				6C7E46AF28E8F7160050F295 /* TitleView.swift in Sources */,
 				6C758E7B28E8BB8900399993 /* EmojiProvider.swift in Sources */,
 				6C913E7E2842DD6C00E34326 /* Delete.swift in Sources */,
 				6CA6E41128428F6B0069CDD9 /* View+Synchronize.swift in Sources */,

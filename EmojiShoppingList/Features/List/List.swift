@@ -6,7 +6,6 @@ import SwiftUI
 
 struct ListState: Equatable {
     var items: IdentifiedArrayOf<ListItem> = []
-    var navigationTitle: String = "Shopping List"
     var inputState = InputState()
     var deleteState = DeleteState()
     
@@ -25,8 +24,6 @@ enum ListAction: Equatable {
     case fetchedItems(TaskResult<IdentifiedArrayOf<ListItem>>)
     case addItem(TaskResult<ListItem>)
     case sortItems
-    case updateTitle
-    
     case listItem(id: ListItem.ID, action: ListItemAction)
     case inputAction(InputAction)
     case deleteAction(DeleteAction)
@@ -126,15 +123,6 @@ let listReducer = Reducer<
             })
             return .none
             
-        case .updateTitle:
-            let title = "Shopping List"
-            if let emoji = state.items.first?.emoji {
-                state.navigationTitle = "\(emoji) \(title)"
-            } else {
-                state.navigationTitle = title
-            }
-            return .none
-            
         case .inputAction(let inputAction):
             switch inputAction {
             case .binding, .prepareForNextItem, .dismissKeyboard:
@@ -178,19 +166,7 @@ struct ListView: View {
             ZStack(alignment: .top) {
                 GeometryReader { geometryReader in
                     List {
-                        LinearGradient(
-                            colors: Color.headerColors,
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                        .mask(
-                            Text(viewStore.navigationTitle)
-                                .font(.header)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        )
-                        .frame(height: 40)
-                        .padding(.top, 16)
-                        .listRowSeparator(.hidden)
+                        TitleView()
                         
                         InputView(
                             store: store.scope(
