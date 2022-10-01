@@ -5,13 +5,13 @@ extension SharedEnvironment {
     static func mock(
         environment: Environment,
         mainQueue: AnySchedulerOf<DispatchQueue>,
-        persistenceController: MockPersistenceController,
+        persistence: MockPersistenceController,
         feedbackGenerator: MockFeedbackGenerator
     ) -> Self {
         Self(
             environment: environment,
             mainQueue: { mainQueue },
-            persistenceController: { .mock(persistenceController) },
+            persistence: { .mock(persistence) },
             feedbackGenerator: { .mock(feedbackGenerator) }
         )
     }
