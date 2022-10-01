@@ -4,7 +4,7 @@ import ComposableArchitecture
 struct PersistenceController {
     var items: () async throws -> IdentifiedArrayOf<ListItem>
     var update: (_ listItem: ListItem) async throws -> Void
-    var add: (_ title: String) async throws -> Void
+    var add: (_ title: String) async throws -> ListItem
     var delete: (_ objectID: NSManagedObjectID) async throws -> Void
     var deleteAll: (_ isDone: Bool) async throws -> Void
 }
@@ -21,14 +21,14 @@ extension PersistenceController {
         }
         
         let emojiProvider: EmojiProvider = .default
-        let viewContext = NSManagedObjectContext(.privateQueue)
+        let viewContext = container.newBackgroundContext()
         
         return .init(
             items: {
                 let items = try await viewContext.perform {
                     let request = Item.fetchRequest()
                     request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
-                    request.resultType = .dictionaryResultType
+                    request.resultType = .managedObjectResultType
                     return try request.execute()
                 }
                 
@@ -47,7 +47,7 @@ extension PersistenceController {
             add: { title in
                 let emoji = try await emojiProvider.emoji(title)
                 
-                try await viewContext.perform {
+                let newItem = try await viewContext.perform {
                     let item = Item.init(context: viewContext)
                     item.title = title
                     item.emoji = emoji.emoji
@@ -57,7 +57,10 @@ extension PersistenceController {
                     item.done = false
                     
                     try viewContext.save()
+                    return item
                 }
+                
+                return ListItem(item: newItem)
             },
             delete: { objectID in
                 try await viewContext.perform {
