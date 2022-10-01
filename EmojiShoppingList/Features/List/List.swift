@@ -159,7 +159,7 @@ let listReducer = Reducer<
                     state.items.removeAll()
                 }
                 return .task {
-                    try await environment.persistence().deleteAll(type == .all)
+                    try await environment.persistence().deleteAll(type == .striked)
                     return .sortItems
                 }
                 .animation()
