@@ -21,7 +21,7 @@ extension PersistenceController {
         }
         
         let emojiProvider: EmojiProvider = .default
-        let viewContext = container.newBackgroundContext()
+        let viewContext = container.viewContext
         
         return .init(
             items: {
