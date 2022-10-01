@@ -21,7 +21,12 @@ struct ListState: Equatable {
 
 enum ListAction: Equatable {
     case onAppear
+    case fetchItems
+    case fetchedItems(TaskResult<IdentifiedArrayOf<ListItem>>)
+    case addItem(TaskResult<ListItem>)
     case sortItems
+    case updateTitle
+    
     case listItem(id: ListItem.ID, action: ListItemAction)
     case inputAction(InputAction)
     case deleteAction(DeleteAction)
@@ -52,43 +57,64 @@ let listReducer = Reducer<
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
-            if state.items.isEmpty {
-                state.items = environment.persistenceController().items()
-                return Effect(value: .sortItems)
-            } else {
-                return Effect(value: .sortItems)
+            return .task { [items = state.items] in
+                return items.isEmpty ? .fetchItems : .sortItems
             }
             
+        case .fetchItems:
+            return .task {
+                await .fetchedItems(TaskResult { try await environment.persistence().items() })
+            }
+            
+        case .fetchedItems(.success(let items)):
+            state.items = items
+            return .task { .sortItems }
+            
+        case .fetchedItems(.failure(let failure)):
+            print("🍎 Fetch item failed with error: \(failure)")
+            return .none
+            
+        case .addItem(.success(let item)):
+            state.items.insert(item, at: 0)
+            return .task { .sortItems }.animation()
+            
+        case .addItem(.failure(let failure)):
+            print("🍎 Add item failed with error: \(failure)")
+            return .none
+
         case .listItem(let id, let action):
             guard let item = state.items[id: id] else { return .none }
-            struct DebounceId: Hashable {}
+            enum ListItemCompletionID {}
             
             switch action {
             case .expandStepper(let expand):
-                if expand == false {
-                    environment.persistenceController().update(item)
+                return .task {
+                    if expand == false {
+                        try await environment.persistence().update(item)
+                    }
+                    return .sortItems
                 }
-                return .none
                 
             case .incrementAmount, .decrementAmount:
                 return .none
                 
             case .toggleDone:
-                environment.persistenceController().update(item)
-                return Effect(value: .sortItems)
-                    .debounce(
-                        id: DebounceId(),
-                        for: .seconds(1.2),
-                        scheduler: environment.mainQueue()
-                            .animation()
-                            .eraseToAnyScheduler()
-                    )
+                return .task {
+                    try await environment.persistence().update(item)
+                    try await environment.mainQueue().sleep(for: .seconds(1))
+                    return .sortItems
+                }
+                .animation()
+                .cancellable(id: ListItemCompletionID.self, cancelInFlight: true)
                 
             case .delete:
-                state.items.remove(item)
-                environment.persistenceController().delete(item.id)
                 environment.feedbackGenerator().impact(.rigid)
-                return Effect(value: .sortItems)
+                state.items.remove(item)
+                return .task {
+                    try await environment.persistence().delete(item.id)
+                    return .sortItems
+                }
+                .animation()
             }
             
         case .sortItems:
@@ -98,10 +124,14 @@ let listReducer = Reducer<
                 }
                 return lhs.createdAt > rhs.createdAt
             })
+            return .none
+            
+        case .updateTitle:
+            let title = "Shopping List"
             if let emoji = state.items.first?.emoji {
-                state.navigationTitle = "\(emoji) Shopping List"
+                state.navigationTitle = "\(emoji) \(title)"
             } else {
-                state.navigationTitle = "Shopping List"
+                state.navigationTitle = title
             }
             return .none
             
@@ -112,29 +142,33 @@ let listReducer = Reducer<
                 
             case .submit(let title):
                 environment.feedbackGenerator().impact(.soft)
-                guard
-                    title.isEmpty == false,
-                    let newItem = environment.persistenceController().add(title)
-                else { return .none }
-                state.items.append(newItem)
-                return Effect(value: .sortItems)
+                return .task {
+                    await .addItem(TaskResult { try await environment.persistence().add(title) })
+                }
+                .animation()
             }
             
         case .deleteAction(let deleteAction):
             switch deleteAction {
             case .deleteAllTapped:
-                state.items.removeAll()
-                environment.persistenceController().deleteAll(false)
                 environment.feedbackGenerator().notify(.error)
+                state.items.removeAll()
                 state.deleteState.isPresented = false
-                return Effect(value: .sortItems)
+                return .task {
+                    try await environment.persistence().deleteAll(false)
+                    return .sortItems
+                }
+                .animation()
                 
             case .deleteStrikedTapped:
-                state.items.removeAll(where: { $0.isDone })
-                environment.persistenceController().deleteAll(true)
                 environment.feedbackGenerator().notify(.error)
+                state.items.removeAll(where: { $0.isDone })
                 state.deleteState.isPresented = false
-                return Effect(value: .sortItems)
+                return .task {
+                    try await environment.persistence().deleteAll(true)
+                    return .sortItems
+                }
+                .animation()
             }
         }
     }
