@@ -10,21 +10,23 @@ extension Font {
 }
 
 extension Color {
-    // Header
-    static let headerColors: [Color] = [.blue, .green, .yellow]
+    // MARK: Gradient
+    static let gradientColors: [Color] = [.blue, .green, .yellow]
     
-    // RoundEmojiView
+    // MARK: RoundEmojiView
     func emojiBackgroundOpacity(for colorScheme: ColorScheme) -> Color {
         opacity(colorScheme == .light ? 0.1 : 0.2)
     }
+    
     func emojiBorderOpacity(for colorScheme: ColorScheme) -> Color {
         opacity(colorScheme == .light ? 0.25 : 0.25)
     }
     
-    // Stepper View
+    // MARK: Stepper View
     func stepperBackgroundOpacity(for colorScheme: ColorScheme) -> Color {
         opacity(colorScheme == .light ? 0.1 : 0.2)
     }
     
+    // MARK: List
     static let swipeDelete: Color = .red
 }

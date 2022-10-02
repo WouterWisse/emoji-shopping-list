@@ -61,7 +61,7 @@ struct InputView: View {
         WithViewStore(self.store) { viewStore in
             HStack {
                 LinearGradient(
-                    colors: Color.headerColors,
+                    colors: Color.gradientColors,
                     startPoint: .leading,
                     endPoint: .trailing
                 )

@@ -3,7 +3,7 @@ import SwiftUI
 struct EmptyStateView: View {
     var body: some View {
         LinearGradient(
-            colors: Color.headerColors,
+            colors: Color.gradientColors,
             startPoint: .leading,
             endPoint: .trailing
         )
