@@ -59,22 +59,11 @@ struct InputView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            HStack {
-                LinearGradient(
-                    colors: Color.gradientColors,
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
-                .mask(
-                    Image(systemName: "text.badge.plus")
-                        .imageScale(.large)
-                )
-                .frame(width: 50, height: 50, alignment: .center)
-                
+            HStack(spacing: .horizontalMargin) {
                 TextField(
                     "",
                     text: viewStore.binding(\.$inputText),
-                    prompt: Text("Add product")
+                    prompt: Text("Add to list...")
                 )
                 .font(.default)
                 .focused($focusedField, equals: .input)
