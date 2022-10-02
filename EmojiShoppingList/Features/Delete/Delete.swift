@@ -62,7 +62,7 @@ struct DeleteView: View {
             .controlSize(.regular)
             .frame(maxWidth: .infinity, alignment: .center)
             .frame(height: 50)
-            .listRowSeparator(.hidden)
+            .listRowSeparator(.hidden, edges: .bottom)
         }
     }
 }

@@ -111,9 +111,8 @@ let listItemReducer = Reducer<
 // MARK: - Views
 
 struct ListItemView: View {
-    let store: Store<ListItem, ListItemAction>
-    
     @Environment(\.colorScheme) private var colorScheme
+    let store: Store<ListItem, ListItemAction>
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
@@ -191,7 +190,6 @@ struct ListItemView: View {
             .alignmentGuide(.listRowSeparatorLeading) {
                 $0[.leading]
             }
-            .listRowSeparatorTint(.gray)
         }
     }
 }
