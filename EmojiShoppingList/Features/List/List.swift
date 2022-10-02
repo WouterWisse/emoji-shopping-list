@@ -52,6 +52,7 @@ let listReducer = Reducer<
         environment: { _ in .live(environment: DeleteEnvironment()) }
     ),
     Reducer { state, action, environment in
+        // MARK: List Action -
         switch action {
         case .onAppear:
             return .task { [items = state.items] in
@@ -79,22 +80,21 @@ let listReducer = Reducer<
             print("🍎 Add item failed with error: \(failure)")
             return .none
             
+        case .sortItems:
+            state.items.sort(by: { lhs, rhs in
+                guard lhs.isDone == rhs.isDone else {
+                    return !lhs.isDone && rhs.isDone
+                }
+                return lhs.createdAt > rhs.createdAt
+            })
+            return .none
+            
+        // MARK: ListItem Action -
         case .listItem(let id, let action):
             guard let item = state.items[id: id] else { return .none }
             enum ListItemCompletionID {}
             
             switch action {
-            case .expandStepper(let expand):
-                return .task {
-                    if expand == false {
-                        try await environment.persistence().update(item)
-                    }
-                    return .sortItems
-                }
-                
-            case .updateAmount:
-                return .none
-                
             case .toggleDone:
                 return .task {
                     try await environment.persistence().update(item)
@@ -112,30 +112,24 @@ let listReducer = Reducer<
                     return .sortItems
                 }
                 .animation()
+                
+            default: return .none
             }
             
-        case .sortItems:
-            state.items.sort(by: { lhs, rhs in
-                guard lhs.isDone == rhs.isDone else {
-                    return !lhs.isDone && rhs.isDone
-                }
-                return lhs.createdAt > rhs.createdAt
-            })
-            return .none
-            
+        // MARK: Input Action -
         case .inputAction(let inputAction):
             switch inputAction {
-            case .binding, .prepareForNextItem, .dismissKeyboard:
-                return .none
-                
             case .submit(let title):
                 environment.feedbackGenerator().impact(.soft)
                 return .task {
                     await .addItem(TaskResult { try await environment.persistence().add(title) })
                 }
                 .animation()
+                
+            default: return .none
             }
             
+        // MARK: Delete Action -
         case .deleteAction(let deleteAction):
             switch deleteAction {
             case .deleteTapped(let type):
@@ -187,7 +181,10 @@ struct ListView: View {
                             EmptyStateView()
                                 .frame(
                                     maxWidth: .infinity,
-                                    minHeight: max(200, geometryReader.size.height - (geometryReader.safeAreaInsets.top + geometryReader.safeAreaInsets.bottom + 90)),
+                                    minHeight: max(
+                                        200,
+                                        geometryReader.size.height - (geometryReader.safeAreaInsets.top + geometryReader.safeAreaInsets.bottom + 90)
+                                    ),
                                     alignment: .center)
                         }
                         

@@ -48,6 +48,7 @@ enum ListItemAction: Equatable {
     enum UpdateAmountType {
         case increment, decrement
     }
+    case stepperTapped
     case expandStepper(expand: Bool)
     case updateAmount(type: UpdateAmountType)
     case delete
@@ -62,6 +63,10 @@ let listItemReducer = Reducer<
     SharedEnvironment<ListItemEnvironment>
 > { state, action, environment in
     switch action {
+    case .stepperTapped:
+        return .task { .expandStepper(expand: true) }
+            .animation(.easeInOut)
+        
     case .expandStepper(let expand):
         state.isStepperExpanded = expand
         if !expand { return .none }
@@ -80,8 +85,9 @@ let listItemReducer = Reducer<
         } else if state.amount > 1 {
             state.amount -= 1
         }
-        return .task {
+        return .task { [state] in
             try await environment.mainQueue().sleep(for: .seconds(2))
+            try await environment.persistence().update(state)
             return .expandStepper(expand: false)
         }
         .animation()
@@ -161,9 +167,7 @@ struct ListItemView: View {
                             )
                     }
                     .onTapGesture {
-                        if viewStore.isStepperExpanded == false {
-                            viewStore.send(.expandStepper(expand: true), animation: .easeInOut)
-                        }
+                        viewStore.send(.stepperTapped)
                     }
                 }
             }
