@@ -64,40 +64,34 @@ let listItemReducer = Reducer<
         state.isStepperExpanded = expand
         if !expand { return .none }
         environment.feedbackGenerator().impact(.soft)
-        return Effect(value: .expandStepper(expand: false))
-            .debounce(
-                id: state.id,
-                for: .seconds(3.0),
-                scheduler: environment.mainQueue()
-                    .animation()
-                    .eraseToAnyScheduler()
-            )
+        return .task {
+            try await environment.mainQueue().sleep(for: .seconds(3))
+            return .expandStepper(expand: false)
+        }
+        .animation()
+        .cancellable(id: state.id, cancelInFlight: true)
         
     case .incrementAmount:
         environment.feedbackGenerator().impact(.soft)
         state.amount += 1
-        return Effect(value: .expandStepper(expand: false))
-            .debounce(
-                id: state.id,
-                for: .seconds(1.5),
-                scheduler: environment.mainQueue()
-                    .animation()
-                    .eraseToAnyScheduler()
-            )
+        return .task {
+            try await environment.mainQueue().sleep(for: .seconds(2))
+            return .expandStepper(expand: false)
+        }
+        .animation()
+        .cancellable(id: state.id, cancelInFlight: true)
         
     case .decrementAmount:
         environment.feedbackGenerator().impact(.soft)
         if state.amount > 1 {
             state.amount -= 1
         }
-        return Effect(value: .expandStepper(expand: false))
-            .debounce(
-                id: state.id,
-                for: .seconds(1.5),
-                scheduler: environment.mainQueue()
-                    .animation()
-                    .eraseToAnyScheduler()
-            )
+        return .task {
+            try await environment.mainQueue().sleep(for: .seconds(2))
+            return .expandStepper(expand: false)
+        }
+        .animation()
+        .cancellable(id: state.id, cancelInFlight: true)
         
     case .delete:
         return .none
