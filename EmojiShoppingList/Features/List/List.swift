@@ -92,7 +92,7 @@ let listReducer = Reducer<
                     return .sortItems
                 }
                 
-            case .incrementAmount, .decrementAmount:
+            case .updateAmount:
                 return .none
                 
             case .toggleDone:

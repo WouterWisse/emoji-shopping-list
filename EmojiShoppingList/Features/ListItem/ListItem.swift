@@ -45,9 +45,11 @@ struct ListItem: Equatable, Identifiable {
 }
 
 enum ListItemAction: Equatable {
+    enum UpdateAmountType {
+        case increment, decrement
+    }
     case expandStepper(expand: Bool)
-    case incrementAmount
-    case decrementAmount
+    case updateAmount(type: UpdateAmountType)
     case delete
     case toggleDone
 }
@@ -71,19 +73,11 @@ let listItemReducer = Reducer<
         .animation()
         .cancellable(id: state.id, cancelInFlight: true)
         
-    case .incrementAmount:
+    case .updateAmount(let type):
         environment.feedbackGenerator().impact(.soft)
-        state.amount += 1
-        return .task {
-            try await environment.mainQueue().sleep(for: .seconds(2))
-            return .expandStepper(expand: false)
-        }
-        .animation()
-        .cancellable(id: state.id, cancelInFlight: true)
-        
-    case .decrementAmount:
-        environment.feedbackGenerator().impact(.soft)
-        if state.amount > 1 {
+        if type == .increment {
+            state.amount += 1
+        } else if state.amount > 1 {
             state.amount -= 1
         }
         return .task {
@@ -139,7 +133,7 @@ struct ListItemView: View {
                                 HStack(spacing: 0) {
                                     if viewStore.isStepperExpanded {
                                         Button(action: {
-                                            viewStore.send(.decrementAmount)
+                                            viewStore.send(.updateAmount(type: .decrement))
                                         }, label: {
                                             Image(systemName: "minus")
                                         })
@@ -153,7 +147,7 @@ struct ListItemView: View {
                                     
                                     if viewStore.isStepperExpanded {
                                         Button(action: {
-                                            viewStore.send(.incrementAmount)
+                                            viewStore.send(.updateAmount(type: .increment))
                                         }, label: {
                                             Image(systemName: "plus")
                                         })
