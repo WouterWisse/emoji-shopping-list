@@ -116,7 +116,7 @@ struct ListItemView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            HStack {
+            HStack(spacing: .horizontalMargin) {
                 RoundEmojiView(item: viewStore.state)
                 
                 Text(viewStore.title)

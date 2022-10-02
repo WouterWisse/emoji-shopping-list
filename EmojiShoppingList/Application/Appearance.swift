@@ -30,3 +30,7 @@ extension Color {
     // MARK: List
     static let swipeDelete: Color = .red
 }
+
+extension CGFloat {
+    static let horizontalMargin: CGFloat = 12
+}
