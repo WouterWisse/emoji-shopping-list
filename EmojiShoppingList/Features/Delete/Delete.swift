@@ -21,8 +21,7 @@ let deleteReducer = Reducer<
     SharedEnvironment<DeleteEnvironment>
 > { state, action, environment in
     switch action {
-    case .deleteTapped(let type):
-        return .none
+    case .deleteTapped: return .none
     }
 }
 .debug()
@@ -52,13 +51,13 @@ struct DeleteView: View {
                         HStack {
                             Image(systemName: "trash")
                             Text("Striked")
-                                .strikethrough(true, color: .red.opacity(0.5))
+                                .strikethrough(true, color: .swipeDelete)
                                 .font(.default)
                         }
                     }
                     .buttonStyle(.bordered)
             }
-            .tint(.red)
+            .tint(.swipeDelete)
             .controlSize(.regular)
             .frame(maxWidth: .infinity, alignment: .center)
             .frame(height: 50)
