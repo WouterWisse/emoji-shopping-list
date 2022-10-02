@@ -14,7 +14,7 @@ extension EmojiProvider {
     static let `default`: EmojiProvider = {
         let textToEmoji = TextToEmoji()
         let fallbackEmoji = "🤷"
-        let fallbackEmojiColor = fallbackEmoji.toImage()?.averageColor?.adjust(brightness: 0.55) ?? .gray
+        let fallbackEmojiColor: UIColor = .gray
         
         return EmojiProvider(
             emoji: { title in
