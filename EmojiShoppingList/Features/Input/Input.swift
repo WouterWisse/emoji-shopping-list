@@ -4,21 +4,11 @@ import ComposableArchitecture
 
 // MARK: - Logic
 
-struct InputState: Equatable {
-    @BindableState var inputText: String = ""
-    @BindableState var focusedField: Field?
-    var isFirstFieldFocus: Bool = true
-    
-    enum Field: String, Hashable {
-        case input
-    }
-}
+struct InputState: Equatable {}
 
-enum InputAction: BindableAction, Equatable {
-    case binding(BindingAction<InputState>)
-    case submit(String)
+enum InputAction: Equatable {
+    case submit(title: String)
     case dismissKeyboard
-    case prepareForNextItem
 }
 
 struct InputEnvironment {}
@@ -34,20 +24,10 @@ let inputReducer = Reducer<
         return .none
         
     case .dismissKeyboard:
-        state.focusedField = nil
         environment.feedbackGenerator().impact(.soft)
-        return .none
-        
-    case .prepareForNextItem:
-        state.isFirstFieldFocus = false
-        state.inputText = ""
-        return .none
-        
-    case .binding:
         return .none
     }
 }
-.binding()
 .debug()
 
 // MARK: - View
@@ -55,45 +35,48 @@ let inputReducer = Reducer<
 struct InputView: View {
     let store: Store<InputState, InputAction>
     
-    @FocusState var focusedField: InputState.Field?
+    @State var inputText: String = ""
+    @FocusState var isFieldFocused: Bool
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: .horizontalMargin) {
                 TextField(
-                    "",
-                    text: viewStore.binding(\.$inputText),
-                    prompt: Text("Add to list...")
+                    "Add to list...",
+                    text: $inputText,
+                    onCommit: {
+                        withAnimation { isFieldFocused = !inputText.isEmpty }
+                    }
                 )
-                .font(.default)
-                .focused($focusedField, equals: .input)
-                .submitLabel(.done)
                 .onSubmit {
-                    viewStore.send(.submit(viewStore.inputText), animation: .default)
-                }
-                .onChange(of: focusedField) { _ in
-                    if viewStore.state.inputText.isEmpty && !viewStore.isFirstFieldFocus {
-                        focusedField = nil
-                    } else {
-                        focusedField = .input
-                        viewStore.send(.prepareForNextItem)
+                    if !inputText.isEmpty {
+                        viewStore.send(.submit(title: inputText))
+                        inputText = ""
                     }
                 }
+                .font(.default)
+                .focused($isFieldFocused)
+                .submitLabel(.done)
                 
                 Spacer()
                 
-                if viewStore.focusedField != nil {
+                if isFieldFocused {
                     Button {
-                        viewStore.send(.dismissKeyboard, animation: .default)
+                        viewStore.send(.dismissKeyboard)
+                        if inputText.isEmpty {
+                            withAnimation { isFieldFocused = false }
+                        } else {
+                            inputText = ""
+                        }
                     } label: {
                         HStack {
-                            Image(systemName:
-                                    viewStore.inputText.isEmpty
-                                  ? "checkmark.circle.fill"
-                                  : "xmark.circle.fill"
+                            Image(
+                                systemName: inputText.isEmpty
+                                ? "checkmark.circle.fill"
+                                : "xmark.circle.fill"
                             )
                             Text(
-                                viewStore.inputText.isEmpty
+                                inputText.isEmpty
                                 ? "Done"
                                 : "Clear"
                             )
@@ -101,14 +84,13 @@ struct InputView: View {
                         }
                     }
                     .buttonStyle(.bordered)
-                    .controlSize(.regular)
-                    .tint(viewStore.inputText.isEmpty ? .green : .red)
+                    .controlSize(.small)
+                    .tint(inputText.isEmpty ? .green : .swipeDelete)
                 }
             }
             .alignmentGuide(.listRowSeparatorLeading) {
                 $0[.leading]
             }
-            .synchronize(viewStore.binding(\.$focusedField), self.$focusedField)
         }
     }
 }
@@ -123,10 +105,7 @@ struct InputView_Previews: PreviewProvider {
             ForEach(colorSchemes, id: \.self) { colorScheme in
                 InputView(
                     store: Store(
-                        initialState: InputState(
-                            inputText: inputText,
-                            focusedField: .input
-                        ),
+                        initialState: InputState(),
                         reducer: inputReducer,
                         environment: .preview(environment: InputEnvironment())
                     )
