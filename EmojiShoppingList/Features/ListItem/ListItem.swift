@@ -118,10 +118,12 @@ struct ListItemView: View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: .horizontalMargin) {
                 RoundEmojiView(item: viewStore.state)
+                    .opacity(viewStore.isDone ? 0.5 : 1)
                 
                 Text(viewStore.title)
                     .font(.listItem)
                     .strikethrough(viewStore.isDone)
+                    .opacity(viewStore.isDone ? 0.3 : 1)
                 
                 Spacer()
                 
