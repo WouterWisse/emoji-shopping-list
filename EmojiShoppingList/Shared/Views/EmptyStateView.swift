@@ -7,7 +7,7 @@ struct EmptyStateView: View {
             startPoint: .leading,
             endPoint: .trailing
         )
-        .frame(width: 140)
+        .frame(width: 160)
         .mask(
             VStack(spacing: 8) {
                 HStack {
