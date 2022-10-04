@@ -89,7 +89,7 @@ let listReducer = Reducer<
             })
             return .none
             
-        // MARK: ListItem Action -
+            // MARK: ListItem Action -
         case .listItem(let id, let action):
             guard let item = state.items[id: id] else { return .none }
             enum ListItemCompletionID {}
@@ -116,7 +116,7 @@ let listReducer = Reducer<
             default: return .none
             }
             
-        // MARK: Input Action -
+            // MARK: Input Action -
         case .inputAction(let inputAction):
             switch inputAction {
             case .submit(let title):
@@ -129,7 +129,7 @@ let listReducer = Reducer<
             default: return .none
             }
             
-        // MARK: Delete Action -
+            // MARK: Delete Action -
         case .deleteAction(let deleteAction):
             switch deleteAction {
             case .deleteTapped(let type):
