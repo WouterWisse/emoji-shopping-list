@@ -14,8 +14,7 @@ struct EdgeFadeView: View {
                     startPoint: .top,
                     endPoint: .bottom
                 )
-                .edgesIgnoringSafeArea(.top)
-                .frame(height: max(0, geometryReader.safeAreaInsets.top - 50), alignment: .center)
+                .frame(height: geometryReader.safeAreaInsets.top, alignment: .center)
                 
                 Spacer()
                 
@@ -24,9 +23,9 @@ struct EdgeFadeView: View {
                     startPoint: .top,
                     endPoint: .bottom
                 )
-                .edgesIgnoringSafeArea(.bottom)
-                .frame(height: max(0, geometryReader.safeAreaInsets.bottom - 30), alignment: .center)
+                .frame(height: geometryReader.safeAreaInsets.bottom, alignment: .center)
             }
+            .edgesIgnoringSafeArea([.bottom, .top])
         }
     }
 }
