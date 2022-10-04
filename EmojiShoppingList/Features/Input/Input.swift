@@ -35,59 +35,55 @@ let inputReducer = Reducer<
 struct InputView: View {
     let store: Store<InputState, InputAction>
     
-    @State var inputText: String = ""
-    @FocusState var isFieldFocused: Bool
+    @State private var inputText: String = ""
+    @FocusState private var focusedField: FocusedField?
+    
+    enum FocusedField {
+        case input
+    }
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            HStack(spacing: .horizontalMargin) {
-                TextField(
-                    "Add to list...",
-                    text: $inputText,
-                    onCommit: {
-                        withAnimation { isFieldFocused = !inputText.isEmpty }
+            HStack {
+                TextField("Add to list...", text: $inputText)
+                    .onSubmit {
+                        if inputText.isEmpty {
+                            focusedField = nil
+                        } else {
+                            focusedField = .input
+                            viewStore.send(.submit(title: inputText))
+                            inputText = ""
+                        }
                     }
-                )
-                .onSubmit {
-                    if !inputText.isEmpty {
-                        viewStore.send(.submit(title: inputText))
-                        inputText = ""
-                    }
-                }
-                .font(.default)
-                .focused($isFieldFocused)
-                .submitLabel(.done)
+                    .font(.listItem)
+                    .focused($focusedField, equals: .input)
+                    .textFieldStyle(.roundedBorder)
+                    .submitLabel(.done)
                 
-                Spacer()
-                
-                if isFieldFocused {
+                if focusedField == .input {
+                    Spacer()
+                    
                     Button {
                         viewStore.send(.dismissKeyboard)
                         if inputText.isEmpty {
-                            withAnimation { isFieldFocused = false }
+                            withAnimation { focusedField = nil }
                         } else {
                             inputText = ""
                         }
                     } label: {
-                        HStack {
-                            Image(
-                                systemName: inputText.isEmpty
-                                ? "checkmark.circle.fill"
-                                : "xmark.circle.fill"
-                            )
-                            Text(
-                                inputText.isEmpty
-                                ? "Done"
-                                : "Clear"
-                            )
-                            .font(.default)
-                        }
+                        Image(
+                            systemName: inputText.isEmpty
+                            ? "checkmark.circle.fill"
+                            : "xmark.circle.fill"
+                        )
+                        .font(.default)
                     }
                     .buttonStyle(.bordered)
-                    .controlSize(.small)
+                    .controlSize(.regular)
                     .tint(inputText.isEmpty ? .green : .swipeDelete)
                 }
             }
+            .frame(height: 44)
             .alignmentGuide(.listRowSeparatorLeading) {
                 $0[.leading]
             }
