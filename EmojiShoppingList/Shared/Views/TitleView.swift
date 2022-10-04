@@ -7,13 +7,20 @@ struct TitleView: View {
             startPoint: .leading,
             endPoint: .trailing
         )
-        .frame(width: 230, height: 40)
+        .frame(
+            height: 40,
+            alignment: .leading
+        )
         .mask(
             Text("Shopping List")
                 .font(.header)
-                .frame(width: 230, height: 40)
+                .frame(
+                    maxWidth: .infinity,
+                    minHeight: 40,
+                    maxHeight: 40,
+                    alignment: .leading
+                )
         )
-        .padding(.top, 16)
         .listRowSeparator(.hidden)
     }
 }

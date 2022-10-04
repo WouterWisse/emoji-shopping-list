@@ -160,14 +160,16 @@ struct ListView: View {
             ZStack(alignment: .top) {
                 GeometryReader { geometryReader in
                     List {
-                        TitleView()
-                        
-                        InputView(
-                            store: store.scope(
-                                state: \.inputState,
-                                action: ListAction.inputAction
+                        VStack(alignment: .leading, spacing: 4) {
+                            TitleView()
+                            
+                            InputView(
+                                store: store.scope(
+                                    state: \.inputState,
+                                    action: ListAction.inputAction
+                                )
                             )
-                        )
+                        }
                         
                         ForEachStore(
                             store.scope(
