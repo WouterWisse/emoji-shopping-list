@@ -51,7 +51,7 @@ struct InputView: View {
                             focusedField = nil
                         } else {
                             focusedField = .input
-                            viewStore.send(.submit(title: inputText))
+                            viewStore.send(.submit(title: inputText), animation: .default)
                             inputText = ""
                         }
                     }
@@ -63,7 +63,7 @@ struct InputView: View {
                 Spacer()
                 
                 Button {
-                    viewStore.send(.dismissKeyboard)
+                    viewStore.send(.dismissKeyboard, animation: .default)
                     if inputText.isEmpty {
                         withAnimation { focusedField = nil }
                     } else {

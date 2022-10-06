@@ -56,7 +56,7 @@ let listReducer = Reducer<
         switch action {
         case .onAppear:
             return .task { [items = state.items] in
-                return items.isEmpty ? .fetchItems : .sortItems
+                items.isEmpty ? .fetchItems : .sortItems
             }
             
         case .fetchItems:
@@ -139,11 +139,10 @@ let listReducer = Reducer<
                 } else {
                     state.items.removeAll()
                 }
-                return .task {
+                Task {
                     try await environment.persistence().deleteAll(type == .striked)
-                    return .sortItems
                 }
-                .animation()
+                return .task { .sortItems }
             }
         }
     }

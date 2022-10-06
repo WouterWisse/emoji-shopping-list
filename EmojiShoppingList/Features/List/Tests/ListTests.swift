@@ -4,344 +4,274 @@ import CoreData
 
 @testable import Shopping_List
 
+@MainActor
 final class ListTests: XCTestCase {
     
-    let scheduler = DispatchQueue.test
+    let mainQueue = DispatchQueue.test
     var mockFeedbackGenerator: MockFeedbackGenerator!
-    var mockPersistenceController: MockPersistenceController!
+    var mockPersistence: MockPersistenceController!
     
     // MARK: SetUp / TearDown
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         mockFeedbackGenerator = MockFeedbackGenerator()
-        mockPersistenceController = MockPersistenceController()
+        mockPersistence = MockPersistenceController()
     }
     
     override func tearDownWithError() throws {
         try super.tearDownWithError()
         mockFeedbackGenerator = nil
-        mockPersistenceController = nil
+        mockPersistence = nil
     }
     
-    // MARK: Tests
+    // MARK: List Feature - Appear
     
-    func test_onAppear() {
-        let item = ListItem(
-            id: NSManagedObjectID(),
-            title: "Broccoli",
-            emoji: "🥦",
-            color: .green,
-            isDone: false,
-            amount: 1,
-            createdAt: Date()
-        )
-        mockPersistenceController.stubbedItemsResult = [item]
+    func test_listFeature_appear_withNoItems() async {
+        let items = ListItem.mockList
+        let sortedItems = ListItem.mockSortedList
+        mockPersistence.stubbedItemsResult = items
         
         let store = TestStore(
             initialState: ListState(),
             reducer: listReducer,
             environment: .mock(
                 environment: ListEnvironment(),
-                mainQueue: scheduler.eraseToAnyScheduler(),
-                persistenceController: mockPersistenceController,
+                mainQueue: mainQueue.eraseToAnyScheduler(),
+                persistence: mockPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
         
-        store.send(.onAppear) {
-            $0.items = [item]
-            store.receive(.sortItems) {
-                $0.items = [item]
-            }
-            XCTAssertEqual(self.mockPersistenceController.invokedItemsCount, 1)
+        _ = await store.send(.onAppear)
+        await store.receive(.fetchItems)
+        await store.receive(.fetchedItems(.success(items))) {
+            $0.items = items
+            XCTAssertEqual(
+                self.mockPersistence.invokedItemsCount, 1,
+                "Expected Persistence method 'Items' not invoked."
+            )
+        }
+        await store.receive(.sortItems) {
+            $0.items = sortedItems
         }
     }
     
-    func test_sortItems() {
-        let items: IdentifiedArrayOf<ListItem> = [
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Broccoli",
-                emoji: "",
-                color: .green,
-                isDone: false,
-                amount: 1,
-                createdAt: Date.distantPast
-            ),
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Avocado",
-                emoji: "",
-                color: .green,
-                isDone: false,
-                amount: 1,
-                createdAt: Date()
-            ),
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Spinach",
-                emoji: "",
-                color: .green,
-                isDone: true,
-                amount: 1,
-                createdAt: Date.distantPast
-            ),
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Lemon",
-                emoji: "",
-                color: .green,
-                isDone: true,
-                amount: 1,
-                createdAt: Date()
-            )
-        ]
+    func test_listFeature_appear_withItems() async {
+        let items = ListItem.mockList
+        let sortedItems = ListItem.mockSortedList
         
         let store = TestStore(
             initialState: ListState(items: items),
             reducer: listReducer,
             environment: .mock(
                 environment: ListEnvironment(),
-                mainQueue: scheduler.eraseToAnyScheduler(),
-                persistenceController: mockPersistenceController,
+                mainQueue: mainQueue.eraseToAnyScheduler(),
+                persistence: mockPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
         
-        store.send(.sortItems) {
-            $0.items = [items[1], items[0], items[3], items[2]]
+        _ = await store.send(.onAppear)
+        await store.receive(.sortItems) {
+            $0.items = sortedItems
         }
     }
     
-    // MARK: ListItem Action
+    // MARK: List Feature - Add Item
     
-    func test_listItemAction_delete() {
-        let items: IdentifiedArrayOf<ListItem> = [
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Broccoli",
-                emoji: "",
-                color: .green,
-                isDone: false,
-                amount: 1,
-                createdAt: Date.distantPast
-            ),
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Avocado",
-                emoji: "",
-                color: .green,
-                isDone: false,
-                amount: 1,
-                createdAt: Date()
-            )
-        ]
+    func test_listFeature_addItem() async {
+        let items = ListItem.mockList
+        let mockItem = ListItem.mock
+        mockPersistence.stubbedAddResult = mockItem
+        
+        var sortedItems = ListItem.mockSortedList
+        sortedItems.insert(mockItem, at: 0)
         
         let store = TestStore(
             initialState: ListState(items: items),
             reducer: listReducer,
             environment: .mock(
                 environment: ListEnvironment(),
-                mainQueue: scheduler.eraseToAnyScheduler(),
-                persistenceController: mockPersistenceController,
+                mainQueue: mainQueue.eraseToAnyScheduler(),
+                persistence: mockPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
         
-        let itemToDelete: ListItem = items[0]
-        
-        store.send(.listItem(id: itemToDelete.id, action: .delete)) {
-            $0.items.remove(items[0])
-            store.receive(.sortItems) {
-                $0.items.remove(items[0])
-            }
+        _ = await store.send(.inputAction(.submit(title: "Carrot")))
+        await store.receive(.addItem(.success(mockItem)))
+        await store.receive(.sortItems) {
+            $0.items = sortedItems
             XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedImpactCount,
-                1
+                self.mockPersistence.invokedAddCount, 1,
+                "Expected method 'Add' not invoked."
             )
             XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle,
-                .rigid
+                self.mockPersistence.invokedAddParameters?.title, "Carrot",
+                "Expected parameter 'title' to be 'Carrot'."
             )
             XCTAssertEqual(
-                self.mockPersistenceController.invokedDeleteCount,
-                1
+                self.mockFeedbackGenerator.invokedImpactCount, 1,
+                "Expected method 'Impact' not invoked."
             )
             XCTAssertEqual(
-                self.mockPersistenceController.invokedDeleteParameters?.objectID,
-                itemToDelete.id
+                self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle, .soft,
+                "Expected parameter 'feedbackStyle' to be 'soft'."
             )
         }
     }
     
-    // MARK: Input Action
+    // MARK: List Feature - Delete Items
     
-    func test_inputAction_submit() {
-        let item = ListItem(
-            id: NSManagedObjectID(),
-            title: "Avocado",
-            emoji: "",
-            color: .green,
-            isDone: false,
-            amount: 1,
-            createdAt: Date.distantPast
-        )
-        mockPersistenceController.stubbedAddResult = item
+    func test_listFeature_deleteAllItems() async {
+        let items = ListItem.mockList
         
         let store = TestStore(
-            initialState: ListState(),
+            initialState: ListState(items: items),
             reducer: listReducer,
             environment: .mock(
                 environment: ListEnvironment(),
-                mainQueue: scheduler.eraseToAnyScheduler(),
-                persistenceController: mockPersistenceController,
+                mainQueue: mainQueue.eraseToAnyScheduler(),
+                persistence: mockPersistence,
+                feedbackGenerator: mockFeedbackGenerator
+            )
+        )
+
+        _ = await store.send(.deleteAction(.deleteTapped(type: .all))) {
+            $0.items.removeAll()
+            XCTAssertEqual(
+                self.mockFeedbackGenerator.invokedNotifyCount, 1,
+                "Expected method 'Notify' not invoked."
+            )
+            XCTAssertEqual(
+                self.mockFeedbackGenerator.invokedNotifyParameters?.feedbackType, .error,
+                "Expected parameter 'feedbackType' to be 'error'."
+            )
+            XCTAssertEqual(
+                self.mockPersistence.invokedDeleteAllCount, 1,
+                "Expected method 'DeleteAll' not invoked."
+            )
+            XCTAssertEqual(
+                self.mockPersistence.invokedDeleteAllParameters?.isDone, false,
+                "Expected parameter isDone to be 'false'."
+            )
+        }
+        await store.receive(.sortItems)
+    }
+    
+    func test_listFeature_deleteStrikedItems() async {
+        let items = ListItem.mockList
+        var sortedItems = ListItem.mockSortedList
+        sortedItems.removeAll(where: { $0.isDone == true  })
+        
+        let store = TestStore(
+            initialState: ListState(items: items),
+            reducer: listReducer,
+            environment: .mock(
+                environment: ListEnvironment(),
+                mainQueue: mainQueue.eraseToAnyScheduler(),
+                persistence: mockPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
         
-        store.send(.inputAction(.submit("Avocado"))) {
-            $0.items.append(item)
-            store.receive(.sortItems) {
-                $0.items.append(item)
-            }
+        _ = await store.send(.deleteAction(.deleteTapped(type: .striked))) {
+            $0.items.removeAll(where: { $0.isDone == true  })
             XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedImpactCount,
-                1
+                self.mockFeedbackGenerator.invokedNotifyCount, 1,
+                "Expected method 'Notify' not invoked."
             )
             XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle,
-                .soft
+                self.mockFeedbackGenerator.invokedNotifyParameters?.feedbackType, .error,
+                "Expected parameter 'feedbackType' to be 'error'."
             )
             XCTAssertEqual(
-                self.mockPersistenceController.invokedAddCount,
-                1
+                self.mockPersistence.invokedDeleteAllCount, 1,
+                "Expected method 'DeleteAll' not invoked."
             )
             XCTAssertEqual(
-                self.mockPersistenceController.invokedAddParameters?.title,
-                "Avocado"
+                self.mockPersistence.invokedDeleteAllParameters?.isDone, true,
+                "Expected parameter isDone to be 'true'."
+            )
+        }
+        await store.receive(.sortItems) {
+            $0.items = sortedItems
+        }
+    }
+    
+    func test_listFeature_deleteItem() async {
+        let items = ListItem.mockList
+        let itemToDelete = items.first!
+        var sortedItems = ListItem.mockSortedList
+        sortedItems.remove(itemToDelete)
+        
+        let store = TestStore(
+            initialState: ListState(items: items),
+            reducer: listReducer,
+            environment: .mock(
+                environment: ListEnvironment(),
+                mainQueue: mainQueue.eraseToAnyScheduler(),
+                persistence: mockPersistence,
+                feedbackGenerator: mockFeedbackGenerator
+            )
+        )
+        
+        _ = await store.send(.listItem(id: itemToDelete.id, action: .delete)) {
+            $0.items.remove(itemToDelete)
+            XCTAssertEqual(
+                self.mockFeedbackGenerator.invokedImpactCount, 1,
+                "Expected method 'Impact' not invoked."
+            )
+            XCTAssertEqual(
+                self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle, .rigid,
+                "Expected parameter 'feedbackStyle' to be 'rigid'."
+            )
+        }
+        await store.receive(.sortItems) {
+            $0.items = sortedItems
+            XCTAssertEqual(
+                self.mockPersistence.invokedDeleteCount, 1,
+                "Expected method 'Delete' not invoked."
+            )
+            XCTAssertEqual(
+                self.mockPersistence.invokedDeleteParameters?.objectID, itemToDelete.id,
+                "Expected parameter objectID to be 'itemToDelete.id'."
             )
         }
     }
     
-    // MARK: Delete Action
+    // MARK: List Feature - Complete Items
     
-    func test_deleteAction_deleteAllTapped() {
-        let items: IdentifiedArrayOf<ListItem> = [
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Broccoli",
-                emoji: "",
-                color: .green,
-                isDone: false,
-                amount: 1,
-                createdAt: Date.distantPast
-            ),
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Avocado",
-                emoji: "",
-                color: .green,
-                isDone: false,
-                amount: 1,
-                createdAt: Date()
-            )
-        ]
+    func test_listFeature_completeItems() async {
+        let items = ListItem.mockList
+        let itemToToggle = items.first!
+        let sortedItems = ListItem.mockSortedListUnchecked
         
         let store = TestStore(
-            initialState: ListState(items: items, deleteState: DeleteState(isPresented: true)),
+            initialState: ListState(items: items),
             reducer: listReducer,
             environment: .mock(
                 environment: ListEnvironment(),
-                mainQueue: scheduler.eraseToAnyScheduler(),
-                persistenceController: mockPersistenceController,
+                mainQueue: mainQueue.eraseToAnyScheduler(),
+                persistence: mockPersistence,
                 feedbackGenerator: mockFeedbackGenerator
             )
         )
         
-        store.send(.deleteAction(.deleteAllTapped)) {
-            $0.items = []
-            $0.deleteState.isPresented = false
-            store.receive(.sortItems) {
-                $0.items = []
-                $0.deleteState.isPresented = false
-            }
-            
-            XCTAssertEqual(
-                self.mockPersistenceController.invokedDeleteAllCount,
-                1
-            )
-            XCTAssertEqual(
-                self.mockPersistenceController.invokedDeleteAllParameters?.isDone,
-                false
-            )
-            XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedNotifyCount,
-                1
-            )
-            XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedNotifyParameters?.feedbackType,
-                .error
-            )
+        _ = await store.send(.listItem(id: itemToToggle.id, action: .toggleDone)) {
+            $0.items[id: itemToToggle.id]?.isDone = false
         }
-    }
-    
-    func test_deleteAction_deleteStrikedTapped() {
-        let items: IdentifiedArrayOf<ListItem> = [
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Broccoli",
-                emoji: "",
-                color: .green,
-                isDone: false,
-                amount: 1,
-                createdAt: Date.distantPast
-            ),
-            ListItem(
-                id: NSManagedObjectID(),
-                title: "Avocado",
-                emoji: "",
-                color: .green,
-                isDone: true,
-                amount: 1,
-                createdAt: Date()
-            )
-        ]
-        
-        let store = TestStore(
-            initialState: ListState(items: items, deleteState: DeleteState(isPresented: true)),
-            reducer: listReducer,
-            environment: .mock(
-                environment: ListEnvironment(),
-                mainQueue: scheduler.eraseToAnyScheduler(),
-                persistenceController: mockPersistenceController,
-                feedbackGenerator: mockFeedbackGenerator
-            )
-        )
-        
-        store.send(.deleteAction(.deleteStrikedTapped)) {
-            $0.items = [items[0]]
-            $0.deleteState.isPresented = false
-            store.receive(.sortItems) {
-                $0.items = [items[0]]
-                $0.deleteState.isPresented = false
-            }
-            
+        await mainQueue.advance(by: .seconds(1))
+        await store.receive(.sortItems) {
+            $0.items = sortedItems
             XCTAssertEqual(
-                self.mockPersistenceController.invokedDeleteAllCount,
-                1
+                self.mockPersistence.invokedUpdateCount, 1,
+                "Expected method 'Update' not invoked."
             )
             XCTAssertEqual(
-                self.mockPersistenceController.invokedDeleteAllParameters?.isDone,
-                true
-            )
-            XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedNotifyCount,
-                1
-            )
-            XCTAssertEqual(
-                self.mockFeedbackGenerator.invokedNotifyParameters?.feedbackType,
-                .error
+                self.mockPersistence.invokedUpdateParameters?.listItem.id, itemToToggle.id,
+                "Expected parameter listItem to be 'itemToToggle'."
             )
         }
     }
