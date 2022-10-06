@@ -60,28 +60,27 @@ struct InputView: View {
                     .textFieldStyle(.roundedBorder)
                     .submitLabel(.done)
                 
-                if focusedField == .input {
-                    Spacer()
-                    
-                    Button {
-                        viewStore.send(.dismissKeyboard)
-                        if inputText.isEmpty {
-                            withAnimation { focusedField = nil }
-                        } else {
-                            inputText = ""
-                        }
-                    } label: {
-                        Image(
-                            systemName: inputText.isEmpty
-                            ? "checkmark.circle.fill"
-                            : "xmark.circle.fill"
-                        )
-                        .font(.default)
+                Spacer()
+                
+                Button {
+                    viewStore.send(.dismissKeyboard)
+                    if inputText.isEmpty {
+                        withAnimation { focusedField = nil }
+                    } else {
+                        inputText = ""
                     }
-                    .buttonStyle(.bordered)
-                    .controlSize(.regular)
-                    .tint(inputText.isEmpty ? .green : .swipeDelete)
+                } label: {
+                    Image(
+                        systemName: inputText.isEmpty
+                        ? "checkmark.circle.fill"
+                        : "xmark.circle.fill"
+                    )
+                    .font(.default)
                 }
+                .disabled(focusedField != .input)
+                .buttonStyle(.bordered)
+                .controlSize(.regular)
+                .tint(inputText.isEmpty ? .green : .swipeDelete)
             }
             .frame(height: 44)
             .alignmentGuide(.listRowSeparatorLeading) {
