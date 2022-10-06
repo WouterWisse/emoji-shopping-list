@@ -17,6 +17,7 @@
 		6C2F28EF2848192000E85F94 /* ListItem+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F28EE2848192000E85F94 /* ListItem+Preview.swift */; };
 		6C31AC8128EF706700D03FBA /* EmojiProvider+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C31AC8028EF706700D03FBA /* EmojiProvider+Mock.swift */; };
 		6C31AC8328EF881700D03FBA /* ListItem+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E409284170770069CDD9 /* ListItem+Mock.swift */; };
+		6C31AC8628EF9CE100D03FBA /* TextToEmoji in Frameworks */ = {isa = PBXBuildFile; productRef = 6C31AC8528EF9CE100D03FBA /* TextToEmoji */; };
 		6C332FDF28BD61660004ECF9 /* Persistence+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF8284AD14200756E74 /* Persistence+Mock.swift */; };
 		6C332FE228BD61750004ECF9 /* SharedEnvironment+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEC284AC46500756E74 /* SharedEnvironment+Mock.swift */; };
 		6C332FE528BD61900004ECF9 /* FeedbackGenerator+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEE284AC50200756E74 /* FeedbackGenerator+Mock.swift */; };
@@ -30,7 +31,6 @@
 		6CA6E40E2841B5610069CDD9 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E40D2841B5610069CDD9 /* Input.swift */; };
 		6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */; };
 		6CD4576928A1A31900EB9E7B /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4576828A1A31900EB9E7B /* EmptyStateView.swift */; };
-		6CD7AB8228A6FD63007CDBAE /* TextToEmoji in Frameworks */ = {isa = PBXBuildFile; productRef = 6CD7AB8128A6FD63007CDBAE /* TextToEmoji */; };
 		6CE6F1C82856A59600C1A40D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6CE6F1CA2856A59600C1A40D /* Localizable.strings */; };
 		6CF5CC6B28469A0B00117790 /* SharedEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5CC6A28469A0B00117790 /* SharedEnvironment.swift */; };
 		6CF5CC6F2846A35700117790 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5CC6E2846A35700117790 /* FeedbackGenerator.swift */; };
@@ -97,7 +97,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CFEF9A22835889500254038 /* ComposableArchitecture in Frameworks */,
-				6CD7AB8228A6FD63007CDBAE /* TextToEmoji in Frameworks */,
+				6C31AC8628EF9CE100D03FBA /* TextToEmoji in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +370,7 @@
 			name = EmojiShoppingList;
 			packageProductDependencies = (
 				6CFEF9A12835889500254038 /* ComposableArchitecture */,
-				6CD7AB8128A6FD63007CDBAE /* TextToEmoji */,
+				6C31AC8528EF9CE100D03FBA /* TextToEmoji */,
 			);
 			productName = EmojiShoppingList;
 			productReference = 6CFEF96A2834432F00254038 /* Shopping List.app */;
@@ -425,7 +425,7 @@
 			mainGroup = 6CFEF9612834432F00254038;
 			packageReferences = (
 				6CFEF9A02835889500254038 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
-				6CD7AB8028A6FD63007CDBAE /* XCRemoteSwiftPackageReference "text-to-emoji" */,
+				6C31AC8428EF9CE100D03FBA /* XCRemoteSwiftPackageReference "text-to-emoji" */,
 			);
 			productRefGroup = 6CFEF96B2834432F00254038 /* Products */;
 			projectDirPath = "";
@@ -792,9 +792,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6CD7AB8028A6FD63007CDBAE /* XCRemoteSwiftPackageReference "text-to-emoji" */ = {
+		6C31AC8428EF9CE100D03FBA /* XCRemoteSwiftPackageReference "text-to-emoji" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/WouterWisse/text-to-emoji";
+			repositoryURL = "git@github.com:WouterWisse/text-to-emoji.git";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -811,9 +811,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6CD7AB8128A6FD63007CDBAE /* TextToEmoji */ = {
+		6C31AC8528EF9CE100D03FBA /* TextToEmoji */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6CD7AB8028A6FD63007CDBAE /* XCRemoteSwiftPackageReference "text-to-emoji" */;
+			package = 6C31AC8428EF9CE100D03FBA /* XCRemoteSwiftPackageReference "text-to-emoji" */;
 			productName = TextToEmoji;
 		};
 		6CFEF9A12835889500254038 /* ComposableArchitecture */ = {
