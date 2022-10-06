@@ -26,7 +26,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -35,16 +36,6 @@
                BlueprintIdentifier = "6CFEF97E2834433100254038"
                BuildableName = "EmojiShoppingList-UnitTests.xctest"
                BlueprintName = "EmojiShoppingList-UnitTests"
-               ReferencedContainer = "container:EmojiShoppingList.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6CFEF9882834433100254038"
-               BuildableName = "EmojiShoppingListUITests.xctest"
-               BlueprintName = "EmojiShoppingListUITests"
                ReferencedContainer = "container:EmojiShoppingList.xcodeproj">
             </BuildableReference>
          </TestableReference>
