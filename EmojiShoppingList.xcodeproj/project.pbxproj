@@ -152,13 +152,20 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		6C332FDC28BD61440004ECF9 /* Views */ = {
+		6C31AC7E28EF6F8D00D03FBA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6C0AACEB28BECFF40025C4A0 /* EdgeFadeView.swift */,
+				6C7E46AE28E8F7160050F295 /* TitleView.swift */,
+				6CD4576828A1A31900EB9E7B /* EmptyStateView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6C31AC7F28EF6F9C00D03FBA /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */,
-				6CD4576828A1A31900EB9E7B /* EmptyStateView.swift */,
-				6C0AACEB28BECFF40025C4A0 /* EdgeFadeView.swift */,
-				6C7E46AE28E8F7160050F295 /* TitleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -194,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				6C6A96E72874E75200B09D80 /* Info.plist */,
+				6CFEF9782834433100254038 /* EmojiShoppingList.xcdatamodeld */,
 				6C332FE728BD623B0004ECF9 /* Appearance.swift */,
 			);
 			path = Application;
@@ -227,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				6C260CF5284ACED100756E74 /* Tests */,
+				6C31AC7E28EF6F8D00D03FBA /* Views */,
 				6CA6E3F7284015DD0069CDD9 /* List.swift */,
 			);
 			path = List;
@@ -254,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				6CA6E407284170680069CDD9 /* Tests */,
+				6C31AC7F28EF6F9C00D03FBA /* Views */,
 				6CA6E3FF284152B90069CDD9 /* ListItem.swift */,
 			);
 			path = ListItem;
@@ -286,16 +296,15 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
-		6CF5CC6D2846A34300117790 /* Shared */ = {
+		6CF5CC6D2846A34300117790 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
 				6C758E7928E8BB8900399993 /* EmojiProvider */,
-				6C332FDC28BD61440004ECF9 /* Views */,
 				6C332FE328BD61810004ECF9 /* FeedbackGenerator */,
 				6C332FE028BD616C0004ECF9 /* Environment */,
 				6C332FDD28BD61580004ECF9 /* Persistence */,
 			);
-			path = Shared;
+			path = Environment;
 			sourceTree = "<group>";
 		};
 		6CFEF9612834432F00254038 = {
@@ -320,9 +329,8 @@
 			children = (
 				6C332FE628BD61FA0004ECF9 /* Application */,
 				6CA6E40F28428F530069CDD9 /* Extensions */,
-				6CF5CC6D2846A34300117790 /* Shared */,
+				6CF5CC6D2846A34300117790 /* Environment */,
 				6CFEF99F2834442A00254038 /* Features */,
-				6CFEF99D283443FC00254038 /* DataModel */,
 				6CFEF99C283443F400254038 /* Resources */,
 			);
 			path = EmojiShoppingList;
@@ -338,14 +346,6 @@
 				6CFEF9742834433100254038 /* Preview Assets.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		6CFEF99D283443FC00254038 /* DataModel */ = {
-			isa = PBXGroup;
-			children = (
-				6CFEF9782834433100254038 /* EmojiShoppingList.xcdatamodeld */,
-			);
-			path = DataModel;
 			sourceTree = "<group>";
 		};
 		6CFEF99F2834442A00254038 /* Features */ = {
@@ -729,13 +729,16 @@
 				DEVELOPMENT_TEAM = Q6AEA497G4;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wouterwisse.EmojiShoppingListTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shopping List.app/Shopping List";
 			};
 			name = Debug;
@@ -750,13 +753,16 @@
 				DEVELOPMENT_TEAM = Q6AEA497G4;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wouterwisse.EmojiShoppingListTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shopping List.app/Shopping List";
 			};
 			name = Release;
