@@ -58,7 +58,7 @@ final class MockPersistenceController {
     var invokedAddParametersList = [(title: String, Void)]()
     var stubbedAddResult: ListItem!
 
-    func add(_ title: String) -> ListItem? {
+    func add(_ title: String) -> ListItem {
         invokedAdd = true
         invokedAddCount += 1
         invokedAddParameters = (title, ())

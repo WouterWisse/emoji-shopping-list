@@ -1,4 +1,6 @@
+import Foundation
 import ComposableArchitecture
+
 @testable import Shopping_List
 
 extension SharedEnvironment {
