@@ -3,7 +3,7 @@ name: Build & Tests
 on:
   push:
     branches:
-    - main
+    - development
   workflow_dispatch:
 
 jobs:
@@ -24,7 +24,15 @@ jobs:
       - name: Install Dependencies
         if: success()
         run: bundle install
-        
-      - name: Build and Unit Tests
+
+      - name: Run Unit Tests
         if: success()
-        run: bundle exec fastlane scan --scheme "EmojiShoppingList" --device "iPhone 13 Pro" --clean
+        uses: maierj/fastlane-action@v1.4.0
+        with:
+          lane: run_unit_tests
+
+      - name: Create Test Results
+        uses: kishikawakatsumi/xcresulttool@v1
+        if: success() || failure()
+        with:
+          path: unit_tests/EmojiShoppingList-UnitTests.xcresult

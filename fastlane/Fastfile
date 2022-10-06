@@ -19,13 +19,24 @@ platform :ios do
 
   desc "Run UnitTests"
   lane :run_unit_tests do
-    run_tests(scheme: "EmojiShoppingList-UnitTests", devices: ["iPhone 8", "iPhone 14 Pro"])
+    run_tests(
+      scheme: "EmojiShoppingList-UnitTests",
+      devices: ["iPhone 8", "iPhone 14 Pro"],
+      build_for_testing: true,
+      result_bundle: true,
+      derived_data_path: "unit_tests",
+      output_directory: "unit_tests",
+    )
   end
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    increment_build_number(xcodeproj: "EmojiShoppingList.xcodeproj")
-    build_app(scheme: "EmojiShoppingList")
+    increment_build_number(
+      xcodeproj: "EmojiShoppingList.xcodeproj"
+    )
+    build_app(
+      scheme: "EmojiShoppingList"
+    )
     upload_to_testflight
   end
 end
