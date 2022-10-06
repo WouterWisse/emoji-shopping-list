@@ -11,7 +11,7 @@ struct EmojiProvider {
 }
 
 extension EmojiProvider {
-    static let `default`: EmojiProvider = {
+    static let `default`: () -> EmojiProvider = {
         let textToEmoji = TextToEmoji()
         let fallbackEmoji = "🤷"
         let fallbackEmojiColor: UIColor = .gray
@@ -27,5 +27,5 @@ extension EmojiProvider {
                 }
             }
         )
-    }()
+    }
 }
