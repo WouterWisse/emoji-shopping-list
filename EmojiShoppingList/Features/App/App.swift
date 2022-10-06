@@ -21,7 +21,7 @@ let appReducer = Reducer<AppState, AppAction, SharedEnvironment<AppEnvironment>>
     ),
     Reducer { state, action, environment in
         switch action {
-        case .listAction(let listAction):
+        case .listAction:
             return .none
         }
     }
