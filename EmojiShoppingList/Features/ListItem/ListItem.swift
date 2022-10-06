@@ -116,7 +116,7 @@ struct ListItemView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            HStack(spacing: .horizontalMargin) {
+            HStack(spacing: .margin.horizontal) {
                 RoundEmojiView(item: viewStore.state)
                     .opacity(viewStore.isDone ? 0.5 : 1)
                 

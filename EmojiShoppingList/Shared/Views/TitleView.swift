@@ -13,7 +13,7 @@ struct TitleView: View {
         )
         .mask(
             Text("Shopping List")
-                .font(.header)
+                .font(.title)
                 .frame(
                     maxWidth: .infinity,
                     minHeight: 40,
