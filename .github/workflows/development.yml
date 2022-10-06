@@ -1,9 +1,9 @@
-name: Build & Tests
+name: Build & Unit Tests
 
 on:
   push:
     branches:
-    - development
+    - develop
   workflow_dispatch:
 
 jobs:
