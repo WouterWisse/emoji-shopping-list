@@ -8,6 +8,7 @@ on:
 
 jobs:
   Develop:
+    name: Build & Unit Tests
     runs-on: macos-12
 
     steps:
