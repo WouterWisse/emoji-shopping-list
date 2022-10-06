@@ -90,7 +90,7 @@
 		6CFEF9742834433100254038 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6CFEF9762834433100254038 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		6CFEF9792834433100254038 /* EmojiShoppingList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmojiShoppingList.xcdatamodel; sourceTree = "<group>"; };
-		6CFEF97F2834433100254038 /* EmojiShoppingListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmojiShoppingListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CFEF97F2834433100254038 /* EmojiShoppingList-UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EmojiShoppingList-UnitTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,7 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				6CFEF96A2834432F00254038 /* Shopping List.app */,
-				6CFEF97F2834433100254038 /* EmojiShoppingListTests.xctest */,
+				6CFEF97F2834433100254038 /* EmojiShoppingList-UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -387,9 +387,9 @@
 			productReference = 6CFEF96A2834432F00254038 /* Shopping List.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6CFEF97E2834433100254038 /* EmojiShoppingListTests */ = {
+		6CFEF97E2834433100254038 /* EmojiShoppingList-UnitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CFEF9962834433100254038 /* Build configuration list for PBXNativeTarget "EmojiShoppingListTests" */;
+			buildConfigurationList = 6CFEF9962834433100254038 /* Build configuration list for PBXNativeTarget "EmojiShoppingList-UnitTests" */;
 			buildPhases = (
 				6CFEF97B2834433100254038 /* Sources */,
 				6CFEF97C2834433100254038 /* Frameworks */,
@@ -400,9 +400,9 @@
 			dependencies = (
 				6CFEF9812834433100254038 /* PBXTargetDependency */,
 			);
-			name = EmojiShoppingListTests;
+			name = "EmojiShoppingList-UnitTests";
 			productName = EmojiShoppingListTests;
-			productReference = 6CFEF97F2834433100254038 /* EmojiShoppingListTests.xctest */;
+			productReference = 6CFEF97F2834433100254038 /* EmojiShoppingList-UnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -443,7 +443,7 @@
 			projectRoot = "";
 			targets = (
 				6CFEF9692834432F00254038 /* EmojiShoppingList */,
-				6CFEF97E2834433100254038 /* EmojiShoppingListTests */,
+				6CFEF97E2834433100254038 /* EmojiShoppingList-UnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -792,7 +792,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CFEF9962834433100254038 /* Build configuration list for PBXNativeTarget "EmojiShoppingListTests" */ = {
+		6CFEF9962834433100254038 /* Build configuration list for PBXNativeTarget "EmojiShoppingList-UnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CFEF9972834433100254038 /* Debug */,
