@@ -3,7 +3,7 @@ import UIKit
 extension String {
     func toImage() -> UIImage? {
         let nsString = (self as NSString)
-        let font = UIFont.systemFont(ofSize: 44)
+        let font = UIFont.systemFont(ofSize: 20)
         let stringAttributes = [NSAttributedString.Key.font: font]
         let imageSize = nsString.size(withAttributes: stringAttributes)
         UIGraphicsBeginImageContextWithOptions(imageSize, false, 0)

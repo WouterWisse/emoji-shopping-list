@@ -7,6 +7,7 @@ extension Font {
     static let listItem: Font = .system(size: .font.default, weight: .bold, design: .rounded)
     static let stepper: Font = .system(size: .font.stepper, weight: .bold, design: .rounded)
     static let empoji: Font = .title2
+    static let emptyStateEmoji: Font = .system(size: 60)
 }
 
 extension Color {
@@ -36,5 +37,6 @@ extension CGFloat {
     
     struct margin {
         static let horizontal: CGFloat = 12
+        static let emptyState: CGFloat = 12
     }
 }

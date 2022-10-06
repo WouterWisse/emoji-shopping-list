@@ -7,24 +7,21 @@ struct EmptyStateView: View {
             startPoint: .leading,
             endPoint: .trailing
         )
-        .frame(width: 160)
+        .frame(width: 240)
         .mask(
-            VStack(spacing: 8) {
-                HStack {
+            VStack(spacing: .margin.emptyState) {
+                HStack(spacing: .margin.emptyState) {
                     Text("🍇")
                     Text("🍋")
                 }
-                HStack(spacing: 8) {
+                HStack(spacing: .margin.emptyState) {
                     Text("🍎")
                     Text("🥦")
                 }
-                Text("List is empty")
-                    .font(.system(.body, design: .rounded, weight: .bold))
             }
-            .font(.system(size: 40))
+            .font(.emptyStateEmoji)
         )
         .listRowSeparator(.hidden)
-        .frame(width: 200)
     }
 }
 
