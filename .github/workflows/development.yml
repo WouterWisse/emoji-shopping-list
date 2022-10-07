@@ -26,10 +26,11 @@ jobs:
         if: success()
         uses: shimataro/ssh-key-action@v2.0.0
         with:
+          name: id_rsa
           key: ${{ secrets.SSH_KEY }}
           known_hosts: ${{ secrets.KNOWN_HOST }}
           config: |
-            Host github
+            Host github.com
               AddKeysToAgent yes
               UseKeychain yes
               IdentityFile ~/.ssh/id_rsa
