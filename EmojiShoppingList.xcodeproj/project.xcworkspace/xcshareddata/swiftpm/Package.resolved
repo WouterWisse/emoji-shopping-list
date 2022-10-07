@@ -57,10 +57,10 @@
     {
       "identity" : "text-to-emoji",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/WouterWisse/text-to-emoji",
+      "location" : "https://github.com/WouterWisse/text-to-emoji.git",
       "state" : {
         "branch" : "main",
-        "revision" : "c6c736eabaf43f761660d4f0c4b603f3bd0e36c9"
+        "revision" : "9260638431b6a692bf66875409336e9e213c8d9a"
       }
     },
     {
