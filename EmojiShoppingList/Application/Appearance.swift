@@ -1,9 +1,18 @@
 import SwiftUI
 import UIKit
 
+extension UIFont {
+    static var input: UIFont {
+        let font: UIFont = .systemFont(ofSize: .font.default, weight: .bold)
+        guard let descriptor = font.fontDescriptor.withDesign(.rounded) else { return font }
+        return UIFont(descriptor: descriptor, size: .font.default)
+    }
+}
+
 extension Font {
     static let title: Font = .system(size: .font.title, weight: .black, design: .rounded)
     static let `default`: Font = .system(size: .font.default, weight: .semibold, design: .rounded)
+    static let input: Font = .system(size: .font.default, weight: .bold, design: .rounded)
     static let listItem: Font = .system(size: .font.default, weight: .bold, design: .rounded)
     static let stepper: Font = .system(size: .font.stepper, weight: .bold, design: .rounded)
     static let empoji: Font = .title2

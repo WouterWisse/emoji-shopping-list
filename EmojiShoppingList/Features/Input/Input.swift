@@ -8,7 +8,6 @@ struct InputState: Equatable {}
 
 enum InputAction: Equatable {
     case submit(title: String)
-    case dismissKeyboard
 }
 
 struct InputEnvironment {}
@@ -20,12 +19,7 @@ let inputReducer = Reducer<
 > { state, action, environment in
     struct TimerId: Hashable {}
     switch action {
-    case .submit:
-        return .none
-        
-    case .dismissKeyboard:
-        environment.feedbackGenerator().impact(.soft)
-        return .none
+    case .submit: return .none
     }
 }
 .debug()
@@ -35,52 +29,14 @@ let inputReducer = Reducer<
 struct InputView: View {
     let store: Store<InputState, InputAction>
     
-    @State private var inputText: String = ""
-    @FocusState private var focusedField: FocusedField?
-    
-    enum FocusedField {
-        case input
-    }
-    
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack {
-                TextField("Add to list...", text: $inputText)
-                    .onSubmit {
-                        if inputText.isEmpty {
-                            focusedField = nil
-                        } else {
-                            focusedField = .input
-                            viewStore.send(.submit(title: inputText), animation: .default)
-                            inputText = ""
-                        }
+                FocusedTextField(
+                    onSubmit: { text in
+                        viewStore.send(.submit(title: text), animation: .default)
                     }
-                    .font(.listItem)
-                    .focused($focusedField, equals: .input)
-                    .textFieldStyle(.roundedBorder)
-                    .submitLabel(.done)
-                
-                Spacer()
-                
-                Button {
-                    viewStore.send(.dismissKeyboard, animation: .default)
-                    if inputText.isEmpty {
-                        withAnimation { focusedField = nil }
-                    } else {
-                        inputText = ""
-                    }
-                } label: {
-                    Image(
-                        systemName: inputText.isEmpty
-                        ? "checkmark.circle.fill"
-                        : "xmark.circle.fill"
-                    )
-                    .font(.default)
-                }
-                .disabled(focusedField != .input)
-                .buttonStyle(.bordered)
-                .controlSize(.regular)
-                .tint(inputText.isEmpty ? .green : .swipeDelete)
+                )
             }
             .frame(height: 44)
             .alignmentGuide(.listRowSeparatorLeading) {
