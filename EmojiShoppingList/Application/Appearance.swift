@@ -37,6 +37,7 @@ extension CGFloat {
     
     struct margin {
         static let horizontal: CGFloat = 12
+        static let inputVertical: CGFloat = 8
         static let emptyState: CGFloat = 12
     }
 }

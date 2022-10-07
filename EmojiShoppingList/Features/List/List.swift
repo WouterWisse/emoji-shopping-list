@@ -159,7 +159,7 @@ struct ListView: View {
             ZStack(alignment: .top) {
                 GeometryReader { geometryReader in
                     List {
-                        VStack(alignment: .leading, spacing: 4) {
+                        VStack(alignment: .leading, spacing: .margin.inputVertical) {
                             TitleView()
                             
                             InputView(
