@@ -107,11 +107,10 @@ let listReducer = Reducer<
             case .delete:
                 environment.feedbackGenerator().impact(.rigid)
                 state.items.remove(item)
-                return .task {
+                Task {
                     try await environment.persistence().delete(item.id)
-                    return .sortItems
                 }
-                .animation()
+                return .none
                 
             default: return .none
             }
@@ -142,7 +141,7 @@ let listReducer = Reducer<
                 Task {
                     try await environment.persistence().deleteAll(type == .striked)
                 }
-                return .task { .sortItems }
+                return .task { .sortItems }.animation()
             }
         }
     }

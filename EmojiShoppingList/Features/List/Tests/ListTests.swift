@@ -227,9 +227,6 @@ final class ListTests: XCTestCase {
                 self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle, .rigid,
                 "Expected parameter 'feedbackStyle' to be 'rigid'."
             )
-        }
-        await store.receive(.sortItems) {
-            $0.items = sortedItems
             XCTAssertEqual(
                 self.mockPersistence.invokedDeleteCount, 1,
                 "Expected method 'Delete' not invoked."
