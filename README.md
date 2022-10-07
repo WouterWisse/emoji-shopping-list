@@ -6,7 +6,7 @@
 
 <div align="center">
    <strong>Emoji Shopping List</strong><br />
-   Just less boring grocery shopping.
+   Just grocery shopping made less boring.
 </div>
 
 <br />
