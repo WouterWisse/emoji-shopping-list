@@ -181,10 +181,8 @@ struct ListView: View {
                             EmptyStateView()
                                 .frame(
                                     maxWidth: .infinity,
-                                    minHeight: max(
-                                        200,
-                                        geometryReader.size.height - (geometryReader.safeAreaInsets.top + geometryReader.safeAreaInsets.bottom + 90)
-                                    ),
+                                    minHeight: geometryReader.size.height
+                                    - (geometryReader.safeAreaInsets.top + geometryReader.safeAreaInsets.bottom + 120),
                                     alignment: .center)
                         }
                         
