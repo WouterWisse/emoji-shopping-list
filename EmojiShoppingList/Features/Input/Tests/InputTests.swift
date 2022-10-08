@@ -2,70 +2,48 @@ import ComposableArchitecture
 import XCTest
 @testable import Shopping_List
 
+@MainActor
 final class InputTests: XCTestCase {
     
-    let scheduler = DispatchQueue.test
+    let mainQueue = DispatchQueue.test
     var mockFeedbackGenerator: MockFeedbackGenerator!
-    var mockPersistenceController: MockPersistenceController!
+    var mockPersistence: MockPersistenceController!
     
     // MARK: SetUp / TearDown
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         mockFeedbackGenerator = MockFeedbackGenerator()
-        mockPersistenceController = MockPersistenceController()
+        mockPersistence = MockPersistenceController()
     }
     
     override func tearDownWithError() throws {
         try super.tearDownWithError()
         mockFeedbackGenerator = nil
-        mockPersistenceController = nil
+        mockPersistence = nil
     }
     
-    // MARK: Tests
+    // MARK: Input Features - Focus
     
-//    func test_dismissKeyboard() {
-//        let store = TestStore(
-//            initialState: InputState(
-//                focusedField: .input
-//            ),
-//            reducer: inputReducer,
-//            environment: .mock(
-//                environment: InputEnvironment(),
-//                mainQueue: scheduler.eraseToAnyScheduler(),
-//                persistence: mockPersistenceController,
-//                feedbackGenerator: mockFeedbackGenerator
-//            )
-//        )
-//        
-//        store.send(.dismissKeyboard) { state in
-//            state.focusedField = nil
-//            XCTAssertEqual(
-//                self.mockFeedbackGenerator.invokedImpactCount,
-//                1
-//            )
-//            XCTAssertEqual(
-//                self.mockFeedbackGenerator.invokedImpactParameters?.feedbackStyle,
-//                .soft
-//            )
-//        }
-//    }
-//    
-//    func test_prepareForNextItem() {
-//        let store = TestStore(
-//            initialState: InputState(),
-//            reducer: inputReducer,
-//            environment: .mock(
-//                environment: InputEnvironment(),
-//                mainQueue: scheduler.eraseToAnyScheduler(),
-//                persistence: mockPersistenceController,
-//                feedbackGenerator: mockFeedbackGenerator
-//            )
-//        )
-//        
-//        store.send(.prepareForNextItem) {
-//            $0.isFirstFieldFocus = false
-//            $0.inputText = ""
-//        }
-//    }
+    func test_dismissKeyboard() async {
+        let store = TestStore(
+            initialState: InputState(
+                isInputFocused: false
+            ),
+            reducer: inputReducer,
+            environment: .mock(
+                environment: InputEnvironment(),
+                mainQueue: mainQueue.eraseToAnyScheduler(),
+                persistence: mockPersistence,
+                feedbackGenerator: mockFeedbackGenerator
+            )
+        )
+        
+        _ = await store.send(.focusDidChange(isFocused: true)) {
+            $0.isInputFocused = true
+        }
+        _ = await store.send(.focusDidChange(isFocused: false)) {
+            $0.isInputFocused = false
+        }
+    }
 }
