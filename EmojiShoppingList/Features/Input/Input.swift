@@ -38,7 +38,7 @@ struct InputView: View {
                     }
                 )
             }
-            .frame(height: 44)
+            .padding(.bottom, .margin.inputVertical)
             .alignmentGuide(.listRowSeparatorLeading) {
                 $0[.leading]
             }
