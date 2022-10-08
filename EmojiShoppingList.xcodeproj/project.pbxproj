@@ -12,12 +12,13 @@
 		6C02812828B7FBA400AA2666 /* UIColor+Adjust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02812728B7FBA400AA2666 /* UIColor+Adjust.swift */; };
 		6C0AACEC28BECFF40025C4A0 /* EdgeFadeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0AACEB28BECFF40025C4A0 /* EdgeFadeView.swift */; };
 		6C0E12A328F0BDFD00B1BCE3 /* FocusedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0E12A228F0BDFD00B1BCE3 /* FocusedTextField.swift */; };
+		6C0E12A828F1C26600B1BCE3 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3FF284152B90069CDD9 /* ListItem.swift */; };
+		6C0E12A928F1C27300B1BCE3 /* ListItem+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E409284170770069CDD9 /* ListItem+Mock.swift */; };
 		6C260CEB284AC1C900756E74 /* InputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEA284AC1C900756E74 /* InputTests.swift */; };
 		6C260CF4284ACD5500756E74 /* ListItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF3284ACD5500756E74 /* ListItemTests.swift */; };
 		6C260CF7284ACF0A00756E74 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF6284ACF0A00756E74 /* ListTests.swift */; };
 		6C2F28EF2848192000E85F94 /* ListItem+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F28EE2848192000E85F94 /* ListItem+Preview.swift */; };
 		6C31AC8128EF706700D03FBA /* EmojiProvider+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C31AC8028EF706700D03FBA /* EmojiProvider+Mock.swift */; };
-		6C31AC8328EF881700D03FBA /* ListItem+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E409284170770069CDD9 /* ListItem+Mock.swift */; };
 		6C31AC8C28EFAF9C00D03FBA /* TextToEmoji in Frameworks */ = {isa = PBXBuildFile; productRef = 6C31AC8B28EFAF9C00D03FBA /* TextToEmoji */; };
 		6C332FDF28BD61660004ECF9 /* Persistence+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CF8284AD14200756E74 /* Persistence+Mock.swift */; };
 		6C332FE228BD61750004ECF9 /* SharedEnvironment+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C260CEC284AC46500756E74 /* SharedEnvironment+Mock.swift */; };
@@ -28,7 +29,6 @@
 		6C7E46AF28E8F7160050F295 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7E46AE28E8F7160050F295 /* TitleView.swift */; };
 		6C913E7E2842DD6C00E34326 /* Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C913E7D2842DD6C00E34326 /* Delete.swift */; };
 		6CA6E3F8284015DD0069CDD9 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3F7284015DD0069CDD9 /* List.swift */; };
-		6CA6E400284152B90069CDD9 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3FF284152B90069CDD9 /* ListItem.swift */; };
 		6CA6E40E2841B5610069CDD9 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E40D2841B5610069CDD9 /* Input.swift */; };
 		6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */; };
 		6CD4576928A1A31900EB9E7B /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD4576828A1A31900EB9E7B /* EmptyStateView.swift */; };
@@ -472,7 +472,6 @@
 				6CD4576928A1A31900EB9E7B /* EmptyStateView.swift in Sources */,
 				6C2F28EF2848192000E85F94 /* ListItem+Preview.swift in Sources */,
 				6CA6E40E2841B5610069CDD9 /* Input.swift in Sources */,
-				6CA6E400284152B90069CDD9 /* ListItem.swift in Sources */,
 				6C0AACEC28BECFF40025C4A0 /* EdgeFadeView.swift in Sources */,
 				6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */,
 				6C02812028B7F99E00AA2666 /* String+Image.swift in Sources */,
@@ -482,10 +481,10 @@
 				6CFEF97A2834433100254038 /* EmojiShoppingList.xcdatamodeld in Sources */,
 				6CFEF96E2834432F00254038 /* App.swift in Sources */,
 				6C02812828B7FBA400AA2666 /* UIColor+Adjust.swift in Sources */,
+				6C0E12A828F1C26600B1BCE3 /* ListItem.swift in Sources */,
 				6CF5CC6B28469A0B00117790 /* SharedEnvironment.swift in Sources */,
 				6C7E46AF28E8F7160050F295 /* TitleView.swift in Sources */,
 				6C758E7B28E8BB8900399993 /* EmojiProvider.swift in Sources */,
-				6C31AC8328EF881700D03FBA /* ListItem+Mock.swift in Sources */,
 				6C913E7E2842DD6C00E34326 /* Delete.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,6 +499,7 @@
 				6C260CF4284ACD5500756E74 /* ListItemTests.swift in Sources */,
 				6C332FE228BD61750004ECF9 /* SharedEnvironment+Mock.swift in Sources */,
 				6C260CF7284ACF0A00756E74 /* ListTests.swift in Sources */,
+				6C0E12A928F1C27300B1BCE3 /* ListItem+Mock.swift in Sources */,
 				6C31AC8128EF706700D03FBA /* EmojiProvider+Mock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

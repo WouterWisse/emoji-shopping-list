@@ -268,4 +268,118 @@ final class ListTests: XCTestCase {
             )
         }
     }
+    
+    func test_listFeature_completeMultipleItems() async {
+        let items: IdentifiedArray<NSManagedObjectID, ListItem> = [
+            ListItem(
+                id: ListItem.pizzaID,
+                title: "Pizza",
+                emoji: "🍕",
+                color: .red,
+                isDone: false,
+                amount: 1,
+                createdAt: Date(timeIntervalSince1970: 2000)
+            ),
+            ListItem(
+                id: ListItem.broccoliID,
+                title: "Broccoli",
+                emoji: "🥦",
+                color: .green,
+                isDone: false,
+                amount: 1,
+                createdAt: Date(timeIntervalSince1970: 1000)
+            ),
+            ListItem(
+                id: ListItem.avocadoID,
+                title: "Avocado",
+                emoji: "🥑",
+                color: .green,
+                isDone: false,
+                amount: 1,
+                createdAt: Date(timeIntervalSince1970: 500)
+            ),
+            ListItem(
+                id: ListItem.beerID,
+                title: "Beer",
+                emoji: "🍺",
+                color: .brown,
+                isDone: false,
+                amount: 6,
+                createdAt: Date(timeIntervalSince1970: 0)
+            )
+        ]
+        let sortedItems: IdentifiedArray<NSManagedObjectID, ListItem> = [
+            ListItem(
+                id: ListItem.avocadoID,
+                title: "Avocado",
+                emoji: "🥑",
+                color: .green,
+                isDone: false,
+                amount: 1,
+                createdAt: Date(timeIntervalSince1970: 500)
+            ),
+            ListItem(
+                id: ListItem.beerID,
+                title: "Beer",
+                emoji: "🍺",
+                color: .brown,
+                isDone: false,
+                amount: 6,
+                createdAt: Date(timeIntervalSince1970: 0)
+            ),
+            ListItem(
+                id: ListItem.pizzaID,
+                title: "Pizza",
+                emoji: "🍕",
+                color: .red,
+                isDone: true,
+                amount: 1,
+                createdAt: Date(timeIntervalSince1970: 2000)
+            ),
+            ListItem(
+                id: ListItem.broccoliID,
+                title: "Broccoli",
+                emoji: "🥦",
+                color: .green,
+                isDone: true,
+                amount: 1,
+                createdAt: Date(timeIntervalSince1970: 1000)
+            )
+        ]
+        
+        let store = TestStore(
+            initialState: ListState(items: items),
+            reducer: listReducer,
+            environment: .mock(
+                environment: ListEnvironment(),
+                mainQueue: mainQueue.eraseToAnyScheduler(),
+                persistence: mockPersistence,
+                feedbackGenerator: mockFeedbackGenerator
+            )
+        )
+        
+        _ = await store.send(.listItem(id: ListItem.pizzaID, action: .toggleDone)) {
+            $0.items[id: ListItem.pizzaID]?.isDone = true
+        }
+        await mainQueue.advance(by: .seconds(0.5))
+        _ = await store.send(.listItem(id: ListItem.broccoliID, action: .toggleDone)) {
+            $0.items[id: ListItem.broccoliID]?.isDone = true
+        }
+        await mainQueue.advance(by: .seconds(1))
+        await store.receive(.sortItems) {
+            $0.items = sortedItems
+            XCTAssertEqual(
+                self.mockPersistence.invokedUpdateCount, 2,
+                "Expected method 'Update' not invoked."
+            )
+            XCTAssertEqual(
+                self.mockPersistence.invokedUpdateParametersList.first?.listItem.id, ListItem.pizzaID,
+                "Expected parameter listItem to be 'ListItem.pizzaID'."
+            )
+            XCTAssertEqual(
+                self.mockPersistence.invokedUpdateParametersList.last?.listItem.id, ListItem.broccoliID,
+                "Expected parameter listItem to be 'ListItem.pizzaID'."
+            )
+        }
+    }
 }

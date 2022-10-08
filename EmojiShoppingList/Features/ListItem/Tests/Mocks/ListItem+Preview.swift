@@ -41,3 +41,15 @@ extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
         ),
     ]
 }
+
+extension ListItem {
+    static let preview = ListItem(
+        id: NSManagedObjectID(),
+        title: "Avocado",
+        emoji: "🥑",
+        color: .green,
+        isDone: false,
+        amount: 1,
+        createdAt: Date()
+    )
+}

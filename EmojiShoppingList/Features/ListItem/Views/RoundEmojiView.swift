@@ -31,7 +31,7 @@ struct RoundEmojiView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(colorSchemes, id: \.self) { colorScheme in
             Group {
-                RoundEmojiView(item: ListItem.mock)
+                RoundEmojiView(item: .preview)
                     .preferredColorScheme(colorScheme)
                     .previewLayout(.sizeThatFits)
                     .padding()

@@ -1,5 +1,6 @@
 import CoreData
 import ComposableArchitecture
+@testable import Shopping_List
 
 extension ListItem {
     static var carrotID = NSManagedObjectID()
