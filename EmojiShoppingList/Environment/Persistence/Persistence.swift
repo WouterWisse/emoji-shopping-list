@@ -73,7 +73,7 @@ extension PersistenceController {
                 try await viewContext.perform {
                     let request = Item.fetchRequest()
                     if completed {
-                        request.predicate = NSPredicate(format: "done == YES")
+                        request.predicate = NSPredicate(format: "completed == YES")
                     }
                     request.resultType = .managedObjectResultType
                     let items = try request.execute()
