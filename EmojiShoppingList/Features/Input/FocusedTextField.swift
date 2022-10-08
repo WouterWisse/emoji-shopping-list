@@ -12,6 +12,7 @@ struct FocusedTextField: UIViewRepresentable {
         textField.placeholder = NSLocalizedString("Add to list...", comment: "Add to list...")
         textField.font = .input
         textField.clearButtonMode = .whileEditing
+        textField.returnKeyType = .done
         return textField
     }
     
