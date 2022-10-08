@@ -20,7 +20,7 @@ extension EmojiProvider {
             emoji: { title in
                 do {
                     let emoji = try await textToEmoji.emoji(for: title, preferredCategory: .foodAndDrink) ?? fallbackEmoji
-                    let color = emoji.toImage()?.averageColor?.adjust(brightness: 0.55) ?? fallbackEmojiColor
+                    let color = emoji.toImage()?.averageColor?.adjustBrightness(by: 0.55) ?? fallbackEmojiColor
                     return Emoji(emoji: emoji, color: color)
                 } catch {
                     return Emoji(emoji: fallbackEmoji, color: fallbackEmojiColor)

@@ -1,12 +1,7 @@
 import UIKit
 
 extension UIColor {
-    func adjust(
-        hue: CGFloat = 0,
-        saturation: CGFloat = 0,
-        brightness: CGFloat = 0,
-        alpha: CGFloat = 1
-    ) -> UIColor {
+    func adjustBrightness(by brightness: CGFloat = 0) -> UIColor {
         var currentHue: CGFloat = 0.0
         var currentSaturation: CGFloat = 0.0
         var currentBrigthness: CGFloat = 0.0
@@ -18,10 +13,12 @@ extension UIColor {
             brightness: &currentBrigthness,
             alpha: &currentAlpha
         ) {
-            return UIColor(hue: currentHue + hue,
-                           saturation: currentSaturation + saturation,
-                           brightness: currentBrigthness + brightness,
-                           alpha: alpha)
+            return UIColor(
+                hue: currentHue,
+                saturation: currentSaturation,
+                brightness: currentBrigthness + brightness,
+                alpha: 1.0
+            )
         } else {
             return self
         }
