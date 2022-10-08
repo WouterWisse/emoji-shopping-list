@@ -124,8 +124,6 @@ let listReducer = Reducer<
                     await .addItem(TaskResult { try await environment.persistence().add(title) })
                 }
                 .animation()
-                
-            default: return .none
             }
             
             // MARK: Delete Action -
@@ -141,7 +139,7 @@ let listReducer = Reducer<
                 Task {
                     try await environment.persistence().deleteAll(type == .striked)
                 }
-                return .task { .sortItems }.animation()
+                return .none
             }
         }
     }

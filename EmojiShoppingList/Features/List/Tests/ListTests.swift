@@ -157,7 +157,6 @@ final class ListTests: XCTestCase {
                 "Expected parameter isDone to be 'false'."
             )
         }
-        await store.receive(.sortItems)
     }
     
     func test_listFeature_deleteStrikedItems() async {
@@ -194,9 +193,6 @@ final class ListTests: XCTestCase {
                 self.mockPersistence.invokedDeleteAllParameters?.isDone, true,
                 "Expected parameter isDone to be 'true'."
             )
-        }
-        await store.receive(.sortItems) {
-            $0.items = sortedItems
         }
     }
     
