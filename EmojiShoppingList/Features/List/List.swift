@@ -10,11 +10,11 @@ struct ListState: Equatable {
     var deleteState = DeleteState()
     
     var shouldShowEmptyState: Bool {
-        items.isEmpty
+        items.isEmpty && inputState.isInputFocused == false
     }
     
     var shouldShowDelete: Bool {
-        !shouldShowEmptyState
+        items.isEmpty == false
     }
 }
 
@@ -124,6 +124,8 @@ let listReducer = Reducer<
                     await .addItem(TaskResult { try await environment.persistence().add(title) })
                 }
                 .animation()
+                
+            default: return .none
             }
             
             // MARK: Delete Action -

@@ -4,10 +4,13 @@ import ComposableArchitecture
 
 // MARK: - Logic
 
-struct InputState: Equatable {}
+struct InputState: Equatable {
+    var isInputFocused: Bool = false
+}
 
 enum InputAction: Equatable {
     case submit(title: String)
+    case focusDidChange(isFocused: Bool)
 }
 
 struct InputEnvironment {}
@@ -19,7 +22,12 @@ let inputReducer = Reducer<
 > { state, action, environment in
     struct TimerId: Hashable {}
     switch action {
-    case .submit: return .none
+    case .submit:
+        return .none
+        
+    case .focusDidChange(let isFocused):
+        state.isInputFocused = isFocused
+        return .none
     }
 }
 .debug()
@@ -35,6 +43,12 @@ struct InputView: View {
                 FocusedTextField(
                     onSubmit: { text in
                         viewStore.send(.submit(title: text), animation: .default)
+                    },
+                    focusDidChange: { isFocused in
+                        viewStore.send(
+                            .focusDidChange(isFocused: isFocused),
+                            animation: .default
+                        )
                     }
                 )
             }

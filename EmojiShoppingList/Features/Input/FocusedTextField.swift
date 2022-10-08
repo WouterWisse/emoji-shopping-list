@@ -3,6 +3,7 @@ import SwiftUI
 
 struct FocusedTextField: UIViewRepresentable {
     var onSubmit: (String) -> Void
+    var focusDidChange: (Bool) -> Void
     
     func makeUIView(context: Context) -> UITextField {
         let textField = UITextField()
@@ -20,9 +21,14 @@ struct FocusedTextField: UIViewRepresentable {
     
     class Coordinator: NSObject, UITextFieldDelegate {
         var onSubmit: (String) -> Void
+        var focusDidChange: (Bool) -> Void
         
-        init(onSubmit: @escaping (String) -> Void) {
+        init(
+            onSubmit: @escaping (String) -> Void,
+            focusDidChange: @escaping (Bool) -> Void
+        ) {
             self.onSubmit = onSubmit
+            self.focusDidChange = focusDidChange
         }
         
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -30,6 +36,7 @@ struct FocusedTextField: UIViewRepresentable {
             
             if text.isEmpty {
                 textField.resignFirstResponder()
+                self.focusDidChange(false)
             } else {
                 self.onSubmit(text)
                 textField.text = ""
@@ -37,9 +44,16 @@ struct FocusedTextField: UIViewRepresentable {
             
             return true
         }
+        
+        func textFieldDidBeginEditing(_ textField: UITextField) {
+            self.focusDidChange(true)
+        }
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(onSubmit: onSubmit)
+        Coordinator(
+            onSubmit: onSubmit,
+            focusDidChange: focusDidChange
+        )
     }
 }
