@@ -8,7 +8,7 @@ extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
             title: "Avocado",
             emoji: "🥑",
             color: .green,
-            isDone: false,
+            completed: false,
             amount: 1,
             createdAt: Date()
         ),
@@ -17,7 +17,7 @@ extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
             title: "Eggplant",
             emoji: "🍆",
             color: .indigo,
-            isDone: true,
+            completed: true,
             amount: 2,
             createdAt: Date()
         ),
@@ -26,7 +26,7 @@ extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
             title: "Apple",
             emoji: "🍎",
             color: .red,
-            isDone: false,
+            completed: false,
             amount: 99,
             createdAt: Date()
         ),
@@ -35,7 +35,7 @@ extension IdentifiedArray where ID == ListItem.ID, Element == ListItem {
             title: "Beans",
             emoji: "🫘",
             color: .brown,
-            isDone: false,
+            completed: false,
             amount: 1,
             createdAt: Date()
         ),
@@ -48,7 +48,7 @@ extension ListItem {
         title: "Avocado",
         emoji: "🥑",
         color: .green,
-        isDone: false,
+        completed: false,
         amount: 1,
         createdAt: Date()
     )

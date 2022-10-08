@@ -13,12 +13,12 @@ struct RoundEmojiView: View {
             .font(.empoji)
             .multilineTextAlignment(.center)
             .frame(width: size, height: size, alignment: .center)
-            .background(item.isDone ? .clear : item.color.emojiBackgroundOpacity(for: colorScheme))
+            .background(item.completed ? .clear : item.color.emojiBackgroundOpacity(for: colorScheme))
             .cornerRadius(size / 2)
             .overlay(
                 Circle()
                     .strokeBorder(
-                        item.isDone ? .clear : item.color.emojiBorderOpacity(for: colorScheme),
+                        item.completed ? .clear : item.color.emojiBorderOpacity(for: colorScheme),
                         lineWidth: 2
                     )
             )

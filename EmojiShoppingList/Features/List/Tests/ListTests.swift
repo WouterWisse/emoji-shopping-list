@@ -153,8 +153,8 @@ final class ListTests: XCTestCase {
                 "Expected method 'DeleteAll' not invoked."
             )
             XCTAssertEqual(
-                self.mockPersistence.invokedDeleteAllParameters?.isDone, false,
-                "Expected parameter isDone to be 'false'."
+                self.mockPersistence.invokedDeleteAllParameters?.completed, false,
+                "Expected parameter completed to be 'false'."
             )
         }
     }
@@ -162,7 +162,7 @@ final class ListTests: XCTestCase {
     func test_listFeature_deleteStrikedItems() async {
         let items = ListItem.mockList
         var sortedItems = ListItem.mockSortedList
-        sortedItems.removeAll(where: { $0.isDone == true  })
+        sortedItems.removeAll(where: { $0.completed == true  })
         
         let store = TestStore(
             initialState: ListState(items: items),
@@ -176,7 +176,7 @@ final class ListTests: XCTestCase {
         )
         
         _ = await store.send(.deleteAction(.deleteTapped(type: .striked))) {
-            $0.items.removeAll(where: { $0.isDone == true  })
+            $0.items.removeAll(where: { $0.completed == true  })
             XCTAssertEqual(
                 self.mockFeedbackGenerator.invokedNotifyCount, 1,
                 "Expected method 'Notify' not invoked."
@@ -190,8 +190,8 @@ final class ListTests: XCTestCase {
                 "Expected method 'DeleteAll' not invoked."
             )
             XCTAssertEqual(
-                self.mockPersistence.invokedDeleteAllParameters?.isDone, true,
-                "Expected parameter isDone to be 'true'."
+                self.mockPersistence.invokedDeleteAllParameters?.completed, true,
+                "Expected parameter completed to be 'true'."
             )
         }
     }
@@ -252,8 +252,8 @@ final class ListTests: XCTestCase {
             )
         )
         
-        _ = await store.send(.listItem(id: itemToToggle.id, action: .toggleDone)) {
-            $0.items[id: itemToToggle.id]?.isDone = false
+        _ = await store.send(.listItem(id: itemToToggle.id, action: .toggleCompletion)) {
+            $0.items[id: itemToToggle.id]?.completed = false
         }
         await mainQueue.advance(by: .seconds(1))
         await store.receive(.sortItems) {
@@ -276,7 +276,7 @@ final class ListTests: XCTestCase {
                 title: "Pizza",
                 emoji: "🍕",
                 color: .red,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 2000)
             ),
@@ -285,7 +285,7 @@ final class ListTests: XCTestCase {
                 title: "Broccoli",
                 emoji: "🥦",
                 color: .green,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 1000)
             ),
@@ -294,7 +294,7 @@ final class ListTests: XCTestCase {
                 title: "Avocado",
                 emoji: "🥑",
                 color: .green,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 500)
             ),
@@ -303,7 +303,7 @@ final class ListTests: XCTestCase {
                 title: "Beer",
                 emoji: "🍺",
                 color: .brown,
-                isDone: false,
+                completed: false,
                 amount: 6,
                 createdAt: Date(timeIntervalSince1970: 0)
             )
@@ -314,7 +314,7 @@ final class ListTests: XCTestCase {
                 title: "Avocado",
                 emoji: "🥑",
                 color: .green,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 500)
             ),
@@ -323,7 +323,7 @@ final class ListTests: XCTestCase {
                 title: "Beer",
                 emoji: "🍺",
                 color: .brown,
-                isDone: false,
+                completed: false,
                 amount: 6,
                 createdAt: Date(timeIntervalSince1970: 0)
             ),
@@ -332,7 +332,7 @@ final class ListTests: XCTestCase {
                 title: "Pizza",
                 emoji: "🍕",
                 color: .red,
-                isDone: true,
+                completed: true,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 2000)
             ),
@@ -341,7 +341,7 @@ final class ListTests: XCTestCase {
                 title: "Broccoli",
                 emoji: "🥦",
                 color: .green,
-                isDone: true,
+                completed: true,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 1000)
             )
@@ -358,12 +358,12 @@ final class ListTests: XCTestCase {
             )
         )
         
-        _ = await store.send(.listItem(id: ListItem.pizzaID, action: .toggleDone)) {
-            $0.items[id: ListItem.pizzaID]?.isDone = true
+        _ = await store.send(.listItem(id: ListItem.pizzaID, action: .toggleCompletion)) {
+            $0.items[id: ListItem.pizzaID]?.completed = true
         }
         await mainQueue.advance(by: .seconds(0.5))
-        _ = await store.send(.listItem(id: ListItem.broccoliID, action: .toggleDone)) {
-            $0.items[id: ListItem.broccoliID]?.isDone = true
+        _ = await store.send(.listItem(id: ListItem.broccoliID, action: .toggleCompletion)) {
+            $0.items[id: ListItem.broccoliID]?.completed = true
         }
         await mainQueue.advance(by: .seconds(1))
         await store.receive(.sortItems) {

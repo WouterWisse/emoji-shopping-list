@@ -14,7 +14,7 @@ extension ListItem {
         title: "Carrot",
         emoji: "🥕",
         color: .orange,
-        isDone: false,
+        completed: false,
         amount: 1,
         createdAt: Date(timeIntervalSince1970: 9999)
     )
@@ -26,7 +26,7 @@ extension ListItem {
                 title: "Pizza",
                 emoji: "🍕",
                 color: .red,
-                isDone: true,
+                completed: true,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 2000)
             ),
@@ -35,7 +35,7 @@ extension ListItem {
                 title: "Beer",
                 emoji: "🍺",
                 color: .brown,
-                isDone: false,
+                completed: false,
                 amount: 6,
                 createdAt: Date(timeIntervalSince1970: 0)
             ),
@@ -44,7 +44,7 @@ extension ListItem {
                 title: "Avocado",
                 emoji: "🥑",
                 color: .green,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 500)
             ),
@@ -53,7 +53,7 @@ extension ListItem {
                 title: "Broccoli",
                 emoji: "🥦",
                 color: .green,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 1000)
             )
@@ -67,7 +67,7 @@ extension ListItem {
                 title: "Broccoli",
                 emoji: "🥦",
                 color: .green,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 1000)
             ),
@@ -76,7 +76,7 @@ extension ListItem {
                 title: "Avocado",
                 emoji: "🥑",
                 color: .green,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 500)
             ),
@@ -85,7 +85,7 @@ extension ListItem {
                 title: "Beer",
                 emoji: "🍺",
                 color: .brown,
-                isDone: false,
+                completed: false,
                 amount: 6,
                 createdAt: Date(timeIntervalSince1970: 0)
             ),
@@ -94,7 +94,7 @@ extension ListItem {
                 title: "Pizza",
                 emoji: "🍕",
                 color: .red,
-                isDone: true,
+                completed: true,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 2000)
             )
@@ -108,7 +108,7 @@ extension ListItem {
                 title: "Pizza",
                 emoji: "🍕",
                 color: .red,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 2000)
             ),
@@ -117,7 +117,7 @@ extension ListItem {
                 title: "Broccoli",
                 emoji: "🥦",
                 color: .green,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 1000)
             ),
@@ -126,7 +126,7 @@ extension ListItem {
                 title: "Avocado",
                 emoji: "🥑",
                 color: .green,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date(timeIntervalSince1970: 500)
             ),
@@ -135,7 +135,7 @@ extension ListItem {
                 title: "Beer",
                 emoji: "🍺",
                 color: .brown,
-                isDone: false,
+                completed: false,
                 amount: 6,
                 createdAt: Date(timeIntervalSince1970: 0)
             )

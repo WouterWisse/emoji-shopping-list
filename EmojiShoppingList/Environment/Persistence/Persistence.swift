@@ -6,7 +6,7 @@ struct PersistenceController {
     var update: (_ listItem: ListItem) async throws -> Void
     var add: (_ title: String) async throws -> ListItem
     var delete: (_ objectID: NSManagedObjectID) async throws -> Void
-    var deleteAll: (_ isDone: Bool) async throws -> Void
+    var deleteAll: (_ completed: Bool) async throws -> Void
 }
 
 extension PersistenceController {
@@ -39,7 +39,7 @@ extension PersistenceController {
             update: { listItem in
                 try await viewContext.perform {
                     let item = try viewContext.existingObject(with: listItem.id) as! Item
-                    item.done = listItem.isDone
+                    item.completed = listItem.completed
                     item.amount = listItem.amount
                     try viewContext.save()
                 }
@@ -54,7 +54,7 @@ extension PersistenceController {
                     item.color = emoji.color
                     
                     item.createdAt = Date()
-                    item.done = false
+                    item.completed = false
                     
                     try viewContext.save()
                     return item
@@ -69,10 +69,10 @@ extension PersistenceController {
                     try viewContext.save()
                 }
             },
-            deleteAll: { isDone in
+            deleteAll: { completed in
                 try await viewContext.perform {
                     let request = Item.fetchRequest()
-                    if isDone {
+                    if completed {
                         request.predicate = NSPredicate(format: "done == YES")
                     }
                     request.resultType = .managedObjectResultType

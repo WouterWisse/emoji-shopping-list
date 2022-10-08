@@ -82,15 +82,15 @@ final class MockPersistenceController {
 
     var invokedDeleteAll = false
     var invokedDeleteAllCount = 0
-    var invokedDeleteAllParameters: (isDone: Bool, Void)?
-    var invokedDeleteAllParametersList = [(isDone: Bool, Void)]()
+    var invokedDeleteAllParameters: (completed: Bool, Void)?
+    var invokedDeleteAllParametersList = [(completed: Bool, Void)]()
     var stubbedDeleteAllResult: Void! = ()
 
-    func deleteAll(_ isDone: Bool) -> Void {
+    func deleteAll(_ completed: Bool) -> Void {
         invokedDeleteAll = true
         invokedDeleteAllCount += 1
-        invokedDeleteAllParameters = (isDone, ())
-        invokedDeleteAllParametersList.append((isDone, ()))
+        invokedDeleteAllParameters = (completed, ())
+        invokedDeleteAllParametersList.append((completed, ()))
         return stubbedDeleteAllResult
     }
 }

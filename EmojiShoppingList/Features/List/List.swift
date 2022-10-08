@@ -82,8 +82,8 @@ let listReducer = Reducer<
             
         case .sortItems:
             state.items.sort(by: { lhs, rhs in
-                guard lhs.isDone == rhs.isDone else {
-                    return !lhs.isDone && rhs.isDone
+                guard lhs.completed == rhs.completed else {
+                    return !lhs.completed && rhs.completed
                 }
                 return lhs.createdAt > rhs.createdAt
             })
@@ -95,7 +95,7 @@ let listReducer = Reducer<
             enum ListItemCompletionID {}
             
             switch action {
-            case .toggleDone:
+            case .toggleCompletion:
                 return .task {
                     try await environment.persistence().update(item)
                     try await environment.mainQueue().sleep(for: .seconds(1))
@@ -134,7 +134,7 @@ let listReducer = Reducer<
             case .deleteTapped(let type):
                 environment.feedbackGenerator().notify(.error)
                 if type == .striked {
-                    state.items.removeAll(where: { $0.isDone })
+                    state.items.removeAll(where: { $0.completed })
                 } else {
                     state.items.removeAll()
                 }

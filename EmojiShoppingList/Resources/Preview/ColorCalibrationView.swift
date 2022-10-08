@@ -41,7 +41,7 @@ private extension ListItem {
             title: title,
             emoji: emoji,
             color: Color(color ?? .gray),
-            isDone: false,
+            completed: false,
             amount: 1,
             createdAt: Date()
         )

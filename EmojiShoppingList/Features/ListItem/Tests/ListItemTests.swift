@@ -34,7 +34,7 @@ final class ListItemTests: XCTestCase {
                 title: "Broccoli",
                 emoji: "",
                 color: .green,
-                isDone: false,
+                completed: false,
                 amount: 1,
                 createdAt: Date()
             ),
@@ -73,7 +73,7 @@ final class ListItemTests: XCTestCase {
             title: "Broccoli",
             emoji: "",
             color: .green,
-            isDone: false,
+            completed: false,
             amount: 1,
             createdAt: Date()
         )
@@ -136,7 +136,7 @@ final class ListItemTests: XCTestCase {
                 title: "Broccoli",
                 emoji: "",
                 color: .green,
-                isDone: true,
+                completed: true,
                 amount: 1,
                 createdAt: Date()
             ),
@@ -149,8 +149,8 @@ final class ListItemTests: XCTestCase {
             )
         )
         
-        _ = await store.send(.toggleDone) {
-            $0.isDone = false
+        _ = await store.send(.toggleCompletion) {
+            $0.completed = false
             XCTAssertEqual(
                 self.mockFeedbackGenerator.invokedImpactCount, 1,
                 "Expected method 'Impact' not invoked."
@@ -160,8 +160,8 @@ final class ListItemTests: XCTestCase {
                 "Expected parameter 'feedbackStyle' to be 'rigid'."
             )
         }
-        _ = await store.send(.toggleDone) {
-            $0.isDone = true
+        _ = await store.send(.toggleCompletion) {
+            $0.completed = true
             XCTAssertEqual(
                 self.mockFeedbackGenerator.invokedNotifyCount, 1,
                 "Expected method 'Notify' not invoked."

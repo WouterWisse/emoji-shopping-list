@@ -10,7 +10,7 @@ struct ListItem: Equatable, Identifiable {
     let title: String
     let emoji: String
     let color: Color
-    var isDone: Bool
+    var completed: Bool
     var amount: Int16
     let createdAt: Date
     var isStepperExpanded: Bool = false
@@ -20,7 +20,7 @@ struct ListItem: Equatable, Identifiable {
         self.title = item.title!
         self.emoji = item.emoji ?? "🤷‍♂️"
         self.color = Color(item.color as? UIColor ?? .gray)
-        self.isDone = item.done
+        self.completed = item.completed
         self.amount = item.amount
         self.createdAt = item.createdAt!
     }
@@ -30,7 +30,7 @@ struct ListItem: Equatable, Identifiable {
         title: String,
         emoji: String,
         color: Color,
-        isDone: Bool,
+        completed: Bool,
         amount: Int16,
         createdAt: Date
     ) {
@@ -38,7 +38,7 @@ struct ListItem: Equatable, Identifiable {
         self.title = title
         self.emoji = emoji
         self.color = color
-        self.isDone = isDone
+        self.completed = completed
         self.amount = amount
         self.createdAt = createdAt
     }
@@ -52,7 +52,7 @@ enum ListItemAction: Equatable {
     case expandStepper(expand: Bool)
     case updateAmount(type: UpdateAmountType)
     case delete
-    case toggleDone
+    case toggleCompletion
 }
 
 struct ListItemEnvironment {}
@@ -96,9 +96,9 @@ let listItemReducer = Reducer<
     case .delete:
         return .none
         
-    case .toggleDone:
-        state.isDone.toggle()
-        if state.isDone {
+    case .toggleCompletion:
+        state.completed.toggle()
+        if state.completed {
             environment.feedbackGenerator().notify(.success)
         } else {
             environment.feedbackGenerator().impact(.rigid)
@@ -118,16 +118,16 @@ struct ListItemView: View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: .margin.horizontal) {
                 RoundEmojiView(item: viewStore.state)
-                    .opacity(viewStore.isDone ? 0.5 : 1)
+                    .opacity(viewStore.completed ? 0.5 : 1)
                 
                 Text(viewStore.title)
                     .font(.listItem)
-                    .strikethrough(viewStore.isDone)
-                    .opacity(viewStore.isDone ? 0.3 : 1)
+                    .strikethrough(viewStore.completed)
+                    .opacity(viewStore.completed ? 0.3 : 1)
                 
                 Spacer()
                 
-                if !viewStore.isDone {
+                if !viewStore.completed {
                     ZStack {
                         Capsule()
                             .fill(viewStore.color.stepperBackgroundOpacity(for: colorScheme))
@@ -174,9 +174,9 @@ struct ListItemView: View {
             }
             .swipeActions(edge: .leading) {
                 Button {
-                    viewStore.send(.toggleDone, animation: .default)
+                    viewStore.send(.toggleCompletion, animation: .default)
                 } label: {
-                    Image(systemName: viewStore.isDone ? "arrow.uturn.right.circle.fill" : "checkmark.circle.fill")
+                    Image(systemName: viewStore.completed ? "arrow.uturn.right.circle.fill" : "checkmark.circle.fill")
                 }
                 .tint(viewStore.color)
             }
