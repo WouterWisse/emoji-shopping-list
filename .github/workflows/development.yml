@@ -32,6 +32,12 @@ jobs:
         with:
           lane: run_unit_tests
 
+      - name: Upload to TestFlight
+        if: success()
+        uses: maierj/fastlane-action@v1.4.0
+        with:
+          lane: beta
+
       - name: Create Test Results
         uses: kishikawakatsumi/xcresulttool@v1
         if: success() || failure()
