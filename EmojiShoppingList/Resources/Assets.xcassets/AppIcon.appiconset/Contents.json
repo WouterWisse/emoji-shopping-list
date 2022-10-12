@@ -36,6 +36,7 @@
       "size" : "38x38"
     },
     {
+      "filename" : "emoji-shopping-list-38@2x.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -70,18 +71,21 @@
       "size" : "60x60"
     },
     {
+      "filename" : "emoji-shopping-list-64@2x.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "64x64"
     },
     {
+      "filename" : "emoji-shopping-list-64@3x.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
       "size" : "64x64"
     },
     {
+      "filename" : "emoji-shopping-list-68@2x.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
