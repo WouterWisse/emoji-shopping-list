@@ -37,11 +37,11 @@ jobs:
         if: success()
         run: bundle install
 
-      - name: Run Unit Tests
-        if: success()
-        uses: maierj/fastlane-action@v1.4.0
-        with:
-          lane: run_unit_tests
+      # - name: Run Unit Tests
+      #   if: success()
+      #   uses: maierj/fastlane-action@v1.4.0
+      #   with:
+      #     lane: run_unit_tests
 
       - name: Upload to TestFlight
         if: success()
