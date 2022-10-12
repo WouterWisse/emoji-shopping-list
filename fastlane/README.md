@@ -15,6 +15,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
+### ios sync_codesigning
+
+```sh
+[bundle exec] fastlane ios sync_codesigning
+```
+
+Sync CodeSigning
+
 ### ios run_unit_tests
 
 ```sh

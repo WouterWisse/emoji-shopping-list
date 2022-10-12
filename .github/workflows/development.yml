@@ -10,6 +10,17 @@ jobs:
   Develop:
     name: Build & Test
     runs-on: macos-12
+    env: 
+      IS_CI: true
+      # Fastlane
+      FASTLANE_MATCH_AUTH_TOKEN: ${{ secrets.FASTLANE_MATCH_AUTH_TOKEN }}
+      FASTLANE_MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
+      # AppStore
+      APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+      APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+      APP_STORE_CONNECT_API_P8_KEY: ${{ secrets.APP_STORE_CONNECT_API_P8_KEY }}
+      # TestFlight
+      TEST_FLIGHT_BETA_FEEDBACK_EMAIL: ${{ secrets.TEST_FLIGHT_BETA_FEEDBACK_EMAIL }}
 
     steps:
       - name: Switch to latest Xcode
