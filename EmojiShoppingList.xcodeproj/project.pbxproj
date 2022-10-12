@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,7 +37,6 @@
 		6CF5CC6F2846A35700117790 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5CC6E2846A35700117790 /* FeedbackGenerator.swift */; };
 		6CFEF96E2834432F00254038 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF96D2834432F00254038 /* App.swift */; };
 		6CFEF9722834433100254038 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEF9712834433100254038 /* Assets.xcassets */; };
-		6CFEF9752834433100254038 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEF9742834433100254038 /* Preview Assets.xcassets */; };
 		6CFEF9772834433100254038 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF9762834433100254038 /* Persistence.swift */; };
 		6CFEF97A2834433100254038 /* EmojiShoppingList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEF9782834433100254038 /* EmojiShoppingList.xcdatamodeld */; };
 		6CFEF9A22835889500254038 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 6CFEF9A12835889500254038 /* ComposableArchitecture */; };
@@ -88,7 +87,6 @@
 		6CFEF96A2834432F00254038 /* Shopping List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shopping List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CFEF96D2834432F00254038 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		6CFEF9712834433100254038 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6CFEF9742834433100254038 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6CFEF9762834433100254038 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		6CFEF9792834433100254038 /* EmojiShoppingList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EmojiShoppingList.xcdatamodel; sourceTree = "<group>"; };
 		6CFEF97F2834433100254038 /* EmojiShoppingList-UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EmojiShoppingList-UnitTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -331,7 +329,6 @@
 				6C0AACE828BEC6BF0025C4A0 /* Preview */,
 				6CE6F1C52856A56900C1A40D /* Localization */,
 				6CFEF9712834433100254038 /* Assets.xcassets */,
-				6CFEF9742834433100254038 /* Preview Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -410,7 +407,7 @@
 				};
 			};
 			buildConfigurationList = 6CFEF9652834432F00254038 /* Build configuration list for PBXProject "EmojiShoppingList" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -440,7 +437,6 @@
 			files = (
 				6CE6F1C82856A59600C1A40D /* Localizable.strings in Resources */,
 				6C7C6E3728F732410040505C /* InfoPlist.strings in Resources */,
-				6CFEF9752834433100254038 /* Preview Assets.xcassets in Resources */,
 				6CFEF9722834433100254038 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,10 +646,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"EmojiShoppingList/Resources/\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Q6AEA497G4;
@@ -664,7 +661,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -689,10 +685,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"EmojiShoppingList/Resources/\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Q6AEA497G4;
@@ -703,7 +700,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
