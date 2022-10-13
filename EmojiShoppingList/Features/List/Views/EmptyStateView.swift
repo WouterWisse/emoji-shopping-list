@@ -6,7 +6,7 @@ struct EmptyStateView: View {
             VStack(spacing: .margin.emptyState) {
                 HStack(spacing: .margin.emptyState) {
                     Text("🍇")
-                    Text("🍋")
+                    Text("🍑")
                 }
                 HStack(spacing: .margin.emptyState) {
                     Text("🍎")
