@@ -2,25 +2,14 @@ import SwiftUI
 
 struct TitleView: View {
     var body: some View {
-        LinearGradient(
-            colors: Color.gradientColors,
-            startPoint: .leading,
-            endPoint: .trailing
-        )
-        .frame(
-            height: 40,
-            alignment: .leading
-        )
-        .mask(
-            Text("Shopping List")
-                .font(.title)
-                .frame(
-                    maxWidth: .infinity,
-                    minHeight: 40,
-                    maxHeight: 40,
-                    alignment: .leading
-                )
-        )
+        HStack {
+            ContentMaskView(colors: Color.gradientColors) {
+                Text("Shopping List")
+                    .font(.title)
+            }
+            Spacer()
+        }
+        .frame(height: 40, alignment: .leading)
         .listRowSeparator(.hidden)
     }
 }

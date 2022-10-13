@@ -28,6 +28,8 @@
 		6C7C6E3728F732410040505C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C7C6E3528F732410040505C /* InfoPlist.strings */; };
 		6C7E46AF28E8F7160050F295 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7E46AE28E8F7160050F295 /* TitleView.swift */; };
 		6C913E7E2842DD6C00E34326 /* Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C913E7D2842DD6C00E34326 /* Delete.swift */; };
+		6CA077CA28F84A0A0095B9D8 /* ContentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA077C928F84A0A0095B9D8 /* ContentMaskView.swift */; };
+		6CA077CC28F8525A0095B9D8 /* AnimatedContentMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA077CB28F8525A0095B9D8 /* AnimatedContentMaskView.swift */; };
 		6CA6E3F8284015DD0069CDD9 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E3F7284015DD0069CDD9 /* List.swift */; };
 		6CA6E40E2841B5610069CDD9 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA6E40D2841B5610069CDD9 /* Input.swift */; };
 		6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA853E6283AB7C70010E85B /* RoundEmojiView.swift */; };
@@ -75,6 +77,8 @@
 		6C7C6E3828F732480040505C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6C7E46AE28E8F7160050F295 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		6C913E7D2842DD6C00E34326 /* Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delete.swift; sourceTree = "<group>"; };
+		6CA077C928F84A0A0095B9D8 /* ContentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMaskView.swift; sourceTree = "<group>"; };
+		6CA077CB28F8525A0095B9D8 /* AnimatedContentMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedContentMaskView.swift; sourceTree = "<group>"; };
 		6CA6E3F7284015DD0069CDD9 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		6CA6E3FF284152B90069CDD9 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		6CA6E409284170770069CDD9 /* ListItem+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListItem+Mock.swift"; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 				6C0AACEB28BECFF40025C4A0 /* EdgeFadeView.swift */,
 				6C7E46AE28E8F7160050F295 /* TitleView.swift */,
 				6CD4576828A1A31900EB9E7B /* EmptyStateView.swift */,
+				6CA077C928F84A0A0095B9D8 /* ContentMaskView.swift */,
+				6CA077CB28F8525A0095B9D8 /* AnimatedContentMaskView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -314,6 +320,7 @@
 		6CFEF96C2834432F00254038 /* EmojiShoppingList */ = {
 			isa = PBXGroup;
 			children = (
+				6CFEF9712834433100254038 /* Assets.xcassets */,
 				6C332FE628BD61FA0004ECF9 /* Application */,
 				6CA6E40F28428F530069CDD9 /* Extensions */,
 				6CF5CC6D2846A34300117790 /* Environment */,
@@ -328,7 +335,6 @@
 			children = (
 				6C0AACE828BEC6BF0025C4A0 /* Preview */,
 				6CE6F1C52856A56900C1A40D /* Localization */,
-				6CFEF9712834433100254038 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -460,6 +466,7 @@
 				6CA6E3F8284015DD0069CDD9 /* List.swift in Sources */,
 				6CD4576928A1A31900EB9E7B /* EmptyStateView.swift in Sources */,
 				6C2F28EF2848192000E85F94 /* ListItem+Preview.swift in Sources */,
+				6CA077CC28F8525A0095B9D8 /* AnimatedContentMaskView.swift in Sources */,
 				6CA6E40E2841B5610069CDD9 /* Input.swift in Sources */,
 				6C0AACEC28BECFF40025C4A0 /* EdgeFadeView.swift in Sources */,
 				6CA853E7283AB7C70010E85B /* RoundEmojiView.swift in Sources */,
@@ -470,6 +477,7 @@
 				6CFEF97A2834433100254038 /* EmojiShoppingList.xcdatamodeld in Sources */,
 				6CFEF96E2834432F00254038 /* App.swift in Sources */,
 				6C02812828B7FBA400AA2666 /* UIColor+Adjust.swift in Sources */,
+				6CA077CA28F84A0A0095B9D8 /* ContentMaskView.swift in Sources */,
 				6C0E12A828F1C26600B1BCE3 /* ListItem.swift in Sources */,
 				6CF5CC6B28469A0B00117790 /* SharedEnvironment.swift in Sources */,
 				6C7E46AF28E8F7160050F295 /* TitleView.swift in Sources */,

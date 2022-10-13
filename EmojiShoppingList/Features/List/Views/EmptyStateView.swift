@@ -2,13 +2,7 @@ import SwiftUI
 
 struct EmptyStateView: View {
     var body: some View {
-        LinearGradient(
-            colors: Color.gradientColors,
-            startPoint: .leading,
-            endPoint: .trailing
-        )
-        .frame(width: 240)
-        .mask(
+        ContentMaskView(colors: Color.gradientColors) {
             VStack(spacing: .margin.emptyState) {
                 HStack(spacing: .margin.emptyState) {
                     Text("🍇")
@@ -20,7 +14,7 @@ struct EmptyStateView: View {
                 }
             }
             .font(.emptyStateEmoji)
-        )
+        }
         .listRowSeparator(.hidden)
     }
 }
