@@ -654,7 +654,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20221013;
+				CURRENT_PROJECT_VERSION = 20221014;
 				DEVELOPMENT_ASSET_PATHS = "\"EmojiShoppingList/Resources/\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Q6AEA497G4;
@@ -693,7 +693,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20221013;
+				CURRENT_PROJECT_VERSION = 20221014;
 				DEVELOPMENT_ASSET_PATHS = "\"EmojiShoppingList/Resources/\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Q6AEA497G4;
