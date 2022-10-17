@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct ContentMaskView<Content: View>: View {
-    var colors: [Color]
-    var content: () -> Content
+    let content: () -> Content
     
     var body: some View {
         content()
@@ -22,7 +21,7 @@ struct ContentMaskView<Content: View>: View {
 
 struct ContentMaskView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentMaskView(colors: [.green, .red]) {
+        ContentMaskView {
             Text("Hello World!")
                 .font(.title)
         }

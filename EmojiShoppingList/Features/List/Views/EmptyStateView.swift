@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EmptyStateView: View {
     var body: some View {
-        ContentMaskView(colors: Color.gradientColors) {
+        ContentMaskView {
             VStack(spacing: .margin.emptyState) {
                 HStack(spacing: .margin.emptyState) {
                     Text("🍇")

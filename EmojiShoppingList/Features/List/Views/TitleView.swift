@@ -3,7 +3,7 @@ import SwiftUI
 struct TitleView: View {
     var body: some View {
         HStack {
-            ContentMaskView(colors: Color.gradientColors) {
+            ContentMaskView {
                 Text("Shopping List")
                     .font(.title)
             }
