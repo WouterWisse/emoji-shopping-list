@@ -808,8 +808,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WouterWisse/text-to-emoji.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
 			};
 		};
 		6CFEF9A02835889500254038 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
