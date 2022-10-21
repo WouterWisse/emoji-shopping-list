@@ -15,7 +15,7 @@ extension Font {
     static let input: Font = .system(size: .font.default, weight: .bold, design: .rounded)
     static let listItem: Font = .system(size: .font.default, weight: .bold, design: .rounded)
     static let stepper: Font = .system(size: .font.stepper, weight: .bold, design: .rounded)
-    static let empoji: Font = .title2
+    static let emoji: Font = .title2
     static let emptyStateEmoji: Font = .system(size: 50)
 }
 
@@ -32,6 +32,11 @@ extension Color {
     
     func stepperBackgroundOpacity(for colorScheme: ColorScheme) -> Color {
         opacity(colorScheme == .light ? 0.1 : 0.2)
+    }
+    
+    static var backgroundColor: Color {
+        let systemBackgroundColor = UIColor.systemBackground
+        return Color(systemBackgroundColor)
     }
     
     static let swipeDelete: Color = .red

@@ -117,8 +117,17 @@ struct ListItemView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: .margin.horizontal) {
-                RoundEmojiView(item: viewStore.state)
-                    .opacity(viewStore.completed ? 0.5 : 1)
+                
+                if viewStore.completed {
+                    CompletedEmojiView(
+                        emoji: viewStore.emoji,
+                        color: viewStore.color
+                    )
+                } else {
+                    EmojiView(item: viewStore.state)
+                        .opacity(viewStore.completed ? 0.5 : 1)
+                }
+                
                 
                 Text(viewStore.title)
                     .font(.listItem)

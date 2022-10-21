@@ -1,7 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct RoundEmojiView: View {
+struct EmojiView: View {
     let item: ListItem
     
     @Environment(\.colorScheme) private var colorScheme
@@ -10,7 +10,7 @@ struct RoundEmojiView: View {
     
     var body: some View {
         Text(item.emoji)
-            .font(.empoji)
+            .font(.emoji)
             .multilineTextAlignment(.center)
             .frame(width: size, height: size, alignment: .center)
             .background(item.completed ? .clear : item.color.emojiBackgroundOpacity(for: colorScheme))
@@ -25,13 +25,13 @@ struct RoundEmojiView: View {
     }
 }
 
-struct RoundEmojiView_Previews: PreviewProvider {
+struct EmojiView_Previews: PreviewProvider {
     static let colorSchemes: [ColorScheme] = [.light, .dark]
     
     static var previews: some View {
         ForEach(colorSchemes, id: \.self) { colorScheme in
             Group {
-                RoundEmojiView(item: .preview)
+                EmojiView(item: .preview)
                     .preferredColorScheme(colorScheme)
                     .previewLayout(.sizeThatFits)
                     .padding()

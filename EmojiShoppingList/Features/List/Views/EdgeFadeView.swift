@@ -1,10 +1,7 @@
 import SwiftUI
 
 struct EdgeFadeView: View {
-    private var color: Color {
-        let systemBackgroundColor = UIColor.systemBackground
-        return Color(systemBackgroundColor)
-    }
+    private var color = Color.backgroundColor
     
     var body: some View {
         GeometryReader { geometryReader in
