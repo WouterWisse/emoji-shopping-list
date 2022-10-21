@@ -6,7 +6,7 @@ struct FocusedTextField: UIViewRepresentable {
     var focusDidChange: (Bool) -> Void
     
     func makeUIView(context: Context) -> UITextField {
-        let textField = UITextField()
+        let textField = UITextField(frame: .zero)
         textField.borderStyle = .roundedRect
         textField.delegate = context.coordinator
         textField.placeholder = NSLocalizedString("Add to list...", comment: "Add to list...")
@@ -14,6 +14,7 @@ struct FocusedTextField: UIViewRepresentable {
         textField.clearButtonMode = .whileEditing
         textField.returnKeyType = .done
         textField.autocapitalizationType = .words
+        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return textField
     }
     
