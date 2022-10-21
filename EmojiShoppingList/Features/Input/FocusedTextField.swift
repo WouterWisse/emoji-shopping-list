@@ -13,6 +13,7 @@ struct FocusedTextField: UIViewRepresentable {
         textField.font = .input
         textField.clearButtonMode = .whileEditing
         textField.returnKeyType = .done
+        textField.autocapitalizationType = .words
         return textField
     }
     
