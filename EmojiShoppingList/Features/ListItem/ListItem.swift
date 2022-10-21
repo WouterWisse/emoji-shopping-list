@@ -13,7 +13,9 @@ struct ListItem: Equatable, Identifiable {
     var completed: Bool
     var amount: Int16
     let createdAt: Date
+    
     var isStepperExpanded: Bool = false
+    var isMarkedAsComplete: Bool = false
     
     init(item: Item) {
         self.id = item.objectID
@@ -99,6 +101,7 @@ let listItemReducer = Reducer<
     case .toggleCompletion:
         state.completed.toggle()
         if state.completed {
+            state.isMarkedAsComplete = true
             environment.feedbackGenerator().notify(.success)
         } else {
             environment.feedbackGenerator().impact(.rigid)
@@ -118,7 +121,7 @@ struct ListItemView: View {
         WithViewStore(self.store) { viewStore in
             HStack(spacing: .margin.horizontal) {
                 
-                if viewStore.completed {
+                if viewStore.completed && viewStore.isMarkedAsComplete {
                     CompletedEmojiView(
                         emoji: viewStore.emoji,
                         color: viewStore.color
