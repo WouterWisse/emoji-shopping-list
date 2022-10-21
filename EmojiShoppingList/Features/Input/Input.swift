@@ -39,23 +39,21 @@ struct InputView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            HStack {
-                FocusedTextField(
-                    onSubmit: { text in
-                        viewStore.send(.submit(title: text), animation: .default)
-                    },
-                    focusDidChange: { isFocused in
-                        viewStore.send(
-                            .focusDidChange(isFocused: isFocused),
-                            animation: .default
-                        )
-                    }
-                )
-            }
-            .padding(.bottom, .margin.inputVertical)
-            .alignmentGuide(.listRowSeparatorLeading) {
-                $0[.leading]
-            }
+            FocusedTextField(
+                onSubmit: { text in
+                    viewStore.send(.submit(title: text), animation: .default)
+                },
+                focusDidChange: { isFocused in
+                    viewStore.send(
+                        .focusDidChange(isFocused: isFocused),
+                        animation: .default
+                    )
+                }
+            )
+        }
+        .padding(.bottom, .margin.inputVertical)
+        .alignmentGuide(.listRowSeparatorLeading) {
+            $0[.leading]
         }
     }
 }

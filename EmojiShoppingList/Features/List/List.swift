@@ -162,7 +162,6 @@ struct ListView: View {
                     List {
                         VStack(alignment: .leading, spacing: .margin.inputVertical) {
                             TitleView()
-                            
                             InputView(
                                 store: store.scope(
                                     state: \.inputState,
