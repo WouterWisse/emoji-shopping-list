@@ -19,7 +19,7 @@ struct CompletedEmojiView: View {
                 Circle()
                     .fill(color)
                     .scaleEffect(coloredCircleScale)
-                    .frame(width:48, height: 48)
+                    .frame(width: 48, height: 48)
                 
                 Circle()
                     .fill(Color.backgroundColor)
@@ -42,7 +42,7 @@ struct CompletedEmojiView: View {
                 backgroundCircleScale = 1.0
             }
             
-            withAnimation(.spring(response: 0.3, dampingFraction: 0.5).delay(0.4)) {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.5).delay(0.3)) {
                 emojiScale = 1.0
             }
             
