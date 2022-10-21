@@ -39,17 +39,30 @@ struct InputView: View {
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            FocusedTextField(
-                onSubmit: { text in
-                    viewStore.send(.submit(title: text), animation: .default)
-                },
-                focusDidChange: { isFocused in
-                    viewStore.send(
-                        .focusDidChange(isFocused: isFocused),
-                        animation: .default
-                    )
+            ZStack(alignment: .leading) {
+                FocusedTextField(
+                    onSubmit: { text in
+                        viewStore.send(.submit(title: text), animation: .default)
+                    },
+                    focusDidChange: { isFocused in
+                        viewStore.send(
+                            .focusDidChange(isFocused: isFocused),
+                            animation: .default
+                        )
+                    }
+                )
+                
+                /*
+                if !viewStore.isInputFocused {
+                    InputPlaceholderView {
+                        Text(#""Tofu""#)
+                            .font(.default)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding([.leading, .trailing], 8)
                 }
-            )
+                 */
+            }
         }
         .padding(.bottom, .margin.inputVertical)
         .alignmentGuide(.listRowSeparatorLeading) {
