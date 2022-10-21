@@ -360,14 +360,18 @@ final class ListTests: XCTestCase {
         
         _ = await store.send(.listItem(id: ListItem.pizzaID, action: .toggleCompletion)) {
             $0.items[id: ListItem.pizzaID]?.completed = true
+            $0.items[id: ListItem.pizzaID]?.isMarkedAsComplete = true
         }
         await mainQueue.advance(by: .seconds(0.5))
         _ = await store.send(.listItem(id: ListItem.broccoliID, action: .toggleCompletion)) {
             $0.items[id: ListItem.broccoliID]?.completed = true
+            $0.items[id: ListItem.broccoliID]?.isMarkedAsComplete = true
         }
         await mainQueue.advance(by: .seconds(1))
         await store.receive(.sortItems) {
             $0.items = sortedItems
+            $0.items[id: ListItem.broccoliID]?.isMarkedAsComplete = true
+            $0.items[id: ListItem.pizzaID]?.isMarkedAsComplete = true
             XCTAssertEqual(
                 self.mockPersistence.invokedUpdateCount, 2,
                 "Expected method 'Update' not invoked."

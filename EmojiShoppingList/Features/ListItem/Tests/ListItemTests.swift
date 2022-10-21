@@ -162,6 +162,7 @@ final class ListItemTests: XCTestCase {
         }
         _ = await store.send(.toggleCompletion) {
             $0.completed = true
+            $0.isMarkedAsComplete = true
             XCTAssertEqual(
                 self.mockFeedbackGenerator.invokedNotifyCount, 1,
                 "Expected method 'Notify' not invoked."
