@@ -50,8 +50,3 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
-
-# Sketch
-#
-# Sketch files can get quite big, so it's not recommended to store these in the git repo.
-*.sketch
