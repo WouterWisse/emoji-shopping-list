@@ -119,6 +119,8 @@ let listReducer = Reducer<
         case .inputAction(let inputAction):
             switch inputAction {
             case .submit(let title):
+                guard !title.isEmpty, !title.replacingOccurrences(of: " ", with: "").isEmpty else { return .none }
+                
                 environment.feedbackGenerator().impact(.soft)
                 return .task {
                     await .addItem(TaskResult { try await environment.persistence().add(title) })
