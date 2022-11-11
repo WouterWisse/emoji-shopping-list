@@ -1,5 +1,0 @@
-git_url("git@github.com:WouterWisse/certificates.git")
-storage_mode("git")
-type("appstore")
-app_identifier(["com.wouterwisse.emojishoppinglist"])
-username("accounts@wouterwisse.com")
