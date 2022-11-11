@@ -13,6 +13,15 @@
 
 ---
 
+<p align="center">
+   <img src=".github/assets/1.png" alt="AppStore Screenshot 1" height="450">
+   <img src=".github/assets/2.png" alt="AppStore Screenshot 2" height="450">
+   <img src=".github/assets/3.png" alt="AppStore Screenshot 3" height="450">
+   <img src=".github/assets/4.png" alt="AppStore Screenshot 4" height="450">
+</p>
+
+---
+
 Just for fun, my first go at a full `SwifUI` + `Composable Architecture` application.<br />
 - Available for free on the AppStore
 - Using my [text-to-emoji](https://swiftpackageindex.com/WouterWisse/text-to-emoji) Swift Package
