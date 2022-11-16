@@ -22,6 +22,6 @@
 
 ---
 
-Just for fun, my first go at a full `SwifUI` + `Composable Architecture` application.<br />
+Just for fun, my first go at a full `SwifUI` + [`Composable Architecture`](https://github.com/pointfreeco/swift-composable-architecture) application.<br />
 - Available for free on the AppStore
 - Using my [text-to-emoji](https://swiftpackageindex.com/WouterWisse/text-to-emoji) Swift Package
